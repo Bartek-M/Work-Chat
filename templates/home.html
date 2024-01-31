@@ -2,7 +2,31 @@
 {% load static %}
 
 {% block content %}
-<h1 class="p-4">Hello home!</h1>
+<nav class="navbar navbar-expand-lg bg-body">
+    <div class="container-fluid">
+        <a href="#">
+            <img style="max-height: 32px; line-height: 1;" src="https://acdm.plvacc.pl/logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <a class="nav-link" href="#">login</a>
+            </ul>
+            <ul class="navbar-nav">
+                <a class="nav-link" href="#">rejestracja</a>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="container-lg bg-body">
+    <div>Witaj</div>
+    <div>propnuje logowanie jak nie masz konta</div>
+    <div>propnuje Rejestracje jak nie masz konta</div>
+    <div>instrukcja</div>
+</main>
+<footer>© 2024 All Rights Reserved.</footer>
 {% endblock %}
 
 {% block script %}

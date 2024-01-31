@@ -2,3 +2,15 @@
     --bs-body-bg: #010409;
     --bs-body-font-family: "Open Sans", sans-serif;
 }
+/* rem unites prefered */
+footer {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 3px;
+    width: 100vw;
+    height: 2rem;
+    background-color: green;
+}
