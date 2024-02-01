@@ -3,7 +3,10 @@ const webpack = require("webpack")
 
 module.exports = {
     entry: {
-        main: "./src/index.ts",
+        home: "./src/home.ts",
+        app: "./src/app/index.ts",
+        login: "./src/auth/login.ts",
+        register: "./src/auth/register.ts",
     },
     output: {
         path: path.resolve(__dirname, "./assets/js"),
