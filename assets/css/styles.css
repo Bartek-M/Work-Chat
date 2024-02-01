@@ -1,8 +1,5 @@
 :root {
-    --bs-body-bg: #010409;
+    --bs-body-bg: #0d1117;
     --bs-body-font-family: "Open Sans", sans-serif;
 }
 /* rem unites prefered */
-.circle {
-    background-color: rgb(30, 206, 147);
-}

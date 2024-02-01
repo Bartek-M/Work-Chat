@@ -1,44 +1,77 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg bg-body">
+<!--about doc login register-->
+<nav class="navbar navbar-expand-lg border-bottom p-2 mb-1 rounded-4 rounded-top-0" style="background-color: #010409;">
     <div class="container-fluid">
-        <a href="#">
-            <img style="max-height: 32px; line-height: 1;" src="https://acdm.plvacc.pl/logo.png" />
+        <a href="#" class="link-offset-2 link-underline link-underline-opacity-0 fs-4 text-primary">
+            <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 12px; margin-bottom: 4px;">
+                <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15"/>
+            </svg>
+            Work-Chat
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown" style="padding-right: 1rem;">
             <ul class="navbar-nav">
-                <a class="nav-link" href="#">login</a>
+                <a class="icon-link icon-link-hover link-offset-2 link-underline link-underline-opacity-0 text-body" style="--bs-icon-link-transform: translate3d(0, -.25rem, 0); margin-right: 1.5rem;" href="#">About
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16" class="bi" aria-hidden="true">
+                        <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5z"/>
+                    </svg>
+                </a>
             </ul>
             <ul class="navbar-nav">
-                <a class="nav-link" href="#">rejestracja</a>
+                <a class="icon-link icon-link-hover link-offset-2 link-underline link-underline-opacity-0 text-body" style="--bs-icon-link-transform: translate3d(0, -.25rem, 0); margin-right: 1.5rem;" href="#">Doc
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16" class="bi" aria-hidden="true">
+                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+                    </svg>
+                </a>
+            </ul>
+            <ul class="navbar-nav">
+                <a class="icon-link icon-link-hover link-offset-2 link-underline link-underline-opacity-0 text-body" style="--bs-icon-link-transform: translate3d(0, -.25rem, 0); margin-right: 1.5rem;" href="#">Sign in
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16" class="bi" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                    </svg>
+                </a>
+            </ul>
+            <ul class="navbar-nav">
+                <a class="icon-link icon-link-hover link-offset-2 link-underline link-underline-opacity-0 text-body" style="--bs-icon-link-transform: translate3d(0, -.25rem, 0); margin-right: 1.5rem;" href="#">Sign up
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16" class="bi" aria-hidden="true">
+                        <path d="M5.5 4.002h3.11c1.71 0 2.741.973 2.741 2.46 0 1.138-.667 1.94-1.495 2.24L11.5 12H9.98L8.52 8.924H6.836V12H5.5zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z"/>
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                    </svg>
+                </a>
             </ul>
         </div>
     </div>
 </nav>
-<main class="container-lg .bg-transparent">
-    <div>Witaj</div>
-    <div>propnuje logowanie jak nie masz konta</div>
-    <div>propnuje Rejestracje jak nie masz konta</div>
-    <div>instrukcja</div>
+<main class="container-lg .bg-transparent" style="margin-top: 10px;">
+    <div class="text-center">Witamy w aplikacji Work-Chat</br>Twój wyjątkowy komunikator dla firm</br>Prosty, wygodny, praktyczny</div>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <div>Jeśli nie masz konta zapraszam do założenia go</br>Wystarczy kliknąć w rejestracje w prawym górnym rogu ekranu i wypełnić formularz</br>To takie proste a da ci o niebo więcej możliwości</div>
+                </div>
+                <div class="col">
+                    <div>Jeśli już masz konto wystarczy sie zalogować</br>Dostaniesz wtedy dostęp do komunikacji z swoimi współpracownikami</div>
+                </div>
+            </div>
+        </div>
+    <div class="text-center">instrukcja</div>
 </main>
-<div class="circle">
-    tutaj
-</div>
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+<div class="container-xxl">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style="background-color: #0d1117;">
         <div class="col-md-4 d-flex align-items-center">
             <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
                 <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
             </a>
             <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2024 All rights reserved</span>
         </div>
-
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex" style="margin-right: 30px;">
             <li class="ms-3">
                 <a class="text-body-secondary" href="#">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -67,5 +100,5 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
