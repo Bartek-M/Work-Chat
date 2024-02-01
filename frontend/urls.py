@@ -1,11 +1,6 @@
-from django.urls import path
-
-from . import views
+from django.urls import path, include
 
 urlpatterns = [
-    path("", views.home),
-    path("app/", views.app),
-    path("login/", views.login),
-    path("register/", views.register),
-    path("logout/", views.logout),
+    path("", include("frontend.views.home")),
+    path("", include("frontend.views.auth")),
 ]
