@@ -3,3 +3,6 @@
     --bs-body-font-family: "Open Sans", sans-serif;
 }
 /* rem unites prefered */
+.nav-link:hover {
+    text-decoration: underline;
+}

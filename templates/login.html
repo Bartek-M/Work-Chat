@@ -4,7 +4,32 @@
 {% block title %}Work Chat • Login{% endblock %}
 
 {% block content %}
-<h1 class="p-4">Hello login!</h1>
+<div class="container-fluid" style="text-align: center; margin-top: 2rem; margin-bottom: 1.5rem;">
+    <a href="#" class="link-offset-2 link-underline link-underline-opacity-0 fs-3 text-primary">
+        <p class="text-light" style="display: inline;">Sign in to </p><p class="" style="display: inline;">Work-Chat</p>
+    </a>
+</div>
+<main class="container">
+    <div class="card position-absolute start-50 translate-middle" style="width: 30rem; top: 16rem;">
+        <ul class="list-group list-group-flush" style="border: 0; text-align: left;">
+            <li class="list-group-item" style="border: 0;">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1">
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1">
+                </div>  
+            </li>
+        </ul>
+        <div class="col-auto d-grid gap-2 col-6 mx-auto" style="text-align: center;">
+            <button type="submit" class="btn btn-outline-success" style="margin-top: 1rem; margin-bottom: 1rem;">Sign in</button>
+        </div>
+    </div>
+</main>
 {% endblock %}
 
 {% block script %}
