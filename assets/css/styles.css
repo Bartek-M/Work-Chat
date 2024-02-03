@@ -6,3 +6,29 @@
 .nav-link:hover {
     text-decoration: underline;
 }
+
+/*left bar in app*/
+.conversation-icon {
+    border-radius: 100%;
+    width: 50px; /*placeholder value*/
+    height: 50px; /*placeholder value*/
+}
+.conversation-icon > img {
+    border-radius: 100%;
+    width: 100%; /*placeholder value*/
+    height: 100%; /*placeholder value*/
+    margin: auto;
+}
+
+/*chat in app*/
+.user-icon {
+    border-radius: 100%;
+    width: 50px; /*placeholder value*/
+    height: 50px; /*placeholder value*/
+}
+.user-icon > img {
+    border-radius: 100%;
+    width: 40px; /*placeholder value*/
+    height: 40px; /*placeholder value*/
+    margin: auto;
+}
