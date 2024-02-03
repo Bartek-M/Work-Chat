@@ -1,34 +1,28 @@
 :root {
     --bs-body-bg: #0d1117;
     --bs-body-font-family: "Open Sans", sans-serif;
+    --SCROLLBAR: #4b4b4b;
+    --SCROLLBAR_HOVER: #272727;
 }
 /* rem unites prefered */
 .nav-link:hover {
     text-decoration: underline;
 }
 
-/*left bar in app*/
-.conversation-icon {
-    border-radius: 100%;
-    width: 50px; /*placeholder value*/
-    height: 50px; /*placeholder value*/
+::-webkit-scrollbar {
+    width: 6px;
 }
-.conversation-icon > img {
-    border-radius: 100%;
-    width: 100%; /*placeholder value*/
-    height: 100%; /*placeholder value*/
-    margin: auto;
+::-webkit-scrollbar-track {
+    background-color: transparent;
 }
-
-/*chat in app*/
-.user-icon {
-    border-radius: 100%;
-    width: 50px; /*placeholder value*/
-    height: 50px; /*placeholder value*/
+::-webkit-scrollbar-thumb {
+    background-color: var(--SCROLLBAR);
+    border-radius: 9999px;
 }
-.user-icon > img {
-    border-radius: 100%;
-    width: 40px; /*placeholder value*/
-    height: 40px; /*placeholder value*/
-    margin: auto;
+::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background-color: var(--SCROLLBAR_HOVER);
+}
+::-webkit-scrollbar-button {
+    height: 2.5px;
 }
