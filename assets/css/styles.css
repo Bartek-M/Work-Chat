@@ -1,4 +1,28 @@
 :root {
-    --bs-body-bg: #010409;
+    --bs-body-bg: #0d1117;
     --bs-body-font-family: "Open Sans", sans-serif;
+    --SCROLLBAR: #4b4b4b;
+    --SCROLLBAR_HOVER: #272727;
+}
+/* rem unites prefered */
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--SCROLLBAR);
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background-color: var(--SCROLLBAR_HOVER);
+}
+::-webkit-scrollbar-button {
+    height: 2.5px;
 }
