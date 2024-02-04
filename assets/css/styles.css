@@ -3,8 +3,12 @@
     --bs-body-font-family: "Open Sans", sans-serif;
     --SCROLLBAR: #4b4b4b;
     --SCROLLBAR_HOVER: #272727;
+    --slide_speed: 2s;
+    --slide_duration: 3s;
+    --slide_delay: 0.3s;
 }
 /* rem unites prefered */
+
 .nav-link:hover {
     text-decoration: underline;
 }
@@ -25,4 +29,33 @@
 }
 ::-webkit-scrollbar-button {
     height: 2.5px;
+}
+
+.slide-center {
+    position: absolute;
+    left: -5vw;
+    -webkit-animation: slide-center var(--slide_speed) forwards;
+    animation: slide-center var(--slide_duration) forwards;
+    animation-delay: var(--slide_delay);
+}
+@-webkit-keyframes slide-center {
+    100% { left: 50%; }
+}
+@keyframes slide-center {
+    100% { left: 50%; }
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 5s, transform 2s;
+}
+.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+@media(prefers-reduced-motion) {
+    .hidden {
+        transition: none;
+    }
 }

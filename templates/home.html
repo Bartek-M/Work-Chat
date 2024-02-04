@@ -17,9 +17,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Docs</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
                 <a class="btn" href="#">Sign In</a>
@@ -29,18 +26,29 @@
     </div>
 </nav>
 <main class="container-lg .bg-transparent">
-    <div class="text-center">Witamy w aplikacji Work-Chat</br>Twój wyjątkowy komunikator dla firm</br>Prosty, wygodny, praktyczny</div>
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <div>Jeśli nie masz konta zapraszam do założenia go</br>Wystarczy kliknąć w rejestracje w prawym górnym rogu ekranu i wypełnić formularz</br>To takie proste a da ci o niebo więcej możliwości</div>
-                </div>
-                <div class="col">
-                    <div>Jeśli już masz konto wystarczy sie zalogować</br>Dostaniesz wtedy dostęp do komunikacji z swoimi współpracownikami</div>
-                </div>
-            </div>
+    <section class="text-center">
+        <h2>Witamy w aplikacji <span class="text-primary">Work-Chat</span></h2>
+        <h4>Twój wyjątkowy komunikator dla firm</br>Prosty, wygodny, praktyczny, idealny.</h4>
+    </section>
+    <section class="container text-center d-flex">
+        <div class="p-3 hidden">
+            <a>
+                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="">
+            </a><br>
+            Jeśli nie masz konta zapraszam do założenia go. Wystarczy kliknąć w rejestracje w prawym górnym rogu ekranu i wypełnić formularz. To takie proste a da ci o niebo więcej możliwości.
         </div>
-    <div class="text-center">instrukcja</div>
+        <div class="p-3 hidden">
+            <a>
+                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="">
+            </a><br>
+            Jeśli już masz konto wystarczy sie zalogować. Dostaniesz wtedy dostęp do komunikacji z swoimi współpracownikami.
+        </div>
+    </section>
+    <section class="text-center">
+        <div class="hidden">
+            about
+        </div>
+    </section>
 </main>
 <div class="container fixed-bottom">
     <footer class="d-flex flex-wrap justify-content-between align-items-center p-3 gap-2 border-top">
