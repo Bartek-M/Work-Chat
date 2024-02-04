@@ -27,26 +27,42 @@
 </nav>
 <main class="container-lg .bg-transparent">
     <section class="text-center">
-        <h2>Witamy w aplikacji <span class="text-primary">Work-Chat</span></h2>
+        <h2 class="mt-4">Witamy w aplikacji <span class="text-primary">Work-Chat</span></h2>
         <h4>Twój wyjątkowy komunikator dla firm</br>Prosty, wygodny, praktyczny, idealny.</h4>
     </section>
     <section class="container text-center d-flex">
         <div class="p-3 hidden">
             <a>
-                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="">
+                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="" class="mb-4">
             </a><br>
             Jeśli nie masz konta zapraszam do założenia go. Wystarczy kliknąć w rejestracje w prawym górnym rogu ekranu i wypełnić formularz. To takie proste a da ci o niebo więcej możliwości.
         </div>
         <div class="p-3 hidden">
             <a>
-                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="">
+                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="" class="mb-4">
             </a><br>
             Jeśli już masz konto wystarczy sie zalogować. Dostaniesz wtedy dostęp do komunikacji z swoimi współpracownikami.
         </div>
     </section>
-    <section class="text-center">
-        <div class="hidden">
-            about
+    <section class="text-center d-flex-column">
+        <div class="hidden diagonal text-start">
+            <h2 class="fw-bold">Team</h2>
+            <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="" class="rounded float-start me-4">
+            <p>
+                Lorem ipsum dolor sit amet. Sit itaque repudiandae et laborum consequatur qui error praesentium est corrupti magnam non magni atque in excepturi perferendis aut velit vero? Eum accusantium molestiae sed architecto autem et architecto dolor eum enim officiis vel consequatur eligendi aut quaerat facilis. Sed harum dolorum eum obcaecati consequatur aut fuga ratione aut quam tempore eos illum voluptatem non eius accusantium 33 quia doloribus. Non asperiores culpa et iusto perspiciatis sed itaque labore non dolor deserunt. Aut laudantium eius qui quidem aliquam in doloribus soluta sit omnis doloremque est quas nesciunt.
+            </p>
+        </div>
+        <div class="hidden bg-danger-subtle">
+            <h3>Team</h3>
+            <p>Me</p>
+        </div>
+        <div class="hidden bg-warning-subtle">
+            <h3>Team</h3>
+            <p>Me</p>
+        </div>
+        <div class="hidden bg-success-subtle">
+            <h3>Team</h3>
+            <p>Me</p>
         </div>
     </section>
 </main>
