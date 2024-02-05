@@ -1,5 +1,5 @@
 :root {
-    --bs-body-bg: #0d1117;
+    --bs-body-bg: #0d0f12;
     --bs-body-font-family: "Open Sans", sans-serif;
     --SCROLLBAR: #4b4b4b;
     --SCROLLBAR_HOVER: #272727;
@@ -55,25 +55,29 @@
 }
 .diagonal::after {
     content: '';
-    background-image: linear-gradient(45deg, #12c2e9, #c471ed, #f64f59);
+    background-image: linear-gradient(var(--bs-body-bg), #271f1f, var(--bs-body-bg));
     position: absolute;
     inset: 0;
     transform: skewY(-5deg);
     z-index: -1;
 }
 
+.spikes-text {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    position: relative;
+    background-image: linear-gradient(var(--bs-body-bg), #1f2721, var(--bs-body-bg));
+}
 .spikes {
     fill: var(--bs-body-bg);
 }
-.spikes-text {
-    position: relative;
-    background-image: linear-gradient(20deg, #d8fd07, #ac32e9, #f64f59);
-}
 
+.wave-text {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    position: relative;
+    background-image: linear-gradient(var(--bs-body-bg), #1f2027, var(--bs-body-bg));
+}
 .wave {
     fill: var(--bs-body-bg);
-}
-.wave-text {
-    position: relative;
-    background-image: linear-gradient(-10deg, #42b952, #2da9cf, #2b28d3);
 }
