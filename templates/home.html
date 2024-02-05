@@ -25,8 +25,8 @@
         </div>
     </div>
 </nav>
-<main class="container-lg .bg-transparent">
-    <section class="text-center">
+<main class="container-lg bg-transparent">
+    <section class="text-center hidden">
         <h2 class="mt-4">Witamy w aplikacji <span class="text-primary">Work-Chat</span></h2>
         <h4>Twój wyjątkowy komunikator dla firm</br>Prosty, wygodny, praktyczny, idealny.</h4>
     </section>
@@ -47,26 +47,38 @@
     <section class="text-center d-flex-column">
         <div class="hidden diagonal text-start">
             <h2 class="fw-bold">Team</h2>
-            <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="" class="rounded float-start me-4">
+            <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="photo or something?" class="rounded float-start me-4">
             <p>
                 Lorem ipsum dolor sit amet. Sit itaque repudiandae et laborum consequatur qui error praesentium est corrupti magnam non magni atque in excepturi perferendis aut velit vero? Eum accusantium molestiae sed architecto autem et architecto dolor eum enim officiis vel consequatur eligendi aut quaerat facilis. Sed harum dolorum eum obcaecati consequatur aut fuga ratione aut quam tempore eos illum voluptatem non eius accusantium 33 quia doloribus. Non asperiores culpa et iusto perspiciatis sed itaque labore non dolor deserunt. Aut laudantium eius qui quidem aliquam in doloribus soluta sit omnis doloremque est quas nesciunt.
             </p>
         </div>
-        <div class="hidden bg-danger-subtle">
-            <h3>Team</h3>
-            <p>Me</p>
+        <div class="hidden spikes-text text-start mb-3">
+            <svg viewBox="1.2 0.05 8 1" class="spikes">
+                <path d="M 0 0 L 10 0 L 6 1 Z"/>
+            </svg>
+            <h2 class="fw-bold ms-5 me-5">Goal</h2>
+            <p class="ms-5 me-5">
+                Lorem ipsum dolor sit amet. Sit itaque repudiandae et laborum consequatur qui error praesentium est corrupti magnam non magni atque in excepturi perferendis aut velit vero? Eum accusantium molestiae sed architecto autem et architecto dolor eum enim officiis vel consequatur eligendi aut quaerat facilis. Sed harum dolorum eum obcaecati consequatur aut fuga ratione aut quam tempore eos illum voluptatem non eius accusantium 33 quia doloribus. Non asperiores culpa et iusto perspiciatis sed itaque labore non dolor deserunt. Aut laudantium eius qui quidem aliquam in doloribus soluta sit omnis doloremque est quas nesciunt.
+            </p>
+            <svg viewBox="1.2 0.05 8 1" class="spikes" style="transform: rotate(0.5turn); transform: rotateX(180deg);">
+                <path d="M 0 0 L 10 0 L 6 1 Z"/>
+            </svg>
         </div>
-        <div class="hidden bg-warning-subtle">
-            <h3>Team</h3>
-            <p>Me</p>
-        </div>
-        <div class="hidden bg-success-subtle">
-            <h3>Team</h3>
-            <p>Me</p>
+        <div class="hidden wave-text text-start">
+            <svg viewBox="0 1 100 13" class="wave">
+                <path d="M 0 0 L 100 0 C 87 3 88 16 50 10 C 18 4 9 13 0 0"/>
+            </svg>
+            <h2 class="fw-bold ms-5 me-5">Technologies</h2>
+            <p class="ms-5 me-5">
+                Lorem ipsum dolor sit amet. Sit itaque repudiandae et laborum consequatur qui error praesentium est corrupti magnam non magni atque in excepturi perferendis aut velit vero? Eum accusantium molestiae sed architecto autem et architecto dolor eum enim officiis vel consequatur eligendi aut quaerat facilis. Sed harum dolorum eum obcaecati consequatur aut fuga ratione aut quam tempore eos illum voluptatem non eius accusantium 33 quia doloribus. Non asperiores culpa et iusto perspiciatis sed itaque labore non dolor deserunt. Aut laudantium eius qui quidem aliquam in doloribus soluta sit omnis doloremque est quas nesciunt.
+            </p>
+            <svg viewBox="0 2 98 14" class="wave" style="transform: rotate(0.5turn); transform: rotateX(180deg);">
+                <path d="M 0 0 L 100 0 C 99 3 88 16 50 10 C 18 4 -4 15 0 0"/>
+            </svg>
         </div>
     </section>
 </main>
-<div class="container fixed-bottom">
+<div class="container mt-4">
     <footer class="d-flex flex-wrap justify-content-between align-items-center p-3 gap-2 border-top">
         <div class="d-flex">
             <span class="text-body-secondary" style="font-size: 14px;">© 2024 All right reserved.</span>

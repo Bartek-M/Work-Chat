@@ -31,7 +31,7 @@
 .hidden {
     opacity: 0;
     transform: translateX(-100%);
-    transition: opacity 5s, transform 2s;
+    transition: opacity 5s, transform 2.5s;
 }
 .show {
     opacity: 1;
@@ -60,4 +60,20 @@
     inset: 0;
     transform: skewY(-5deg);
     z-index: -1;
+}
+
+.spikes {
+    fill: var(--bs-body-bg);
+}
+.spikes-text {
+    position: relative;
+    background-image: linear-gradient(20deg, #d8fd07, #ac32e9, #f64f59);
+}
+
+.wave {
+    fill: var(--bs-body-bg);
+}
+.wave-text {
+    position: relative;
+    background-image: linear-gradient(-10deg, #42b952, #2da9cf, #2b28d3);
 }
