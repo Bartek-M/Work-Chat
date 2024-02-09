@@ -1,5 +1,6 @@
-assets/js/
+.vscode/
 __pycache__/
+assets/js/
 node_modules/
 db.sqlite
 .env
