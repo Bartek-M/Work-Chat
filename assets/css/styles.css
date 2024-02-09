@@ -4,10 +4,10 @@
     --SCROLLBAR: #4b4b4b;
     --SCROLLBAR_HOVER: #272727;
 }
-/* rem unites prefered */
 
 .nav-link:hover {
     text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 ::-webkit-scrollbar {
@@ -26,58 +26,4 @@
 }
 ::-webkit-scrollbar-button {
     height: 2.5px;
-}
-
-.hidden {
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: opacity 5s, transform 2.5s;
-}
-.show {
-    opacity: 1;
-    transform: translateX(0);
-}
-@media(prefers-reduced-motion) {
-    .hidden {
-        transition: none;
-    }
-}
-
-.diagonal {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    padding-top: 5.5rem;
-    padding-bottom: 4rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    position: relative;
-    isolation: isolate;
-}
-.diagonal::after {
-    content: '';
-    background-image: linear-gradient(var(--bs-body-bg), #271f1f, var(--bs-body-bg));
-    position: absolute;
-    inset: 0;
-    transform: skewY(-5deg);
-    z-index: -1;
-}
-
-.spikes-text {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    position: relative;
-    background-image: linear-gradient(var(--bs-body-bg), #1f2721, var(--bs-body-bg));
-}
-.spikes {
-    fill: var(--bs-body-bg);
-}
-
-.wave-text {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    position: relative;
-    background-image: linear-gradient(var(--bs-body-bg), #1f2027, var(--bs-body-bg));
-}
-.wave {
-    fill: var(--bs-body-bg);
 }

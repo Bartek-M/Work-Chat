@@ -1,59 +1,116 @@
 {% extends 'base/navBase.html' %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/homeStyles.css' %}" />
+{% endblock %}
+
 {% block content %}
-<main class="container-xxl bg-transparent">
-    <section class="text-center hidden">
-        <h2 class="mt-4">Witamy w aplikacji <span class="text-primary">Work-Chat</span></h2>
-        <h4>Twój wyjątkowy komunikator dla firm</br>Prosty, wygodny, praktyczny, idealny.</h4>
+<!-- dodaj hidden na koniec -->
+<main class="container-xxl bg-transparent mt-4">
+    <section class="row">
+        <!-- lewy odnosi sie do ilości tesktu by ustawić przycisk
+        prawy ustawia wysokość do lewego a potem absolutnie ustawia przycisk
+        można by no poprawić ale nie dzisiaj -->
+        <div class="col-sm-6">
+            <div class="card bg-body-tertiary">
+                <div class="card-body" style="height: 100%;">
+                    <h5 class="card-title">Rejestracja</h5>
+                    <p class="card-text">Dla tych co dopiero dołączyli, spokojnie wszystko ci pokażemy</p>
+                    <a href="#" class="btn btn-primary">Poprowadź</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card bg-body" style="height: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">Logowanie</h5>
+                    <p class="card-text">Dla tych co już wiedzą co i jak</p>
+                    <a href="#" class="btn btn-primary" style="position: absolute; bottom: 15px;">Poprowadź</a>
+                </div>
+            </div>
+        </div>
     </section>
-    <section class="container text-center d-flex-column">
-        <div class="p-3 hidden">
-            <a>
-                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="" class="mb-4">
-            </a><br>
-            Jeśli nie masz konta zapraszam do założenia go. Wystarczy kliknąć w rejestracje w prawym górnym rogu ekranu i wypełnić formularz. To takie proste a da ci o niebo więcej możliwości.
+    <section class="d-flex pt-3" style="height: 30rem;">
+        <div style="width: 10px; height: 100%; background-color: aqua; margin-left: 4rem;">
+            <div style="position: relative; top: 49%; width: 20px; height: 20px; background-color: red;">
+                <div style="position: relative; top: 25%; width: 60px; height: 10px; background-color: rgb(0, 255, 55); margin-left: 20px;">
+                </div>
+            </div>
         </div>
-        <div class="p-3 hidden">
-            <a>
-                <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="" class="mb-4">
-            </a><br>
-            Jeśli już masz konto wystarczy sie zalogować. Dostaniesz wtedy dostęp do komunikacji z swoimi współpracownikami.
+        <div class="fs-1" style="padding-left: 5rem; padding-top: 13rem;">Dostępność</div>
+    </section>
+    <section class="mb-3 mt-3 bg-body-secondary">
+        <div class="card mb-3" style="height: 30rem;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{% static 'icons/coding_photo.PNG' %}" class="img-fluid card-img-bottom rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <span class="card-body" style="height: 30rem;">
+                        <h5 class="card-title">Technologie</h5>
+                        <p class="card-text">Użyliśmy {name} z {name} wspierane przez {name} na bazie {name} z dodatkiem {name} i wszystko uwieńczone {name}</p>
+                    </span>
+                </div>
+            </div>
         </div>
     </section>
-    <section class="text-center d-flex-column">
-        <div class="hidden diagonal text-start">
-            <h2 class="fw-bold">Drużyna</h2>
-            <img src="{% static 'icons/przyklad_icony.jpg' %}" alt="photo or something?" class="rounded float-start me-4">
-            <p>
-                Lorem ipsum dolor sit amet. Sit itaque repudiandae et laborum consequatur qui error praesentium est corrupti magnam non magni atque in excepturi perferendis aut velit vero? Eum accusantium molestiae sed architecto autem et architecto dolor eum enim officiis vel consequatur eligendi aut quaerat facilis. Sed harum dolorum eum obcaecati consequatur aut fuga ratione aut quam tempore eos illum voluptatem non eius accusantium 33 quia doloribus. Non asperiores culpa et iusto perspiciatis sed itaque labore non dolor deserunt. Aut laudantium eius qui quidem aliquam in doloribus soluta sit omnis doloremque est quas nesciunt.
-            </p>
+    <section>
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Technologie</h1>
+                <p class="card-text">Użyliśmy {name} z {name} wspierane przez {name} na bazie {name} z dodatkiem {name} i wszystko uwieńczone {name}</p>
+            </div>
+            <img src="{% static 'icons/coding_photo.PNG' %}" class="card-img-bottom" alt="..." style="width: 400px;">
         </div>
-        <div class="hidden spikes-text text-start">
-            <svg viewBox="1.2 0.05 8 1" class="spikes">
-                <path d="M 0 0 L 10 0 L 6 1 Z"/>
-            </svg>
-            <h2 class="fw-bold ms-5 me-5">Cel</h2>
-            <p class="ms-5 me-5">
-                Naszym celem jako dróżyna jest wygrana konkursu primus inter pares.
-                Lorem ipsum dolor sit amet. Sit itaque repudiandae et laborum consequatur qui error praesentium est corrupti magnam non magni atque in excepturi perferendis aut velit vero? Eum accusantium molestiae sed architecto autem et architecto dolor eum enim officiis vel consequatur eligendi aut quaerat facilis. Sed harum dolorum eum obcaecati consequatur aut fuga ratione aut quam tempore eos illum voluptatem non eius accusantium 33 quia doloribus. Non asperiores culpa et iusto perspiciatis sed itaque labore non dolor deserunt. Aut laudantium eius qui quidem aliquam in doloribus soluta sit omnis doloremque est quas nesciunt.
-            </p>
-            <svg viewBox="1.2 0.05 8 1" class="spikes" style="transform: rotate(0.5turn); transform: rotateX(180deg);">
-                <path d="M 0 0 L 10 0 L 6 1 Z"/>
-            </svg>
+    </section>
+    <section class="d-flex" style="height: 30rem;">
+        <div style="width: 10px; height: 100%; background-color: aqua; margin-left: 4rem;">
+            <div style="position: relative; top: 49%; width: 20px; height: 20px; background-color: red;">
+                <div style="position: relative; top: 25%; width: 60px; height: 10px; background-color: rgb(0, 255, 55); margin-left: 20px;">
+                </div>
+            </div>
         </div>
-        <div class="hidden wave-text text-start">
-            <svg viewBox="0 1 100 13" class="wave">
-                <path d="M 0 0 L 100 0 C 87 3 88 16 50 10 C 18 4 9 13 0 0"/>
-            </svg>
-            <h2 class="fw-bold ms-5 me-5">Technologie</h2>
-            <p class="ms-5 me-5">
-                Wykorzystaliśmy Djingo jako rdzeń naszego systemu
-                Lorem ipsum dolor sit amet. Sit itaque repudiandae et laborum consequatur qui error praesentium est corrupti magnam non magni atque in excepturi perferendis aut velit vero? Eum accusantium molestiae sed architecto autem et architecto dolor eum enim officiis vel consequatur eligendi aut quaerat facilis. Sed harum dolorum eum obcaecati consequatur aut fuga ratione aut quam tempore eos illum voluptatem non eius accusantium 33 quia doloribus. Non asperiores culpa et iusto perspiciatis sed itaque labore non dolor deserunt. Aut laudantium eius qui quidem aliquam in doloribus soluta sit omnis doloremque est quas nesciunt.
-            </p>
-            <svg viewBox="0 2 98 14" class="wave" style="transform: rotate(0.5turn); transform: rotateX(180deg);">
-                <path d="M 0 0 L 100 0 C 99 3 88 16 50 10 C 18 4 -4 15 0 0"/>
-            </svg>
+        <div class="fs-1" style="padding-left: 5rem; padding-top: 13.5rem;">Nie wiem coś tam</div>
+    </section>
+    <section class="row">
+        <div class="col-sm-6 mt-3">
+            <div class="card bg-dark" style="height: 40rem;">
+                <div class="card-body p-5">
+                    <h5 class="card-title">Work-Chat mobile</h5>
+                    <p class="card-text">Dostępne na urządzeniach mobilnych, wystarczy być w sieci lokalnej twojej firm i połączyć sie z WIFI</p>
+                </div>
+                <div class="text-start">
+                    <img src="{% static 'icons/przyklad_icony.jpg' %}" class="img-fluid rounded-start" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mt-3">
+            <div class="card bg-black" style="height: 100%;">
+                <div class="card-body p-5">
+                    <h5 class="card-title">Work-Chat PC</h5>
+                    <p class="card-text">Bez problemowe połączenie z komputera, wystarczy przeglądarka i ip serwera, wpisujesz numerki do wyszukiwarki i już</p>
+                </div>
+                <div class="text-end">
+                    <img src="{% static 'icons/przyklad_icony.jpg' %}" class="img-fluid rounded-end" alt="...">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mb-3 mt-3">
+        <div class="card mb-3" style="height: 30rem;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{% static 'icons/coding_photo.PNG' %}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Drużyna</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </main>
