@@ -5,11 +5,17 @@
     --SCROLLBAR_HOVER: #272727;
 }
 [data-theme='high-contrast'] {
-    --bs-body-bg: #eeff00;
-    --SCROLLBAR: #ff0000;
-    --SCROLLBAR_HOVER: #1eff00;
+    --bs-body-bg: #000000;
+    --SCROLLBAR: #e5ff00;
+    --SCROLLBAR_HOVER: #ff0000;
+    --card-background-color: #000000;
 }
-
+.text-contrast {
+    color: #ffffff;
+}
+.link-contrast {
+    color: #e5ff00;
+}
 .nav-link:hover {
     text-decoration: underline;
     text-underline-offset: 4px;

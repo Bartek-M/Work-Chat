@@ -19,6 +19,20 @@
     }
 }
 
+.hidden-line {
+    opacity: 0;
+    transition: opacity 5s, transform 2.5s;
+}
+.show-line {
+    opacity: 1;
+    transform: translateX(0);
+}
+@media(prefers-reduced-motion) {
+    .hidden-line {
+        transition: none;
+    }
+}
+
 .card {
     background-color: var(--card-background-color);
 }
@@ -39,26 +53,6 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-}
-
-.spikes-text {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    position: relative;
-    background-image: linear-gradient(var(--bs-body-bg), #1f2721, var(--bs-body-bg));
-}
-.spikes {
-    fill: var(--bs-body-bg);
-}
-
-.wave-text {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    position: relative;
-    background-image: linear-gradient(var(--bs-body-bg), #1f2027, var(--bs-body-bg));
-}
-.wave {
-    fill: var(--bs-body-bg);
 }
 
 .img-wrap {
