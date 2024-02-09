@@ -9,20 +9,17 @@
 <!-- dodaj hidden na koniec -->
 <main class="container-xxl bg-transparent mt-4">
     <section class="row">
-        <!-- lewy odnosi sie do ilości tesktu by ustawić przycisk
-        prawy ustawia wysokość do lewego a potem absolutnie ustawia przycisk
-        można by no poprawić ale nie dzisiaj -->
-        <div class="col-sm-6">
-            <div class="card bg-body-tertiary">
-                <div class="card-body" style="height: 100%;">
+        <div class="hidden col-sm-6 mb-2">
+            <div class="card">
+                <div class="card-body" style="height: 10rem;">
                     <h5 class="card-title">Rejestracja</h5>
                     <p class="card-text">Dla tych co dopiero dołączyli, spokojnie wszystko ci pokażemy</p>
-                    <a href="#" class="btn btn-primary">Poprowadź</a>
+                    <a href="#" class="btn btn-primary" style="position: absolute; bottom: 15px;">Poprowadź</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="card bg-body" style="height: 100%;">
+        <div class="hidden col-sm-6 mb-2">
+            <div class="card" style="height: 10rem;">
                 <div class="card-body">
                     <h5 class="card-title">Logowanie</h5>
                     <p class="card-text">Dla tych co już wiedzą co i jak</p>
@@ -31,84 +28,71 @@
             </div>
         </div>
     </section>
-    <section class="d-flex pt-3" style="height: 30rem;">
-        <div style="width: 10px; height: 100%; background-color: aqua; margin-left: 4rem;">
-            <div style="position: relative; top: 49%; width: 20px; height: 20px; background-color: red;">
-                <div style="position: relative; top: 25%; width: 60px; height: 10px; background-color: rgb(0, 255, 55); margin-left: 20px;">
+    <section class="d-flex" style="height: 30rem;">
+        <div class="line">
+            <div class="dot">
+                <div class="line-linear-reference">
                 </div>
             </div>
         </div>
-        <div class="fs-1" style="padding-left: 5rem; padding-top: 13rem;">Dostępność</div>
+        <div class="fs-1 line-text">Jakość, chyba nie</div>
     </section>
-    <section class="mb-3 mt-3 bg-body-secondary">
-        <div class="card mb-3" style="height: 30rem;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="{% static 'icons/coding_photo.PNG' %}" class="img-fluid card-img-bottom rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <span class="card-body" style="height: 30rem;">
-                        <h5 class="card-title">Technologie</h5>
-                        <p class="card-text">Użyliśmy {name} z {name} wspierane przez {name} na bazie {name} z dodatkiem {name} i wszystko uwieńczone {name}</p>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
+    <!-- napraw -->
+    <section class="mb-3 mt-3">
         <div class="card">
-            <div class="card-body">
-                <h1 class="card-title">Technologie</h1>
-                <p class="card-text">Użyliśmy {name} z {name} wspierane przez {name} na bazie {name} z dodatkiem {name} i wszystko uwieńczone {name}</p>
+            <div class="d-flex justify-content-start">
+                <div class="card-body p-5" style="width: 30%;">
+                    <h1 class="m-5">technologia</h1>
+                    <p class="m-5">opis technologi</p>
+                </div>
+                <div class="img-wrap">
+                    <img style="position: absolute; right: 0;" src="{% static 'icons/construction.PNG' %}">
+                </div>
             </div>
-            <img src="{% static 'icons/coding_photo.PNG' %}" class="card-img-bottom" alt="..." style="width: 400px;">
         </div>
     </section>
     <section class="d-flex" style="height: 30rem;">
-        <div style="width: 10px; height: 100%; background-color: aqua; margin-left: 4rem;">
-            <div style="position: relative; top: 49%; width: 20px; height: 20px; background-color: red;">
-                <div style="position: relative; top: 25%; width: 60px; height: 10px; background-color: rgb(0, 255, 55); margin-left: 20px;">
+        <div class="line">
+            <div class="dot">
+                <div class="line-linear-reference">
                 </div>
             </div>
         </div>
-        <div class="fs-1" style="padding-left: 5rem; padding-top: 13.5rem;">Nie wiem coś tam</div>
+        <div class="fs-1 line-text fw-bold text-success">Dostępność</br><span class="fs-3 fw-light text-success-emphasis">skąd chcesz</br> jak potrzebujesz</span></div>
     </section>
     <section class="row">
         <div class="col-sm-6 mt-3">
-            <div class="card bg-dark" style="height: 40rem;">
+            <div class="card overflow-hidden" style="height: 40rem;">
                 <div class="card-body p-5">
-                    <h5 class="card-title">Work-Chat mobile</h5>
+                    <h2 class="card-title">Work-Chat mobile</h2>
                     <p class="card-text">Dostępne na urządzeniach mobilnych, wystarczy być w sieci lokalnej twojej firm i połączyć sie z WIFI</p>
                 </div>
                 <div class="text-start">
-                    <img src="{% static 'icons/przyklad_icony.jpg' %}" class="img-fluid rounded-start" alt="...">
+                    <img src="{% static 'icons/phone.PNG' %}" class="img-fluid rounded-bottom">
                 </div>
             </div>
         </div>
         <div class="col-sm-6 mt-3">
-            <div class="card bg-black" style="height: 100%;">
+            <div class="card overflow-hidden" style="height: 100%;">
                 <div class="card-body p-5">
-                    <h5 class="card-title">Work-Chat PC</h5>
+                    <h2 class="card-title">Work-Chat PC</h2>
                     <p class="card-text">Bez problemowe połączenie z komputera, wystarczy przeglądarka i ip serwera, wpisujesz numerki do wyszukiwarki i już</p>
                 </div>
                 <div class="text-end">
-                    <img src="{% static 'icons/przyklad_icony.jpg' %}" class="img-fluid rounded-end" alt="...">
+                    <img src="{% static 'icons/coding_photo_html1.PNG' %}" class="img-fluid rounded-bottom">
                 </div>
             </div>
         </div>
     </section>
     <section class="mb-3 mt-3">
-        <div class="card mb-3" style="height: 30rem;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="{% static 'icons/coding_photo.PNG' %}" class="img-fluid rounded-start" alt="...">
+        <div class="card">
+            <div class="d-flex-column justify-content-start text-center">
+                <div class="card-body p-3">
+                    <h1 class="m-5">Drużyna</h1>
+                    <p class="m-3">Opis drużyny</p>
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Drużyna</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                    </div>
+                <div class="container" style="width: 60%;">
+                    <img src="{% static 'icons/coding_photo_html2.PNG' %}" class="img-fluid">
                 </div>
             </div>
         </div>

@@ -4,6 +4,11 @@
     --SCROLLBAR: #4b4b4b;
     --SCROLLBAR_HOVER: #272727;
 }
+[data-theme='high-contrast'] {
+    --bs-body-bg: #eeff00;
+    --SCROLLBAR: #ff0000;
+    --SCROLLBAR_HOVER: #1eff00;
+}
 
 .nav-link:hover {
     text-decoration: underline;
