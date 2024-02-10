@@ -6,7 +6,7 @@
 }
 [data-theme='high-contrast'] {
     --bs-body-bg: #000000;
-    --SCROLLBAR: #e5ff00;
+    --SCROLLBAR: #eeff00;
     --SCROLLBAR_HOVER: #ff0000;
     --card-background-color: #000000;
 }
@@ -14,8 +14,29 @@
     color: #ffffff;
 }
 .link-contrast {
-    color: #e5ff00;
+    color: #e5ff00 !important;
+    text-decoration-color: #e5ff00;
 }
+.btn-contrast {
+    color: #e5ff00;
+    background-color: #ffffff00;
+    border-color: #e5ff00;
+}
+.btn-contrast:hover {
+    color: #000000;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.btn-contrast:active {
+    color: #000000;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.text-contrast::selection, .link-contrast::selection, .btn-contrast::selection {
+    color: rgb(0, 0, 255);
+    background-color: rgb(0, 225, 255);
+}
+
 .nav-link:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
