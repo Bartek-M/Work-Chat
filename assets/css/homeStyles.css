@@ -55,24 +55,6 @@
     z-index: -1;
 }
 
-.img-wrap {
-    width: 200px;
-    height: 400px;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    margin: 0;
-}
-.img-wrap > img {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-height: 100%;
-    min-width: 100%;
-    transform: translate(-50%, -50%);
-}
-
 .line {
     width: 8px;
     height: 100%;
