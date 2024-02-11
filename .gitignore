@@ -2,5 +2,6 @@
 __pycache__/
 assets/js/
 node_modules/
+migrations/
 db.sqlite
 .env
