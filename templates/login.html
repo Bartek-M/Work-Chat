@@ -5,26 +5,26 @@
 
 {% block content %}
 <div class="d-flex flex-column align-items-center my-5 gap-4" style="min-height: calc(100vh - 210px);">
-    <h2>Sign in to <span class="text-primary">Work-Chat</span></h2>
-    <div class="card w-100" style="max-width: 400px;">
-        <ul class="list-group list-group-flush" style="border: 0; text-align: left;">
+    <h3>Logowanie do <span class="text-primary">Work-Chat</span></h3>
+    <form class="card w-100" style="max-width: 400px;">
+        {% csrf_token %}
+        <ul class="list-group list-group-flush text-left border-0">
             <li class="list-group-item border-0">
-                <div class="mb-2">
-                    <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1">
-                </div>
+                <label for="login-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Email / Nazwa Użytkownika<span class="text-danger" id="login-error">*</span></label>
+                <input type="text" class="form-control" id="login-input">
+            </li>
+            <li class="list-group-item border-0">
+                <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Hasło <span class="text-danger" id="password-error">*</span></label>
+                <input type="password" class="form-control" id="password-input">
             </li>
             <li class="list-group-item">
-                <div class="mb-2">
-                    <label for="exampleFormControlInput1" class="form-label">Password</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1">
-                </div>  
+                <p class="text-secondary-emphasis m-0" style="font-size: 0.75rem">Nie masz konta? Utwórz je <a href="/register/">tutaj</a>.</p>
             </li>
         </ul>
         <div class="col-auto d-grid gap-2 col-6 mx-auto text-center">
-            <button type="submit" class="btn btn-outline-success" style="margin-top: 1rem; margin-bottom: 1rem;">Sign in</button>
+            <button class="btn btn-outline-success my-3" id="submit-btn" type="submit">Zaloguj</button>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}
 
