@@ -1,5 +1,9 @@
 # Work Chat
+Communication system for **work** with many features and highly **secure** backend. Backend is supplied by **Python** with **Django**. Frontend was made using **Bootstrap** CSS styles and **TypeScript** functionality, packed with **Webpack**. Dynamic communication with server is done using **SocketIO**. This is a competition project made in one month with my friends. You can check it out using instruction below.
 
+> Checkout `docs/` for more instructions and detailed explanations.
+>
+> If you find any bugs or you have and propositions, feel free to create a new **issue** on this repository.
 
 ## Requirements
 - Python 3.8 or above
@@ -31,3 +35,8 @@ python .\manage.py runserver
 - Bartosz Mroczkowski
 - Igor Wicha
 - Maciek Odolczyk
+
+## License
+NOT FOR COMMERCIAL USE 
+
+> If you intend to use any of our code for commercial use please contact us and get our permission.
