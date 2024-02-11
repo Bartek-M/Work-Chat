@@ -7,14 +7,23 @@ class User(AbstractUser):
     User Representation
     """
 
-    avatar = models.IntegerField()
+    avatar = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.username
+        return self.user.username
+
 
 class UserSettings(models.Model):
     """
     User Settings Representation
     """
-    # theme = models.Choices([])
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    theme = models.PositiveSmallIntegerField(
+        {0: "auto", 1: "dark", 2: "light", 3: "high-contrast"}
+    )
+    status = models.PositiveSmallIntegerField(
+        {0: "offline", 1: "away", 2: "busy", 3: "available"}
+    )
     notifications = models.BooleanField()
+    language = models.TextField()
