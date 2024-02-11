@@ -11,3 +11,10 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+class UserSettings(models.Model):
+    """
+    User Settings Representation
+    """
+    # theme = models.Choices([])
+    notifications = models.BooleanField()

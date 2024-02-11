@@ -1,4 +1,4 @@
-import { toggleContrast } from "../utilities";
+import "../utils"
 
 document.getElementById("submit-btn")?.addEventListener("click", async (e) => {
     e.preventDefault()
@@ -15,10 +15,3 @@ document.getElementById("submit-btn")?.addEventListener("click", async (e) => {
 
     })
 })
-
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('toggleContrastBtn');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', toggleContrast);
-    }
-});

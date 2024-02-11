@@ -1,8 +1,3 @@
-import { toggleContrast } from "../utilities";
+import "../utils"
 
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('toggleContrastBtn');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', toggleContrast);
-    }
-});
+console.log("Hello login!")

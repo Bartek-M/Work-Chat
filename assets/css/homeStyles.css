@@ -1,58 +1,22 @@
 :root {
     --dot-position: 30px;
     --text-position: 80px;
-    --card-background-color: #14191f;
 }
 
 .hidden {
     opacity: 0;
     transform: translateX(-100%);
-    transition: opacity 5s, transform 2.5s;
-}
-.show {
-    opacity: 1;
-    transform: translateX(0);
-}
-@media(prefers-reduced-motion) {
-    .hidden {
-        transition: none;
-    }
+    transition: opacity 2s, transform 1s;
 }
 
 .hidden-line {
     opacity: 0;
-    transition: opacity 5s, transform 2.5s;
+    transition: opacity 2s;
 }
-.show-line {
+
+.show {
     opacity: 1;
     transform: translateX(0);
-}
-@media(prefers-reduced-motion) {
-    .hidden-line {
-        transition: none;
-    }
-}
-
-.card {
-    background-color: var(--card-background-color);
-}
-
-.diagonal {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    padding-top: 5.5rem;
-    padding-bottom: 5rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    position: relative;
-    isolation: isolate;
-}
-.diagonal::after {
-    content: '';
-    background-image: linear-gradient(var(--bs-body-bg), #1f2721, var(--bs-body-bg));
-    position: absolute;
-    inset: 0;
-    z-index: -1;
 }
 
 .line {
@@ -61,6 +25,7 @@
     background-image: linear-gradient(var(--bs-body-bg), #001eff, var(--bs-body-bg));
     margin-left: 4rem;
 }
+
 .dot {
     position: relative; 
     top: calc(50% - (0.5 * var(--dot-position)));
@@ -70,12 +35,14 @@
     height: var(--dot-position); 
     background-image: radial-gradient(#ff0000, var(--bs-body-bg), #001eff);
 }
+
 .line-text {
     position: relative;
     top: calc(50% - (var(--dot-position)));
     height: 20%;
     left: calc(var(--text-position) + 10px);
 }
+
 .line-linear-reference {
     position: relative; 
     left: calc(var(--dot-position) * 0.3);
