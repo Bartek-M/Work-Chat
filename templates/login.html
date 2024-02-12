@@ -6,7 +6,7 @@
 {% block content %}
 <div class="d-flex flex-column align-items-center my-5 gap-4" style="min-height: calc(100vh - 210px);">
     <h3>Logowanie do <span class="text-primary">Work-Chat</span></h3>
-    <form class="card w-100" style="max-width: 400px;">
+    <form class="card w-100" style="max-width: 400px;" id="login-form">
         {% csrf_token %}
         <ul class="list-group list-group-flush text-left border-0">
             <li class="list-group-item border-0">
@@ -22,7 +22,7 @@
             </li>
         </ul>
         <div class="col-auto d-grid gap-2 col-6 mx-auto text-center">
-            <button class="btn btn-outline-success my-3" id="submit-btn" type="submit">Zaloguj</button>
+            <button class="btn btn-outline-success my-3" type="submit">Zaloguj</button>
         </div>
     </form>
 </div>

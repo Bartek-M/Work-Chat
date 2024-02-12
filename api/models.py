@@ -10,7 +10,7 @@ class User(AbstractUser):
     avatar = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.user.username
+        return self.username
 
 
 class UserSettings(models.Model):

@@ -2,7 +2,7 @@ import json
 
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
@@ -19,7 +19,7 @@ def auth_register(request):
 
     username = data.get("username", "").lower()
     email = data.get("email", "").lower()
-    password = data.get("password", "").lower()
+    password = data.get("password", "")
 
     if not (first_name and last_name and username and email and password):
         return HttpResponse(status=400)
@@ -31,7 +31,9 @@ def auth_register(request):
 
     # TODO: Add validations
 
-    user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+    user = User.objects.create_user(
+        username, email, password, first_name=first_name, last_name=last_name
+    )
     UserSettings(user=user).save()
 
     login(request, user)
@@ -39,7 +41,18 @@ def auth_register(request):
 
 
 def auth_login(request):
-    return JsonResponse({"Hello Login": True})
+    data = json.loads(request.body)
+
+    login_data = data.get("login_data", "").lower()
+    password = data.get("password", "")
+
+    user = authenticate(request, username=login_data, password=password)
+
+    if user is None:
+        return HttpResponse(status=403)
+
+    login(request, user)
+    return HttpResponse(status=200)
 
 
 urlpatterns = [
