@@ -20,10 +20,12 @@ class UserSettings(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     theme = models.PositiveSmallIntegerField(
-        {0: "auto", 1: "dark", 2: "light", 3: "high-contrast"}
+        {0: "auto", 1: "dark", 2: "light", 3: "high-contrast"},
+        default=0
     )
     status = models.PositiveSmallIntegerField(
-        {0: "offline", 1: "away", 2: "busy", 3: "available"}
+        {0: "offline", 1: "away", 2: "busy", 3: "available"},
+        default=3
     )
-    notifications = models.BooleanField()
-    language = models.TextField()
+    notifications = models.BooleanField(default=True)
+    language = models.TextField(default=True)
