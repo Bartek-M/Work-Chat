@@ -8,10 +8,12 @@
     transform: translateX(-100%);
     transition: opacity 2s, transform 1s;
 }
+
 .hidden-line {
     opacity: 0;
     transition: opacity 2s;
 }
+
 .show {
     opacity: 1;
     transform: translateX(0);
@@ -23,6 +25,7 @@
     background-image: linear-gradient(var(--bs-body-bg), #001eff, var(--bs-body-bg));
     margin-left: 4rem;
 }
+
 .dot {
     position: relative; 
     top: calc(50% - (0.5 * var(--dot-position)));
@@ -32,12 +35,14 @@
     height: var(--dot-position); 
     background-image: radial-gradient(#ff0000, var(--bs-body-bg), #001eff);
 }
+
 .line-text {
     position: relative;
     top: calc(50% - (var(--dot-position)));
     height: 20%;
     left: calc(var(--text-position) + 10px);
 }
+
 .line-linear-reference {
     position: relative; 
     left: calc(var(--dot-position) * 0.3);
