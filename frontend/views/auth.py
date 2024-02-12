@@ -1,22 +1,23 @@
 from django.urls import path
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 
 
-def login(request):
+def view_login(request):
     return render(request, "login.html")
 
 
-def register(request):
+def view_register(request):
     return render(request, "register.html")
 
 
-def logout(request):
-    return JsonResponse({"Logout": True})
+def view_logout(request):
+    logout(request)
+    return redirect("/")
 
 
 urlpatterns = [
-    path("login/", login),
-    path("register/", register),
-    path("logout/", logout)
+    path("login/", view_login),
+    path("register/", view_register),
+    path("logout/", view_logout),
 ]
