@@ -3,9 +3,22 @@
 
 {% block title %}Work Chat • App{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/chatStyles.css' %}" />
+{% endblock %}
+
 {% block content %}
-<p>Hello app!</p>
-<a href="/logout/">Logout</a>
+<div id="main-wrapper" class="d-flex">
+    <div id="sidebar-wrapper" class="border-end">
+        <h2>Sidebar</h2>
+        <a href="/logout/">Logout</a>
+        <button id="chat-open">Open</button>
+    </div>
+    <div id="chat-wrapper">
+        <h2>Chat</h2>
+        <button id="chat-close">Close</button>
+    </div>
+</div>
 {% endblock %}
 
 {% block script %}
