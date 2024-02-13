@@ -1,24 +1,27 @@
 :root {
+    --bs-body-font-family: "Open Sans", sans-serif;
     --bs-body-bg: #0d0f12;
     --bs-tertiary-bg-rgb: 20, 25, 31;
-    --bs-body-font-family: "Open Sans", sans-serif;
+    --bs-link-color-rgb: 47, 129, 247;
+    --bs-success-text-emphasis: #135e3d;
     --scrollbar-bg: #4b4b4b;
     --scrollbar-bg-hover: #272727;
 }
 
 [data-bs-theme="high-contrast"] {
     --bs-body-bg: #000;
-    --bs-body-color: #ef0;
+    --bs-body-color: #fff;
+    --high-contrast: #ef0;
     --bs-tertiary-bg-rgb: 0, 0, 0;
 
     --bs-emphasis-color-rgb: 240, 255, 0;
-    --bs-secondary-color: rgba(240,255, 0, 0.8);
-    --bs-secondary-text-emphasis: rgba(240,255, 0, 0.6);
+    --bs-secondary-color: #fff;
+    --bs-secondary-text-emphasis: #fff;
 
-    --bs-border-color: var(--bs-body-color);
-    --bs-border-color-translucent: var(--bs-body-color);
+    --bs-border-color: #fff;
+    --bs-border-color-translucent: #fff;
 
-    --scrollbar-bg: var(--bs-body-color);
+    --scrollbar-bg: var(--high-contrast);
     --scrollbar-bg-hover: #f00;
 
     ::selection {
@@ -27,22 +30,30 @@
     }
 
     button {
-        color: var(--bs-body-color);
+        color: var(--high-contrast);
         background-color: var(--bs-body-bg);
-        border-color: var(--bs-body-color);
+        border-color: var(--high-contrast);
     }
 
     button:hover, button:active {
         color: #000;
-        background-color: var(--bs-body-color);
+        background-color: var(--high-contrast);
     }
+
+    .nav-link, a {
+        color: var(--high-contrast);
+    }
+}
+
+body {
+    overflow-x: hidden;
 }
 
 button:active {
     transform: translateY(2px);
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
     text-decoration: underline;
     text-underline-offset: 4px;
 }

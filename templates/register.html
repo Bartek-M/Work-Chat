@@ -6,37 +6,35 @@
 {% block content %}
 <div class="d-flex flex-column align-items-center my-5 gap-4" style="min-height: calc(100vh - 210px);">
     <h3>Rejestracja do <span class="text-primary">Work-Chat</span></h3>
-    <form class="card w-100" style="max-width: 400px;" id="register-form">
+    <form class="card w-100 px-3 py-2 gap-3" style="max-width: 400px;" id="register-form">
         {% csrf_token %}
-        <ul class="list-group list-group-flush text-left border-0">
-            <li class="list-group-item d-flex gap-3 border-0">
-                <div>
-                    <label for="first-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Imię <span class="text-danger" id="first-name-error">*</span></label>
-                    <input type="text" class="form-control" id="first-name-input" required>
-                </div>
-                <div>
-                    <label for="last-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Nazwisko <span class="text-danger" id="last-name-error">*</span></label>
-                    <input type="text" class="form-control" id="last-name-input" required>
-                </div>
-            </li>
-            <li class="list-group-item border-0">
-                <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Nazwa Użytkownika <span class="text-danger" id="username-error">*</span></label>
-                <input type="text" class="form-control" id="username-input">
-            </li>
-            <li class="list-group-item border-0">
-                <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Email <span class="text-danger" id="email-error">*</span></label>
-                <input type="email" class="form-control" id="email-input" required>
-            </li>
-            <li class="list-group-item border-0">
-                <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Hasło <span class="text-danger" id="password-error">*</span></label>
-                <input type="password" class="form-control" id="password-input" required>
-            </li>
-            <li class="list-group-item">
-                <p class="text-secondary-emphasis m-0" style="font-size: 0.75rem">Masz już konto? Zaloguj się <a href="/login/">tutaj</a>.</p>
-            </li>
-        </ul>
+        <div class="d-flex gap-3">
+            <div>
+                <label for="first-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Imię <span class="text-danger" id="first-name-error">*</span></label>
+                <input type="text" class="form-control" id="first-name-input" required>
+            </div>
+            <div>
+                <label for="last-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Nazwisko <span class="text-danger" id="last-name-error">*</span></label>
+                <input type="text" class="form-control" id="last-name-input" required>
+            </div>
+        </div>
+        <div>
+            <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Nazwa Użytkownika <span class="text-danger" id="username-error">*</span></label>
+            <input type="text" class="form-control" id="username-input">
+        </div>
+        <div>
+            <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Email <span class="text-danger" id="email-error">*</span></label>
+            <input type="email" class="form-control" id="email-input" required>
+        </div>
+        <div>
+            <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.8rem">Hasło <span class="text-danger" id="password-error">*</span></label>
+            <input type="password" class="form-control" id="password-input" required>
+        </div>
+        <div class="divst-group-item">
+            <p class="text-secondary-emphasis m-0" style="font-size: 0.75rem">Masz już konto? Zaloguj się <a href="/login/">tutaj</a>.</p>
+        </div>
         <div class="col-auto d-grid gap-2 col-6 mx-auto text-center">
-            <button class="btn btn-outline-success my-3" type="submit">Zarejestruj</button>
+            <button class="btn btn-outline-success mb-2" type="submit">Zarejestruj</button>
         </div>
     </form>
 </div>
