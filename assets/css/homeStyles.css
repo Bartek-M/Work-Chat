@@ -8,42 +8,49 @@
     transform: translateX(-100%);
     transition: opacity 2s, transform 1s;
 }
+
 .hidden-line {
     opacity: 0;
     transition: opacity 2s;
 }
+
 .show {
     opacity: 1;
     transform: translateX(0);
 }
 
 .line {
-    width: 8px;
+    width: 6px;
     height: 100%;
     background-image: linear-gradient(var(--bs-body-bg), #001eff, var(--bs-body-bg));
     margin-left: 4rem;
 }
+
 .dot {
     position: relative; 
     top: calc(50% - (0.5 * var(--dot-position)));
-    right: 120%;
+    right: 200%;
+    min-width: 16px;
     width: var(--dot-position);
     border-radius: 100%;
-    height: var(--dot-position); 
-    background-image: radial-gradient(#ff0000, var(--bs-body-bg), #001eff);
+    height: calc(var(--dot-position) + 20px);
+    background-color: var(--bs-body-bg);
 }
+
 .line-text {
     position: relative;
-    top: calc(50% - (var(--dot-position)));
-    height: 20%;
-    left: calc(var(--text-position) + 10px);
+    top: 36%;
+    height: 5rem;
+    width: 14rem;
+    left: 50px;
 }
-.line-linear-reference {
+/* 33b3ae */
+/* .line-linear-reference {
     position: relative; 
     left: calc(var(--dot-position) * 0.3);
-    top: 34%;
+    top: 40%;
     width: var(--text-position); 
-    height: 10px; 
+    height: 6px; 
     background-image: linear-gradient(to right, #001eff, var(--bs-body-bg));
     margin-left: 20px;
-}
+} */
