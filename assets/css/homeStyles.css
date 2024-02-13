@@ -1,20 +1,13 @@
-:root {
-    --dot-position: 30px;
-    --text-position: 80px;
-}
-
 .hidden {
     opacity: 0;
     transform: translateX(-100%);
     transition: opacity 2s, transform 1s;
 }
 
-
 .hidden-line {
     opacity: 0;
     transition: opacity 2s;
 }
-
 
 .show {
     opacity: 1;
@@ -22,30 +15,26 @@
 }
 
 .line {
-    width: 6px;
-    height: 100%;
+    position: relative;
+    min-width: 6px;
+    height: 400px;
     background-image: linear-gradient(var(--bs-body-bg), #001eff, var(--bs-body-bg));
-    margin-left: 4rem;
+    margin-left: 2rem;
 }
 
 
 .dot {
-    position: relative; 
-    top: calc(50% - (0.5 * var(--dot-position)));
-    right: 200%;
-    min-width: 16px;
-    width: var(--dot-position);
+    position: absolute; 
+    top: 50%;
+    left: 3px;
+    padding: 0.75rem;
     border-radius: 100%;
-    height: calc(var(--dot-position) + 20px);
     background-color: var(--bs-body-bg);
+    transform: translate(-50%, -50%);
 }
 
 .line-text {
-    position: relative;
-    top: 36%;
-    height: 5rem;
-    width: 14rem;
-    left: 50px;
+    margin-left: 50px;
 }
 /* 33b3ae */
 /* .line-linear-reference {
