@@ -18,11 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("", include("frontend.urls")),
+    path("", include("frontend.views")),
     path("api/", include("api.urls")),
     path("admin/", admin.site.urls)
 ]
 
-handler400 = "frontend.views.errors.error_400"
-handler403 = "frontend.views.errors.error_403"
-handler404 = "frontend.views.errors.error_404"
+handler400 = "frontend.errors.error_400"
+handler403 = "frontend.errors.error_403"
+handler404 = "frontend.errors.error_404"
