@@ -1,45 +1,27 @@
 import json
 
 from django.views.decorators.http import require_http_methods
-from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import login, authenticate
-from django.core.exceptions import ValidationError
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
-from api.models import User, UserSettings
+from api.forms import RegisterForm
 
 
 @require_http_methods(["POST"])
 def auth_register(request):
-    data = json.loads(request.body)
+    form = RegisterForm(json.loads(request.body))
 
-    first_name = data.get("first_name", "").capitalize()
-    last_name = data.get("last_name", "").capitalize()
+    if not form.is_valid():
+        return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
-    username = data.get("username", "").lower()
-    email = data.get("email", "").lower()
-    password = data.get("password", "")
-
-    if not (first_name and last_name and username and email and password):
-        return HttpResponse(status=400)
-
-    try:
-        validate_password(password)
-    except ValidationError as e:
-        return JsonResponse({"errors": {"password": list(e)[0]}}, status=400)
-
-    # TODO: Add validations
-
-    user = User.objects.create_user(
-        username, email, password, first_name=first_name, last_name=last_name
-    )
-    UserSettings(user=user).save()
-
+    user = form.save()
     login(request, user)
+
     return HttpResponse(status=200)
 
 
+@require_http_methods(["POST"])
 def auth_login(request):
     data = json.loads(request.body)
 
