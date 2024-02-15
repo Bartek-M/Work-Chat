@@ -45,8 +45,12 @@ class Channel(models.Model):
     name = models.CharField(max_length=100, blank=True, default="")
     direct = models.BooleanField(default=False)
     icon = models.IntegerField(null=True)
-    # owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    members = models.ManyToManyField(User, through="ChannelUsers")
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="ownership", null=True
+    )
+    members = models.ManyToManyField(
+        User, through="ChannelUsers", related_name="members"
+    )
     create_time = models.DateTimeField(default=timezone.now)
 
 
