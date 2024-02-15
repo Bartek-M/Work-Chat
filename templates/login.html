@@ -10,11 +10,11 @@
         {% csrf_token %}
         <div class="list-group-item border-0">
             <label for="login-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Email / Nazwa Użytkownika<span class="text-danger" id="login-error">*</span></label>
-            <input type="text" class="form-control" id="login-input">
+            <input type="text" class="form-control" id="login-input" required>
         </div>
         <div class="list-group-item border-0">
             <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Hasło <span class="text-danger" id="password-error">*</span></label>
-            <input type="password" class="form-control" id="password-input">
+            <input type="password" class="form-control" id="password-input" required>
         </div>
         <div class="list-group-item">
             <p class="text-secondary-emphasis m-0" style="font-size: 0.75rem">Nie masz konta? Utwórz je <a href="/register/">tutaj</a>.</p>
