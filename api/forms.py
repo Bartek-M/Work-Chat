@@ -2,7 +2,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django import forms
 
-from .models import User, UserSettings
+from .models import User, UserSettings, Channel
 
 
 class RegisterForm(forms.ModelForm):
@@ -32,3 +32,18 @@ class RegisterForm(forms.ModelForm):
 
         UserSettings(user=user).save()
         return user
+
+class ChannelCreateForm(forms.ModelForm):
+    class Meta:
+        model = Channel
+        fields = ("direct", "name",)
+    
+    def clean(self):
+        cleaned_data = super().clean()
+
+        return cleaned_data 
+    
+    def save(self):
+        channel = super().save()
+        
+        return channel
