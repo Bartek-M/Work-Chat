@@ -1,3 +1,10 @@
+:root {
+    --card-rotationX: 0;
+    --card-rotationY: 0;
+    --card-rotationZ: 0;
+    --card-rotation: 0;
+}
+
 .hidden {
     opacity: 0;
     transform: translateX(-100%);
@@ -36,13 +43,8 @@
 .line-text {
     margin-left: 50px;
 }
-/* 33b3ae */
-/* .line-linear-reference {
-    position: relative; 
-    left: calc(var(--dot-position) * 0.3);
-    top: 40%;
-    width: var(--text-position); 
-    height: 6px; 
-    background-image: linear-gradient(to right, #001eff, var(--bs-body-bg));
-    margin-left: 20px;
-} */
+
+.card-rotation {
+    transition: transform 0.5s ease;
+    transform: rotate3d(var(--card-rotationX), var(--card-rotationY), var(--card-rotationZ), var(--card-rotation)) !important;
+}
