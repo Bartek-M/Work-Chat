@@ -15,11 +15,13 @@ def channels_create(request):
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
     channel = form.save()
-    return JsonResponse({"channel": channel }, status=200)
+    return JsonResponse({"channel": channel}, status=200)
+
 
 @require_http_methods(["DELETE"])
 def channels_delete(request):
     return HttpResponse(status=200)
+
 
 urlpatterns = [
     path("create/", channels_create),

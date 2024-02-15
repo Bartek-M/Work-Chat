@@ -9,7 +9,7 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("username", "email", "first_name", "last_name", "password")
-    
+
     def clean(self):
         cleaned_data = super().clean()
 
@@ -23,8 +23,8 @@ class RegisterForm(forms.ModelForm):
         except ValidationError as e:
             self.add_error("password", e)
 
-        return cleaned_data 
-    
+        return cleaned_data
+
     def save(self):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
@@ -33,17 +33,21 @@ class RegisterForm(forms.ModelForm):
         UserSettings(user=user).save()
         return user
 
+
 class ChannelCreateForm(forms.ModelForm):
     class Meta:
         model = Channel
-        fields = ("direct", "name",)
-    
+        fields = (
+            "direct",
+            "name",
+        )
+
     def clean(self):
         cleaned_data = super().clean()
 
-        return cleaned_data 
-    
+        return cleaned_data
+
     def save(self):
         channel = super().save()
-        
+
         return channel
