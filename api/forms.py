@@ -1,4 +1,5 @@
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django import forms
 
@@ -32,6 +33,34 @@ class RegisterForm(forms.ModelForm):
 
         UserSettings(user=user).save()
         return user
+
+
+class LoginForm(forms.Form):
+    login_data = forms.CharField()
+    password = forms.CharField()
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        login_data = cleaned_data.get("login_data")
+        password = cleaned_data.get("password")
+
+        try:
+            email_user = User.objects.get(email=login_data)
+
+            if email_user and email_user.check_password(password):
+                user = email_user
+        except User.DoesNotExist:
+            user = authenticate(
+                username=login_data,
+                password=password,
+            )
+
+        if not user:
+            raise ValidationError("Login or password is invalid")
+
+        cleaned_data["user"] = user
+        return cleaned_data
 
 
 class ChannelCreateForm(forms.ModelForm):

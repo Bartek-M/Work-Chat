@@ -9,7 +9,8 @@ class User(AbstractUser):
     """
 
     email = models.EmailField(max_length=254, blank=False, unique=True)
-    avatar = models.IntegerField(blank=True)
+    avatar = models.IntegerField(null=True)
+    channels = models.ManyToManyField("Channel", through="ChannelUsers")
 
     def __str__(self):
         return self.username
@@ -43,8 +44,9 @@ class Channel(models.Model):
 
     name = models.CharField(max_length=100, blank=True, default="")
     direct = models.BooleanField(default=False)
-    icon = models.IntegerField(blank=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    icon = models.IntegerField(null=True)
+    # owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    members = models.ManyToManyField(User, through="ChannelUsers")
     create_time = models.DateTimeField(default=timezone.now)
 
 
@@ -65,7 +67,7 @@ class ChannelUsers(models.Model):
     Channel member representation
     """
 
-    user = models.ManyToManyField(User, on_delete=models.CASCADE)
-    channel = models.ManyToManyField(Channel, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     notifications = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
