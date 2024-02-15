@@ -7,6 +7,7 @@
     --bs-success-text-emphasis: #135e3d;
     --scrollbar-bg: #4b4b4b;
     --scrollbar-bg-hover: #272727;
+    --bs-cute-rgb: rgb(247, 120, 186);
 }
 
 [data-bs-theme="high-contrast"] {
@@ -16,6 +17,9 @@
     --bs-tertiary-bg-rgb: 0, 0, 0;
 
     --bs-emphasis-color-rgb: 240, 255, 0;
+    --bs-cute-rgb: 255, 255, 255;
+    --bs-success-rgb: 255, 255, 255;
+    --bs-danger-rgb: 255, 255, 255;
     --bs-secondary-color: #fff;
     --bs-secondary-text-emphasis: #fff;
 
@@ -48,6 +52,10 @@
 
 body {
     overflow-x: hidden;
+}
+
+.bs-body-cute {
+    color: var(--bs-cute-rgb);
 }
 
 button:active {
