@@ -1,6 +1,7 @@
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 from django import forms
 
 from .models import User, UserSettings, Channel
@@ -57,7 +58,7 @@ class LoginForm(forms.Form):
             )
 
         if not user:
-            raise ValidationError("Login or password is invalid")
+            raise ValidationError(_("Login or password is invalid"))
 
         cleaned_data["user"] = user
         return cleaned_data

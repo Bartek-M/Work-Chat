@@ -1,8 +1,8 @@
 import json
 
 from django.views.decorators.http import require_http_methods
-from django.contrib.auth import login
 from django.http import JsonResponse, HttpResponse
+from django.contrib.auth import login
 from django.urls import path
 
 from api.forms import RegisterForm, LoginForm
@@ -27,10 +27,10 @@ def auth_login(request):
 
     if not form.is_valid():
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
-    
+
     user = form.cleaned_data.get("user")
     login(request, user)
-    
+
     return HttpResponse(status=200)
 
 
