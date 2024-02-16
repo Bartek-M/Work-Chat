@@ -1,4 +1,4 @@
-from django.utils.translation import activate, get_language
+from django.utils.translation import activate
 
 
 class ActivateLanguage:
