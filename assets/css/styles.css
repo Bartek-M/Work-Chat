@@ -1,4 +1,6 @@
 :root {
+    --rotateX: 0;
+
     --bs-body-font-family: "Open Sans", sans-serif;
     --bs-body-bg: #0d0f12;
     --bs-tertiary-bg-rgb: 20, 25, 31;
