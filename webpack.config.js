@@ -14,9 +14,13 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts"],
+        modules: ["node_modules"]
     },
     module: {
-        rules: [{ loader: "ts-loader" }]
+        rules: [{ 
+            use: "ts-loader",
+            exclude: /node_modules/
+        }]
     },
     optimization: { minimize: true },
     devtool: "eval-cheap-source-map"

@@ -17,6 +17,7 @@
     },
     "homepage": "https://github.com/Bartek-M/Work-Chat#readme",
     "dependencies": {
+        "socket.io-client": "^4.7.4",
         "ts-loader": "^9.5.1",
         "webpack": "^5.90.0",
         "webpack-cli": "^5.1.4"
