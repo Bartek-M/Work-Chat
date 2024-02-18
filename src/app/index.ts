@@ -7,3 +7,4 @@ $("#chat-close")?.on("click", e => $("#chat-wrapper")?.removeClass("active"))
 
 
 const socket = io()
+socket.send("Hello World!")

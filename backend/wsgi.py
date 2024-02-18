@@ -9,8 +9,19 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
 
 import os
 
+import socketio
+from django.conf import settings
+from django.contrib.staticfiles.handlers import StaticFilesHandler
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
 
-application = get_wsgi_application()
+django_app = (
+    get_wsgi_application()
+    if not settings.DEBUG
+    else StaticFilesHandler(get_wsgi_application())
+)
+
+from .sockets import sio
+
+application = socketio.WSGIApp(sio, django_app)
