@@ -18,9 +18,10 @@ templates/  HTML templates
 ## Commands
 Installation
 ```bash
-pip install -r .\requirements.txt
+pip3 install -r .\requirements.txt
 npm install -g typescript
 npm install
+sudo apt install gunicorn
 ```
 
 TS package
@@ -31,17 +32,17 @@ npm run build
 
 Database setup
 ```bash
-python manage.py makemigrations api
-python manage.py migrate
+python3 manage.py makemigrations api
+python3 manage.py migrate
 ```
 
 Run server
 ```bash
-python manage.py runserver
+gunicorn -k eventlet -w 1 backend.wsgi:application
 ```
 
 Langauge setup
 ```bash
-python manage.py makemessages -l <language_code>
-python manage.py compilemessages
+python3 manage.py makemessages -l <language_code>
+python3 manage.py compilemessages
 ```

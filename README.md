@@ -6,15 +6,17 @@ Communication system for **work** with many features and highly **secure** backe
 > If you find any bugs or you have and propositions, feel free to create a new **issue** on this repository.
 
 ## Requirements
+- Linux OS 
 - Python 3.8 or above
 - Node.js 16 or above 
 
 ## Setup
 First you will need to install dependencies
 ```bash
-pip install -r .\requirements.txt
+pip3 install -r .\requirements.txt
 npm install -g typescript
 npm install
+sudo apt install gunicorn
 ```
 
 Then you will need to build JS package
@@ -28,7 +30,7 @@ npm run build
 
 ## Running Server
 ```bash
-python .\manage.py runserver
+gunicorn -k eventlet -w 1 backend.wsgi:application
 ```
 
 ## Authors
