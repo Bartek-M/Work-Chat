@@ -2,6 +2,7 @@
     --bs-body-font-family: "Open Sans", sans-serif;
     --bs-body-bg: #0d0f12;
     --bs-tertiary-bg-rgb: 20, 25, 31;
+    --bs-primary-rgb: 55, 94, 151;
     --bs-info-rgb: 51, 179, 174;
     --bs-danger-rgb: 164, 14, 38;
     --bs-link-color-rgb: 47, 129, 247;
@@ -15,6 +16,14 @@
 [data-bs-theme="light"] {
     --bs-body-bg: #f6f8fa;
     --bs-tertiary-bg-rgb: 255, 255, 255;
+
+    .btn-outline-light {
+        --bs-btn-color: #000;
+        --bs-btn-border-color: #000;
+        --bs-btn-hover-color: #888;
+        --bs-btn-hover-border-color: #888;
+        --bs-btn-active-border-color: #000;
+    }
 }
 
 [data-bs-theme="high-contrast"] {
@@ -72,6 +81,13 @@ button:active {
 .nav-link:hover, .nav-link.active {
     text-decoration: underline;
     text-underline-offset: 4px;
+}
+
+@media (max-width: 992px) {
+    .offcanvas-body {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 ::-webkit-scrollbar {

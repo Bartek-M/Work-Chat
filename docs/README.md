@@ -40,9 +40,3 @@ Run server
 ```bash
 gunicorn -k eventlet -w 1 backend.wsgi:application
 ```
-
-Langauge setup
-```bash
-python3 manage.py makemessages -l <language_code>
-python3 manage.py compilemessages
-```
