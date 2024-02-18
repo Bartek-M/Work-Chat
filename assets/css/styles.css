@@ -1,15 +1,20 @@
 :root {
-    --rotateX: 0;
-
     --bs-body-font-family: "Open Sans", sans-serif;
     --bs-body-bg: #0d0f12;
     --bs-tertiary-bg-rgb: 20, 25, 31;
-    --bs-danger-rgb: 245, 110, 115;
+    --bs-info-rgb: 51, 179, 174;
+    --bs-danger-rgb: 164, 14, 38;
     --bs-link-color-rgb: 47, 129, 247;
     --bs-success-text-emphasis: #135e3d;
+    --bs-cute-rgb: #f778ba;
     --scrollbar-bg: #4b4b4b;
     --scrollbar-bg-hover: #272727;
-    --bs-cute-rgb: rgb(247, 120, 186);
+    --rotateX: 0;
+}
+
+[data-bs-theme="light"] {
+    --bs-body-bg: #f6f8fa;
+    --bs-tertiary-bg-rgb: 255, 255, 255;
 }
 
 [data-bs-theme="high-contrast"] {
@@ -19,9 +24,9 @@
     --bs-tertiary-bg-rgb: 0, 0, 0;
 
     --bs-emphasis-color-rgb: 240, 255, 0;
-    --bs-cute-rgb: 255, 255, 255;
     --bs-success-rgb: 255, 255, 255;
-    --bs-danger-rgb: 255, 255, 255;
+    --bs-danger-rgb: 255, 0, 0;
+    --bs-cute-rgb: #Fff;
     --bs-secondary-color: #fff;
     --bs-secondary-text-emphasis: #fff;
 

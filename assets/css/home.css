@@ -23,9 +23,8 @@
 
 .line {
     position: relative;
-    min-width: 6px;
-    height: 400px;
-    background-image: linear-gradient(var(--bs-body-bg), #001eff, var(--bs-body-bg));
+    min-width: 4px;
+    height: 500px;
     margin-left: 2rem;
 }
 
@@ -33,7 +32,7 @@
 .dot {
     position: absolute; 
     top: 50%;
-    left: 3px;
+    left: 2px;
     padding: 0.75rem;
     border-radius: 100%;
     background-color: var(--bs-body-bg);

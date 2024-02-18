@@ -12,7 +12,7 @@ html,
 }
 
 #chat-wrapper {
-    width: 100%;
+    width: calc(100% - 250px);
     height: 100%;
     background-color: var(--bs-body-bg);
 }
@@ -27,6 +27,7 @@ html,
         position: fixed;
         transform: translateX(100%);
         transition: transform 0.25s;
+        width: 100%;
     }
     
     #chat-wrapper.active {

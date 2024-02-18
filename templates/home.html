@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/homeStyles.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
 {% block content %}
 <div class="container-xxl bg-transparent mt-4">
     <div class="hidden-line d-flex align-items-center">
-        <div class="line" style="background-image: linear-gradient(var(--bs-body-bg), #1929a7, #6a248a);">
+        <div class="line" style="background: linear-gradient(transparent, #5889ae 30%, #3b9c6c);">
             <div class="dot">
                 <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 9V7.25C6 3.845 8.503 1 12 1s6 2.845 6 6.25V9h.5a2.5 2.5 0 0 1 2.5 2.5v8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 19.5v-8A2.5 2.5 0 0 1 5.5 9Zm-1.5 2.5v8a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-13a1 1 0 0 0-1 1Zm3-4.25V9h9V7.25c0-2.67-1.922-4.75-4.5-4.75-2.578 0-4.5 2.08-4.5 4.75Z"></path>                   
@@ -16,11 +16,11 @@
             </div>
         </div>
         <div class="fs-1 line-text">
-            <button class="btn btn-outline-primary btn-lg" href="login.html">Zaloguj</button>
+            <button class="btn btn-outline-primary btn-lg" onclick="location.href='/register/'"">Rejestracja</button>
         </div>
     </div>
     <div class="hidden-line d-flex align-items-center">
-        <div class="line" style="background-image: linear-gradient(#6a248a, #7a2121, var(--bs-body-bg));">
+        <div class="line" style="background: linear-gradient(#3b9c6c, #3ab24c 60%, transparent 100%);">
             <div class="dot">
                 <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
@@ -28,11 +28,11 @@
                 </svg>
             </div>
         </div>
-        <div class="fs-1 line-text text-danger">
-            Bezpieczeństwo, Szyfrowany w te i na zad
+        <div class="fs-1 line-text text-success">
+            Produktywność, jakoś tak
         </div>
     </div>
-    <div class="hidden card bg-body-tertiary mb-3">
+    <div class="hidden card bg-body-tertiary my-2">
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="{% static 'icons/phone.PNG' %}" class="img-fluid rounded-start" alt="...">
@@ -54,19 +54,19 @@
         </div>
     </div>
     <div class="hidden-line d-flex align-items-center">
-        <div class="line" style="background-image: linear-gradient(var(--bs-body-bg), #3fb950, var(--bs-body-bg));">
+        <div class="line" style="background: linear-gradient(transparent, #33b3ae, #33b3ae, transparent);">
             <div class="dot">
                 <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 9V7.25C6 3.845 8.503 1 12 1s6 2.845 6 6.25V9h.5a2.5 2.5 0 0 1 2.5 2.5v8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 19.5v-8A2.5 2.5 0 0 1 5.5 9Zm-1.5 2.5v8a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-13a1 1 0 0 0-1 1Zm3-4.25V9h9V7.25c0-2.67-1.922-4.75-4.5-4.75-2.578 0-4.5 2.08-4.5 4.75Z"></path>                   
                 </svg>
             </div>
         </div>
-        <div class="fs-1 line-text text-success">
-            Produktywność, jakoś tak
+        <div class="fs-1 line-text text-info">
+            Bezpieczeństwo, Szyfrowany w te i na zad
         </div>
     </div>
-    <div class="row">
-        <div class="hidden col-sm-6 mt-3">
+    <div class="row py-2">
+        <div class="hidden col-sm-6">
             <div class="card bg-body-tertiary overflow-hidden" style="height: 40rem;">
                 <div class="card-body p-5">
                     <h2 class="card-title">Work-Chat mobile</h2>
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="hidden col-sm-6 mt-3">
+        <div class="hidden col-sm-6">
             <div class="card bg-body-tertiary overflow-hidden" style="height: 100%;">
                 <div class="card-body p-5">
                     <h2 class="card-title">Work-Chat Desktop</h2>
@@ -95,7 +95,7 @@
         </div>
     </div>
     <div class="hidden-line d-flex align-items-center">
-        <div class="line" style="background-image: linear-gradient(var(--bs-body-bg), #f778ba, var(--bs-body-bg));">
+        <div class="line" style="background: linear-gradient(transparent, #f778ba, #f778ba, transparent);">
             <div class="dot">
                 <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 9V7.25C6 3.845 8.503 1 12 1s6 2.845 6 6.25V9h.5a2.5 2.5 0 0 1 2.5 2.5v8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 19.5v-8A2.5 2.5 0 0 1 5.5 9Zm-1.5 2.5v8a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-13a1 1 0 0 0-1 1Zm3-4.25V9h9V7.25c0-2.67-1.922-4.75-4.5-4.75-2.578 0-4.5 2.08-4.5 4.75Z"></path>                   
@@ -106,8 +106,8 @@
             Kooperacja, czy cośtam
         </div>
     </div>
-    <div class="row">
-        <div class="hidden col-sm-6 mt-3">
+    <div class="row py-2">
+        <div class="hidden col-sm-6">
             <div class="card bg-body-tertiary overflow-hidden" style="height: 720px;">
                 <div class="card-body p-5">
                     <h2 class="card-title">Cele Work-Chat</h2>
@@ -120,7 +120,7 @@
                 </div>
             </div>
         </div>
-        <div class="hidden col-sm-6 mt-3">
+        <div class="hidden col-sm-6">
             <div class="card bg-body-tertiary overflow-hidden" style="height: 100%;">
                 <div class="card-body p-5">
                     <h2 class="card-title">Aspekty Work-Chat</h2>
@@ -134,21 +134,19 @@
             </div>
         </div>
     </div>
-    <div class="my-3">
-        <div class="hidden card bg-body-tertiary">
-            <div class="d-flex-column justify-content-start text-left"><!--TODO: popraw style, jesli wpadniesz na lepszy pomysl-->
-                <div class="card-body p-3">
-                    <h1 class="card-title m-3">Drużyna</h1>
-                    <p class="card-text m-3">
-                        Nasza drużyna, Syntax Samurais, złożona z trzech uczniów technikum informatycznego, to grupa pełna entuzjazmu i pasji do informatyki oraz programowania. Wspólnie podjęliśmy się ambitnego zadania stworzenia systemu komunikacji wewnątrzfirmowej o nazwie Work-Chat, gdzie kluczem do sukcesu jest prostota i intuicyjny interfejs przyjazny użytkownikowi.
-                    </p>
-                    <p class="card-text m-3">
-                        Każdy z nas, mimo różnic w umiejętnościach, wnosi unikalny wkład do projektu. Jednak nasza siła tkwi właśnie w tym zróżnicowaniu, które pozwala nam spojrzeć na wyzwania z różnych perspektyw i skutecznie radzić sobie z różnymi aspektami projektu. Dzięki temu, mimo różnic, jesteśmy w stanie tworzyć zgrany zespół, w którym każdy członek drużyny odnajduje swoją rolę i przyczynia się do sukcesu naszego projektu.
-                    </p>
-                </div>
-                <div class="container" style="width: 60%;">
-                    <img src="{% static 'icons/coding_photo_html2.PNG' %}" class="img-fluid">
-                </div>
+    <div class="hidden card bg-body-tertiary my-2">
+        <div class="d-flex-column justify-content-start text-left"><!--TODO: popraw style, jesli wpadniesz na lepszy pomysl-->
+            <div class="card-body p-3">
+                <h1 class="card-title m-3">Drużyna</h1>
+                <p class="card-text m-3">
+                    Nasza drużyna, Syntax Samurais, złożona z trzech uczniów technikum informatycznego, to grupa pełna entuzjazmu i pasji do informatyki oraz programowania. Wspólnie podjęliśmy się ambitnego zadania stworzenia systemu komunikacji wewnątrzfirmowej o nazwie Work-Chat, gdzie kluczem do sukcesu jest prostota i intuicyjny interfejs przyjazny użytkownikowi.
+                </p>
+                <p class="card-text m-3">
+                    Każdy z nas, mimo różnic w umiejętnościach, wnosi unikalny wkład do projektu. Jednak nasza siła tkwi właśnie w tym zróżnicowaniu, które pozwala nam spojrzeć na wyzwania z różnych perspektyw i skutecznie radzić sobie z różnymi aspektami projektu. Dzięki temu, mimo różnic, jesteśmy w stanie tworzyć zgrany zespół, w którym każdy członek drużyny odnajduje swoją rolę i przyczynia się do sukcesu naszego projektu.
+                </p>
+            </div>
+            <div class="container" style="width: 60%;">
+                <img src="{% static 'icons/coding_photo_html2.PNG' %}" class="img-fluid">
             </div>
         </div>
     </div>
