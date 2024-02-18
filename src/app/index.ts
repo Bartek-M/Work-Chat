@@ -1,6 +1,9 @@
+import * as $ from "jquery"
+
 import { io } from "socket.io-client"
 
-document.getElementById("chat-open")?.addEventListener("click", e => document.getElementById("chat-wrapper")?.classList.add("active"))
-document.getElementById("chat-close")?.addEventListener("click", e => document.getElementById("chat-wrapper")?.classList.remove("active"))
+$("#chat-open")?.on("click", e => $("#chat-wrapper")?.addClass("active"))
+$("#chat-close")?.on("click", e => $("#chat-wrapper")?.removeClass("active"))
+
 
 const socket = io()

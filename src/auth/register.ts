@@ -1,13 +1,16 @@
+import "jquery.cookie"
+import * as $ from "jquery"
+
 import "../utils"
 
-document.getElementById("register-form")?.addEventListener("submit", async (e) => {
+$("#register-form").on("submit", async (e) => {
     e.preventDefault()
 
-    let first_name = (document.getElementById("first-name-input") as HTMLInputElement).value
-    let last_name = (document.getElementById("last-name-input") as HTMLInputElement).value
-    let username = (document.getElementById("username-input") as HTMLInputElement).value
-    let email = (document.getElementById("email-input") as HTMLInputElement).value
-    let password = (document.getElementById("password-input") as HTMLInputElement).value
+    let first_name = $("#first-name-input").val()
+    let last_name = $("#last-name-input").val()
+    let username = $("#username-input").val()
+    let email = $("#email-input").val()
+    let password = $("#password-input").val()
 
     if (!first_name || !last_name || !username || !email || !password) return
 
@@ -15,7 +18,7 @@ document.getElementById("register-form")?.addEventListener("submit", async (e) =
         method: "POST",
         headers: {
             "Content-type": "application/json",
-            "X-CSRFToken": (document.getElementsByName("csrfmiddlewaretoken")[0] as HTMLInputElement).value
+            "X-CSRFToken": $.cookie("csrftoken")
         },
         body: JSON.stringify({
             first_name: first_name,
@@ -31,11 +34,11 @@ document.getElementById("register-form")?.addEventListener("submit", async (e) =
             let errors = data.errors
             if (!errors) return // TODO: Show toast message - Something went wrong
 
-            document.getElementById("first-name-error")!.innerText = errors.first_name ? `- ${errors.first_name[0].message}` : "*"
-            document.getElementById("last-name-error")!.innerText = errors.last_name ? `- ${errors.last_name[0].message}` : "*"
-            document.getElementById("email-error")!.innerText = errors.email ? `- ${errors.email[0].message}` : "*"
-            document.getElementById("username-error")!.innerText = errors.username ? `- ${errors.username[0].message}` : "*"
-            document.getElementById("password-error")!.innerText = errors.password ? `- ${errors.password[0].message}` : "*"
+            $("#first-name-error").text(errors.first_name ? `- ${errors.first_name[0].message}` : "*")
+            $("#last-name-error").text(errors.last_name ? `- ${errors.last_name[0].message}` : "*")
+            $("#email-error").text(errors.email ? `- ${errors.email[0].message}` : "*")
+            $("#username-error").text(errors.username ? `- ${errors.username[0].message}` : "*")
+            $("#password-error").text(errors.password ? `- ${errors.password[0].message}` : "*")
         })
     }).catch(() => {
         // TODO: Show toast message - Something went wrong

@@ -1,3 +1,5 @@
+import * as $ from "jquery"
+
 import "./utils"
 
 const observer = new IntersectionObserver((entries) => {
@@ -11,42 +13,33 @@ const observer = new IntersectionObserver((entries) => {
 const hiddenElements = document.querySelectorAll(".hidden, .hidden-line")
 hiddenElements.forEach((el) => observer.observe(el))
 
-interface MousePosition {
-    x: number;
-    y: number;
-}
-  
-function getMousePos(event: MouseEvent): MousePosition {
-    const target = event.target as HTMLElement;
-    const rect = target.getBoundingClientRect();
-    const xPos = event.clientX - rect.left;
-    const yPos = event.clientY - rect.top;
-    return { x: xPos, y: yPos };
-}
-  
-function setupMousePositionDetection(): void {
-    const cards = document.querySelectorAll('.card');
-  
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (event) => {
-            const pos = getMousePos(event as MouseEvent);
-            const htmlCard = card as HTMLElement;
+function getMousePos(event: any) {
+    const rect = (event.target as HTMLElement).getBoundingClientRect()
 
-            console.log(`Mouse position: X=${pos.x}, Y=${pos.y}`);
-            
-            if (pos.x > 200) {
-                htmlCard.style.setProperty('--card-rotationX', '1');
-                htmlCard.style.setProperty('--card-rotationY', '1');
-                htmlCard.style.setProperty('--card-rotationZ', '1');
-                htmlCard.style.setProperty('--card-rotation', '180deg');
-            } else if (pos.x < 200) {
-                htmlCard.style.setProperty('--card-rotationX', '0.5');
-                htmlCard.style.setProperty('--card-rotationY', '0.5');
-                htmlCard.style.setProperty('--card-rotationZ', '0.5');
-                htmlCard.style.setProperty('--card-rotation', '0deg');
-            }
-        });
-    });
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    }
 }
-  
-document.addEventListener('DOMContentLoaded', setupMousePositionDetection);  
+
+function setupMousePositionDetection() {
+    $(".card").each(() => {
+        $(this).on("mousemove", (event) => {
+            const pos = getMousePos(event)
+
+            if (pos.x > 200) {
+                $(this).css("--card-rotationX", "1")
+                $(this).css("--card-rotationY", "1")
+                $(this).css("--card-rotationZ", "1")
+                $(this).css("--card-rotation", "180deg")
+            } else if (pos.x < 200) {
+                $(this).css("--card-rotationX", "0.5")
+                $(this).css("--card-rotationY", "0.5")
+                $(this).css("--card-rotationZ", "0.5")
+                $(this).css("--card-rotation", "0deg")
+            }
+        })
+    })
+}
+
+$(document).on("DOMContentLoaded", setupMousePositionDetection)  

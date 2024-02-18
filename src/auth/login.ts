@@ -1,10 +1,13 @@
+import "jquery.cookie"
+import * as $ from "jquery"
+
 import "../utils"
 
-document.getElementById("login-form")?.addEventListener("submit", async (e) => {
+$("#login-form").on("submit", async (e) => {
     e.preventDefault()
 
-    let login_data = (document.getElementById("login-input") as HTMLInputElement).value
-    let password = (document.getElementById("password-input") as HTMLInputElement).value
+    let login_data = $("#login-input").val()
+    let password = $("#password-input").val()
 
     if (!login_data || !password) return
 
@@ -12,7 +15,7 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         method: "POST",
         headers: {
             "Content-type": "application/json",
-            "X-CSRFToken": (document.getElementsByName("csrfmiddlewaretoken")[0] as HTMLInputElement).value
+            "X-CSRFToken": $.cookie("csrftoken")
         },
         body: JSON.stringify({
             login_data: login_data,
@@ -25,8 +28,8 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
             let errors = data.errors
             if (!errors) return // TODO: Show toast message - Something went wrong
 
-            document.getElementById("login-error")!.innerText = errors.__all__ ? `- ${errors.__all__[0].message}` : "*"
-            document.getElementById("password-error")!.innerText = errors.__all__ ? `- ${errors.__all__[0].message}` : "*"
+            $("#login-error").text(errors.__all__ ? `- ${errors.__all__[0].message}` : "*")
+            $("#password-error").text(errors.__all__ ? `- ${errors.__all__[0].message}` : "*")
         })
     }).catch(() => {
 

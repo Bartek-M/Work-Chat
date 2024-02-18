@@ -17,6 +17,10 @@
     },
     "homepage": "https://github.com/Bartek-M/Work-Chat#readme",
     "dependencies": {
+        "@types/jquery": "^3.5.29",
+        "@types/jquery.cookie": "^1.4.35",
+        "jquery": "^3.7.1",
+        "jquery.cookie": "^1.4.1",
         "socket.io-client": "^4.7.4",
         "ts-loader": "^9.5.1",
         "webpack": "^5.90.0",
