@@ -18,7 +18,7 @@ templates/  HTML templates
 ## Commands
 Installation
 ```bash
-pip3 install -r .\requirements.txt
+pip3 install -r requirements.txt
 npm install -g typescript
 npm install
 sudo apt install gunicorn

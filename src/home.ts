@@ -13,33 +13,34 @@ const observer = new IntersectionObserver((entries) => {
 const hiddenElements = document.querySelectorAll(".hidden, .hidden-line")
 hiddenElements.forEach((el) => observer.observe(el))
 
-function getMousePos(event: any) {
-    const rect = (event.target as HTMLElement).getBoundingClientRect()
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.card');
 
-    return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    }
-}
+    cards.forEach((card) => {
+        card.addEventListener('mousemove', (event: MouseEvent) => {
+            // Start from the event target, then find the closest '.card' element
+            const target = (event.target as HTMLElement).closest('.card') as HTMLElement;
 
-function setupMousePositionDetection() {
-    $(".card").each(() => {
-        $(this).on("mousemove", (event) => {
-            const pos = getMousePos(event)
+            if (target) {
+                const rect = target.getBoundingClientRect();
 
-            if (pos.x > 200) {
-                $(this).css("--card-rotationX", "1")
-                $(this).css("--card-rotationY", "1")
-                $(this).css("--card-rotationZ", "1")
-                $(this).css("--card-rotation", "180deg")
-            } else if (pos.x < 200) {
-                $(this).css("--card-rotationX", "0.5")
-                $(this).css("--card-rotationY", "0.5")
-                $(this).css("--card-rotationZ", "0.5")
-                $(this).css("--card-rotation", "0deg")
+                // Calculate mouse position inside the card in pixels
+                const mouseX = event.clientX - rect.left;
+                const mouseY = event.clientY - rect.top;
+
+                // Calculate mouse position as a percentage of the card's dimensions
+                const mouseXPercentage = (mouseX / rect.width) * 100;
+                const mouseYPercentage = (mouseY / rect.height) * 100;
+
+                const positionX = Number(mouseXPercentage.toFixed(2))
+                const positionY = Number(mouseYPercentage.toFixed(2))
+
+                console.log(`Mouse Position: ${positionX}% X, ${positionY}% Y`);
+
+                if (positionX > 50 && positionY > 50)
+                // nie tak to działa ale działa do tego momentu :)
+                    target.setAttribute(' --card-rotationX', "180deg");
             }
-        })
-    })
-}
-
-$(document).on("DOMContentLoaded", setupMousePositionDetection)  
+        });
+    });
+});

@@ -7,13 +7,13 @@ Communication system for **work** with many features and highly **secure** backe
 
 ## Requirements
 - Linux OS 
-- Python 3.8 or above
+- Python 3.11 or above
 - Node.js 16 or above 
 
 ## Setup
 First you will need to install dependencies
 ```bash
-pip3 install -r .\requirements.txt
+pip3 install -r requirements.txt
 npm install -g typescript
 npm install
 sudo apt install gunicorn
