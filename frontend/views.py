@@ -4,10 +4,7 @@ from django.urls import path
 
 
 def home(request):
-    if request.user.is_authenticated:
-        return render(request, "app.html")
-
-    return render(request, "home.html")
+    return render(request, "app.html" if request.user.is_authenticated else "home.html",)
 
 
 def docs(request):
@@ -15,11 +12,15 @@ def docs(request):
 
 
 def view_login(request):
-    return render(request, "login.html")
+    return render(
+        request, "app.html" if request.user.is_authenticated else "login.html"
+    )
 
 
 def view_register(request):
-    return render(request, "register.html")
+    return render(
+        request, "app.html" if request.user.is_authenticated else "register.html"
+    )
 
 
 def view_logout(request):
