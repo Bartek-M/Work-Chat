@@ -89,6 +89,12 @@ button:active {
         display: flex;
         flex-direction: column;
     }
+
+    .dropdown-menu {
+        position: absolute!important;
+        top: auto!important;
+        bottom: 100%!important;
+    }
 }
 
 ::-webkit-scrollbar {
