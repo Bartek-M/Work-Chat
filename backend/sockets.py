@@ -6,17 +6,28 @@ from django.core.handlers.wsgi import WSGIRequest
 sio = socketio.Server(cors_allowed_origins="*")
 
 
-@sio.event
+@sio.on("connect")
 def connect(sid, environ):
     request = WSGIRequest(environ)
 
     SessionMiddleware(lambda: None).process_request(request)
     AuthenticationMiddleware(lambda: None).process_request(request)
 
-    if not request.user.is_authenticated:
+    user = request.user
+
+    if not user.is_authenticated:
         return sio.disconnect(sid)
 
-    print("Client connected:", sid, request.user)
+    sio.enter_room(sid, f"user-{user.id}")
+
+    for user_channel in user.channels.all():
+        sio.enter_room(sid, user_channel.channel.id)
+
+
+@sio.on("disconnect")
+def disconnect(sid):
+    for room in sio.rooms(sid):
+        sio.leave_room(sid, room)
 
 
 @sio.on("message")

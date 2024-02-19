@@ -28,14 +28,14 @@
                                 <img class="title-avatar ms-1" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
                             </button>
                             <ul class="dropdown-menu p-2">
-                                <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded">
+                                <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded" data-bs-toggle="modal" data-bs-target="#profile-modal">
                                     Profil
                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
                                     </svg>
                                 </button></li>
-                                <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded">
+                                <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded" data-bs-toggle="modal" data-bs-target="#settings-modal">
                                     Ustawienia
                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
@@ -85,7 +85,7 @@
                             </svg>
                         </button>
                         <ul class="dropdown-menu p-2">
-                            <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded">
+                            <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded" data-bs-toggle="modal" data-bs-target="#channel-settings-modal">
                                 Ustawienia
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
@@ -123,19 +123,69 @@
         </div>
     </div>
 </div>
-<div class="modal fade" tabindex="-1" id="channel-create-modal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create Channel</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- MODALS -->
+<div>
+    <!-- PROFILE -->
+    <div class="modal fade" tabindex="-1" id="profile-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
+        </div>
+    </div>
+    <!-- SETTINGS -->
+    <div class="modal" tabindex="-1" id="settings-modal">
+        <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+    <!-- CREATE CHANNEL -->
+    <div class="modal fade" tabindex="-1" id="channel-create-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Channel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CHANNEL SETTINGS -->
+    <div class="modal fade" tabindex="-1" id="channel-settings-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Channel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
