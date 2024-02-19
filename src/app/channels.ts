@@ -29,43 +29,46 @@ import { showToast } from "../utils"
 
 let lastUsername: string
 
-$("#search-form").on("submit", async (e) => {
-    e.preventDefault()
+$(".search-form").each((_, form) => {
+    $(form).on("submit", async (e) => {
+        e.preventDefault()
+        let formType = form.id == "direct" ? "direct" : "group"
 
-    let username = $("#search-inpt").val()
-    if (!username || username == lastUsername) return
+        let username = $(`#search-inpt-${formType}`).val()
+        if (!username || username == lastUsername) return
 
-    lastUsername = (username as string)
+        lastUsername = (username as string)
 
-    await fetch("/api/users/search/", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json",
-            "X-CSRFToken": $.cookie("csrftoken")
-        },
-        body: JSON.stringify({
-            username: username
-        }),
-    }).then(async (resp) => {
-        await resp.json().then((data) => {
-            if (resp.status == 200 && data.user) {
-                $("#searched-users").html(`
+        await fetch("/api/users/search/", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "X-CSRFToken": $.cookie("csrftoken")
+            },
+            body: JSON.stringify({
+                username: username
+            }),
+        }).then(async (resp) => {
+            await resp.json().then((data) => {
+                if (resp.status == 200 && data.user) {
+                    $(`#searched-users-${formType}`).html(`
                     <button class="channel-open btn d-flex align-items-center w-100">
                         <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar">
                         ${data.user.first_name} ${data.user.last_name}
                     </button>
                 `)
-                return
-            }
+                    return
+                }
 
-            $("#searched-users").html("")
+                $(`#searched-users-${formType}`).html("")
 
-            let errors = data.errors
-            if (!errors) return showToast("API", "Coś poszło nie tak", "error")
+                let errors = data.errors
+                if (!errors) return showToast("API", "Coś poszło nie tak", "error")
 
-            showToast("API", errors.user, "error")
+                showToast("API", errors.user, "error")
+            })
+        }).catch(() => {
+            showToast("API", "Coś poszło nie tak", "error")
         })
-    }).catch(() => {
-        showToast("API", "Coś poszło nie tak", "error")
     })
 })
