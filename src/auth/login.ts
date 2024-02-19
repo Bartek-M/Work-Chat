@@ -1,7 +1,7 @@
 import "jquery.cookie"
 import * as $ from "jquery"
 
-import "../utils"
+import { showToast } from "../utils"
 
 $("#login-form").on("submit", async (e) => {
     e.preventDefault()
@@ -26,12 +26,12 @@ $("#login-form").on("submit", async (e) => {
 
         await resp.json().then((data) => {
             let errors = data.errors
-            if (!errors) return // TODO: Show toast message - Something went wrong
+            if (!errors) return showToast("API", "Coś poszło nie tak", "error")
 
             $("#login-error").text(errors.__all__ ? `- ${errors.__all__[0].message}` : "*")
             $("#password-error").text(errors.__all__ ? `- ${errors.__all__[0].message}` : "*")
         })
     }).catch(() => {
-
+        showToast("API", "Coś poszło nie tak", "error")
     })
 })
