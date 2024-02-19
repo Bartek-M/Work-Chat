@@ -1,3 +1,4 @@
+/* MAIN WRAPPERS */
 body,
 html,
 #main-wrapper {
@@ -20,6 +21,7 @@ html,
     display: none;
 }
 
+/* RESPONSIVE */
 @media screen and (max-width: 700px) {
     .sidebar-wrapper {
         width: 100%;
@@ -42,6 +44,7 @@ html,
     }
 }
 
+/* SIDEBAR */
 .title-avatar {
     width: 26px;
     height: 26px;
@@ -75,4 +78,10 @@ html,
     --bs-dropdown-link-active-color: #fff; 
     --bs-dropdown-link-active-bg: rgb(var(--bs-danger-rgb)); 
     --bs-dropdown-link-hover-bg: rgb(var(--bs-danger-rgb));
+}
+
+/* CHAT */
+.chat-inpt:empty:before {
+    content: attr(data-placeholder);
+    color: gray;
 }
