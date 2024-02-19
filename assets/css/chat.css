@@ -5,20 +5,22 @@ html,
     width: 100%;
 }
 
-#sidebar-wrapper {
+.sidebar-wrapper {
     width: 250px;
-    height: 100%;
-    background-color: rgb(var(--bs-tertiary-bg-rgb));
+    background-color: var(--bs-body-bg);
 }
 
 #chat-wrapper {
     width: calc(100% - 250px);
-    height: 100%;
     background-color: var(--bs-body-bg);
 }
 
-@media screen and (max-width: 650px) {
-    #sidebar-wrapper {
+#chat-close {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .sidebar-wrapper {
         width: 100%;
         border-right: 0!important;
     }
@@ -33,4 +35,15 @@ html,
     #chat-wrapper.active {
         transform: translateX(0%);
     }
+
+    #chat-close {
+        display: block;
+    }
+}
+
+.title-avatar {
+    width: 26px;
+    height: 26px;
+    object-fit: cover;
+    border-radius: 100%;
 }
