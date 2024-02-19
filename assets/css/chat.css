@@ -47,3 +47,10 @@ html,
     object-fit: cover;
     border-radius: 100%;
 }
+
+.danger-dropdown-btn {
+    --bs-dropdown-link-color: rgb(var(--bs-danger-rgb)); 
+    --bs-dropdown-link-active-color: #fff; 
+    --bs-dropdown-link-active-bg: rgb(var(--bs-danger-rgb)); 
+    --bs-dropdown-link-hover-bg: rgb(var(--bs-danger-rgb));
+}

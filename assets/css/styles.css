@@ -20,8 +20,9 @@
     .btn-outline-light {
         --bs-btn-color: #000;
         --bs-btn-border-color: #000;
-        --bs-btn-hover-color: #888;
-        --bs-btn-hover-border-color: #888;
+        --bs-btn-hover-bg: #000;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-border-color: #000;
         --bs-btn-active-border-color: #000;
     }
 }
