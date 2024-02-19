@@ -1,4 +1,5 @@
 import * as $ from "jquery"
+const bootstrap = window["bootstrap"]
 
 function preferredTheme() {
     if (localStorage.getItem("theme") != "auto") return
@@ -29,3 +30,34 @@ function changeTheme(theme?: string) {
 
 $(".change-theme").each((_, el) => { $(el).on("click", () => changeTheme(el.id)) })
 changeTheme()
+
+export function showToast(title: string, message: string, type: "info" | "success" | "error") {
+    let icon
+
+    if (type == "info") icon = "bg-primary"
+    else if (type == "success") icon = "bg-success"
+    else icon = "bg-danger"
+
+    let toast = $(`
+        <div class="toast bg-body-tertiary" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <span class="${icon} p-2 rounded-circle me-2"></span>
+                <strong class="me-auto">${title}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                ${message}
+            </div>
+        </div>
+    `)
+
+    $("#toast-wrapper").append(toast)
+    new bootstrap.Toast(toast.get(0), {
+        autohide: true,
+        delay: 4000
+    }).show()
+
+    setTimeout(() => {
+        toast.remove()
+    }, 6000)
+}
