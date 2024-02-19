@@ -4,7 +4,7 @@ from django.urls import path
 
 
 def home(request):
-    return render(request, "app.html" if request.user.is_authenticated else "home.html",)
+    return render(request, "app.html" if request.user.is_authenticated else "home.html", {"range": range(20)})
 
 
 def docs(request):

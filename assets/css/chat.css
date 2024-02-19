@@ -3,6 +3,7 @@ html,
 #main-wrapper {
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 .sidebar-wrapper {
@@ -46,6 +47,27 @@ html,
     height: 26px;
     object-fit: cover;
     border-radius: 100%;
+}
+
+.sidebar-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.status-icon {
+    top: 90%;
+    left: 90%;
+    padding: 5px;
+}
+
+.channel-open {
+    --bs-btn-hover-bg: rgb(var(--bs-dark-rgb));
+    --bs-btn-hover-border-color: rgb(var(--bs-dark-rgb));
+    --bs-btn-active-border-color: rgb(var(--bs-dark-rgb));
+    gap: 0.75rem;
+    font-size: 0.85rem;
 }
 
 .danger-dropdown-btn {
