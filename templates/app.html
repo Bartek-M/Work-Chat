@@ -24,7 +24,7 @@
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                 </svg>
                             </button>
-                            <ul class="dropdown-menu p-2">
+                            <ul class="dropdown-menu dropdown-menu-end p-2">
                                 <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded" data-bs-toggle="modal" data-bs-target="#direct-create-modal">
                                     Nowy czat
                                     <svg width="16" height="16" fill="currentColor" iewBox="0 0 16 16">
@@ -44,7 +44,7 @@
                             <button class="btn p-0 border-0" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="title-avatar ms-1" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
                             </button>
-                            <ul class="dropdown-menu p-2">
+                            <ul class="dropdown-menu dropdown-menu-end p-2">
                                 <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded" data-bs-toggle="modal" data-bs-target="#profile-modal">
                                     Profil
                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -72,7 +72,6 @@
                 </div>
             </nav>
             <div class="d-flex flex-column overflow-y-auto p-2" style="max-height: calc(100% - 49px)">
-                {% for i in range %}
                 <button class="channel-open btn d-flex align-items-center">
                     <div class="position-relative">
                         <img class="sidebar-icon" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
@@ -80,7 +79,6 @@
                     </div>
                     Bartosz Mroczkowski
                 </button>
-                {% endfor %}
             </div>
         </div>
         <div class="d-flex flex-column justify-content-between h-100" id="chat-wrapper">
@@ -186,27 +184,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tworzenie czatu prywatnego</h5>
+                    <h5 class="modal-title">Rozpocznij Czat</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="ms-1 mb-2">Wybierz użytkownika to konwersacji</div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nazwa użytkownika" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="input-group-text bg-body-tertiary" id="button-addon2">
+                    <form class="input-group mb-3" id="search-form">
+                        <input type="text" class="form-control" id="search-inpt" placeholder="Nazwa użytkownika">
+                        <button class="input-group-text bg-body-tertiary" type="submit">
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                             </svg>
                         </button>
-                    </div>
-                    <button class="channel-open btn d-flex align-items-center w-100">
-                        <img class="sidebar-icon" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
-                        Bartosz Mroczkowski
-                    </button>
-                    <button class="channel-open btn d-flex align-items-center w-100">
-                        <img class="sidebar-icon" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
-                        Bartosz Mroczkowski
-                    </button>
+                    </form>
+                    <div id="searched-users"></div>
                 </div>
             </div>
         </div>

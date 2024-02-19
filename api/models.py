@@ -12,8 +12,17 @@ class User(AbstractUser):
     avatar = models.IntegerField(null=True)
     channels = models.ManyToManyField("Channel", through="ChannelUsers")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.username
+
+    def repr(self) -> dict:
+        return {
+            "username": self.username,
+            "email": self.email,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "avatar": self.avatar,
+        }
 
 
 class UserSettings(models.Model):

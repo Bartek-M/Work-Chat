@@ -1,6 +1,7 @@
 import json
 
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
@@ -8,6 +9,7 @@ from api.forms import ChannelCreateForm
 
 
 @require_http_methods(["POST"])
+@login_required
 def channels_create(request):
     form = ChannelCreateForm(json.loads(request.body))
 
@@ -19,6 +21,7 @@ def channels_create(request):
 
 
 @require_http_methods(["DELETE"])
+@login_required
 def channels_delete(request):
     return HttpResponse(status=200)
 

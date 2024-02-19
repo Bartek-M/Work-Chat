@@ -91,7 +91,7 @@ button:active {
         flex-direction: column;
     }
 
-    .dropdown-menu {
+    .offcanvas-body .dropdown-menu {
         position: absolute!important;
         top: auto!important;
         bottom: 100%!important;
