@@ -188,15 +188,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="search-form input-group mb-3" id="direct">
-                        <input type="text" class="form-control" id="search-inpt-direct" placeholder="Nazwa użytkownika">
-                        <button class="input-group-text bg-body-tertiary" type="submit">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                        </button>
+                    <form class="search-form">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="search-inpt" placeholder="Nazwa użytkownika">
+                            <button class="input-group-text bg-body-tertiary" type="submit">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="searched-users"></div>
                     </form>
-                    <div id="searched-users-direct"></div>
                 </div>
             </div>
         </div>
@@ -227,15 +229,17 @@
                             <img class="title-avatar" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
                         </button>
                     </div>
-                    <form class="search-form input-group" id="group">
-                        <input type="text" class="form-control" id="search-inpt-group" placeholder="Nazwa użytkownika">
-                        <button class="input-group-text bg-body-tertiary" type="submit">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                        </button>
+                    <form class="search-form">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="search-inpt" placeholder="Nazwa użytkownika">
+                            <button class="input-group-text bg-body-tertiary" type="submit">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="searched-users"></div>
                     </form>
-                    <div id="searched-users-group"></div>
                     <button type="button" class="btn btn-outline-primary w-100 mt-2">Utwórz</button>
                 </div>
             </div>
