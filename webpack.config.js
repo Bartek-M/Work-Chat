@@ -7,6 +7,7 @@ module.exports = {
         app: "./src/app/index.ts",
         login: "./src/auth/login.ts",
         register: "./src/auth/register.ts",
+        loader: "./src/loader.ts",
     },
     output: {
         path: path.resolve(__dirname, "./assets/js"),
@@ -14,10 +15,13 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts"],
-        modules: ["node_modules"]
+        modules: ["node_modules"],
+        alias: {
+            "bootstrap": path.resolve(__dirname, "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js")
+        }
     },
     module: {
-        rules: [{ 
+        rules: [{
             use: "ts-loader",
             exclude: /node_modules/
         }]

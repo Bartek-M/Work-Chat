@@ -63,6 +63,13 @@ class Channel(models.Model):
     )
     create_time = models.DateTimeField(default=timezone.now)
 
+    def repr(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "icon": self.icon,
+        }
+
 
 class Message(models.Model):
     """

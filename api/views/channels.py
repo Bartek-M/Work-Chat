@@ -11,13 +11,19 @@ from api.forms import ChannelCreateForm
 @require_http_methods(["POST"])
 @login_required
 def channels_create(request):
-    form = ChannelCreateForm(json.loads(request.body))
+    data = json.loads(request.body)
+
+    if data.get("members"):
+        data["members"].append(request.user)
+
+    form = ChannelCreateForm(data)
 
     if not form.is_valid():
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
-    channel = form.save()
-    return JsonResponse({"channel": channel}, status=200)
+    # channel = form.save()
+    # return JsonResponse({"channel": channel.repr()}, status=200)
+    return HttpResponse(status=200)
 
 
 @require_http_methods(["DELETE"])

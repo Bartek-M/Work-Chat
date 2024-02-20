@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django import forms
 
-from .models import User, UserSettings, Channel
+from .models import User, UserSettings, Channel, ChannelUsers
 
 
 class RegisterForm(forms.ModelForm):
@@ -67,18 +67,15 @@ class LoginForm(forms.Form):
 class ChannelCreateForm(forms.ModelForm):
     class Meta:
         model = Channel
-        fields = (
-            "direct",
-            "name",
-        )
+        fields = ("direct", "name", "members")
 
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data)
+
+        # ENSURE CHANNEL DOESN'T EXIST
 
         return cleaned_data
 
     def save(self):
         channel = super().save()
-
         return channel

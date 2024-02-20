@@ -76,6 +76,14 @@ body {
     color: var(--bs-cute-rgb);
 }
 
+button {
+    pointer-events: all;
+}
+
+button * {
+    pointer-events: none;
+}
+
 button:active {
     transform: translateY(2px);
 }

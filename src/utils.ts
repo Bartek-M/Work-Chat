@@ -1,4 +1,4 @@
-import * as $ from "jquery"
+const $: JQueryStatic = (window as any)["$"]
 const bootstrap = window["bootstrap"]
 
 function preferredTheme() {

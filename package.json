@@ -19,10 +19,8 @@
     "dependencies": {
         "@types/bootstrap": "5.2.10",
         "@types/jquery": "^3.5.29",
-        "@types/jquery.cookie": "^1.4.35",
         "bootstrap": "^5.3.2",
         "jquery": "^3.7.1",
-        "jquery.cookie": "^1.4.1",
         "socket.io-client": "^4.7.4",
         "ts-loader": "^9.5.1",
         "webpack": "^5.90.0",

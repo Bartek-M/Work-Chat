@@ -1,4 +1,4 @@
-import * as $ from "jquery"
+const $: JQueryStatic = (window as any)["$"]
 
 import "./utils"
 
@@ -33,7 +33,7 @@ $(".card").each((_, card) => {
         // konty
         if (positionX < 30 && positionY < 30) {
             // lewy górny
-            card.style.transform = "rotate3d(-0.2, 1, 0.2, 10deg)" 
+            card.style.transform = "rotate3d(-0.2, 1, 0.2, 10deg)"
         } else if (positionX > 70 && positionY < 30) {
             // prawy górny
             card.style.transform = "rotate3d(0.2, 1, -0.2, 10deg)"
@@ -42,8 +42,8 @@ $(".card").each((_, card) => {
             card.style.transform = "rotate3d(1, 1, -0.2, 10deg)"
         } else if (positionX > 70 && positionY > 70) {
             // prawy dolny
-            card.style.transform = "rotate3d(-1, 1, -0.2, 10deg)" 
-        // boku
+            card.style.transform = "rotate3d(-1, 1, -0.2, 10deg)"
+            // boku
         } else if (positionX < 30 && (positionY > 30 && positionY < 70)) {
             // lewo
             card.style.transform = "rotate3d(0, 1, 0, 10deg)"
@@ -56,7 +56,7 @@ $(".card").each((_, card) => {
         } else if ((positionX > 30 && positionX < 70) && positionY > 70) {
             // dół
             card.style.transform = "rotate3d(1, 0, 0, 10deg)"
-        // inne
+            // inne
         } else {
             card.style.transform = "rotate3d(0, 0, 0, 0)"
         }

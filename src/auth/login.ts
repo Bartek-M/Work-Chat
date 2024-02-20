@@ -1,5 +1,4 @@
-import "jquery.cookie"
-import * as $ from "jquery"
+const $: JQueryStatic = (window as any)["$"]
 
 import { showToast } from "../utils"
 
@@ -15,7 +14,7 @@ $("#login-form").on("submit", async (e) => {
         method: "POST",
         headers: {
             "Content-type": "application/json",
-            "X-CSRFToken": $.cookie("csrftoken")
+            "X-CSRFToken": (window as any)["csrf"]
         },
         body: JSON.stringify({
             login_data: login_data,

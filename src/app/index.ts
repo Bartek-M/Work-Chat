@@ -1,4 +1,4 @@
-import * as $ from "jquery"
+const $: JQueryStatic = (window as any)["$"]
 import { showToast } from "../utils"
 
 import "./sockets"

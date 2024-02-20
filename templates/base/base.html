@@ -8,7 +8,7 @@
         <title>{% block title %}Work Chat{% endblock %}</title>
         {% load static %}
         
-        <link href="{% static 'bootstrap/bs_styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
         <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
         <link rel="icon" href="{% static 'icons/icon.ico' %}" />
         {% block head %}{% endblock %}
@@ -18,7 +18,8 @@
         {% block content %}{% endblock %} 
         {% endblock %}
         <div class="toast-container position-fixed top-0 end-0 p-3" id="toast-wrapper"></div>
-        <script src="{% static 'bootstrap/bs_scripts.js' %}"></script>
+        <script src="{% static 'js/loader.js' %}"></script>
+        <script>window["csrf"] = "{{ csrf_token }}"</script>
         {% block script %}{% endblock %}
     </body>
 </html>
