@@ -151,15 +151,56 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex flex-column">
-                    <div class="mt-2">
-                        <div>Ikona użytkownika</div>
+                    <div>
+                        <div>Ikona użytkownika:</div>
                         <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
                             <circle cx="8" cy="8" r="8"/>
                         </svg>
                     </div>
-                    <div class="mt-2">Imie i nazwisko: Bartosz Mroczkowski</div>
-                    <div class="mt-2">Nazwa użytkownika: B4rt2asd2</div>
-                    <div class="mt-2">Aktywność: </div>
+                    <div class="mt-3">Imie i nazwisko: Bartosz Mroczkowski</div>
+                    <div class="mt-3 mb-1">Nazwa użytkownika: B4rt2asd2</div>
+                    <div class="mt-3">Aktywność: 
+                        <div class="btn-group dropend">
+                            <button type="button" class="btn btn-outline-primary dropdown-toggle py-0 px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                wybierz
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="dark">
+                                        <svg width="16" height="16" fill="#21bf4b" viewBox="0 0 16 16">
+                                            <path d="M 16 8 A 8 8 0 1 1 0 8 a 8 8 0 0 1 16 0 M 8 13 A 1 1 0 0 0 8 3 A 1 1 0 0 0 8 13"/>
+                                        </svg>
+                                        Online
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="dark">
+                                        <svg width="16" height="16" fill="#b5bf21" viewBox="0 0 16 16">
+                                            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"/>
+                                        </svg>
+                                        Zdala od komputera
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="dark">
+                                        <svg width="16" height="16" fill="#404040" viewBox="0 0 16 16">
+                                            <path d="M 16 8 A 8 8 0 1 1 0 8 a 8 8 0 0 1 16 0 M 8 13 A 1 1 0 0 0 8 3 A 1 1 0 0 0 8 13"/>
+                                        </svg>
+                                        Offline
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="dark">
+                                        <svg width="16" height="16" fill="#bf2121" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                                        </svg>
+                                        Nie przeszkadzać
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary w-100">Zapisz</button>
@@ -176,7 +217,119 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    Zmiana imienia lub nazwiska
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <form class="">
+                                        <form class="">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="search-inpt" placeholder="Nowe imie">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="search-inpt" placeholder="Nowe nazwisko">
+                                            </div>
+                                        </form>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    Zmień nazwe użytkownika
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <form class="">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="search-inpt" placeholder="Nowa nazwa użytkownika">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                    Zmień hasło
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <form class="">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="search-inpt" placeholder="Nowe hasło">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                    Motyw
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="auto">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 0 8 1zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16"/>
+                                        </svg>
+                                        Auto
+                                    </button>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="dark">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"/>
+                                        </svg>
+                                        Ciemny
+                                    </button>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="light">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+                                        </svg>
+                                        Jasny
+                                    </button>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="high-contrast">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-8 5v1H4.5a.5.5 0 0 0-.093.009A7 7 0 0 1 3.1 13zm0-1H2.255a7 7 0 0 1-.581-1H8zm-6.71-2a7 7 0 0 1-.22-1H8v1zM1 8q0-.51.07-1H8v1zm.29-2q.155-.519.384-1H8v1zm.965-2q.377-.54.846-1H8v1zm2.137-2A6.97 6.97 0 0 1 8 1v1z"/>
+                                        </svg>
+                                        Kontrast
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                                    Powiadomienia
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="">
+                                        Wszystkie
+                                    </button>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="">
+                                        Tylko prywatne
+                                    </button>
+                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="">
+                                        Żadne
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary w-100 mx-5">Zapisz</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -256,7 +409,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <div>Zmień nazwe grupy:</div>
+                    <form class="">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="search-inpt">
+                            <button class="input-group-text bg-body-tertiary" type="submit">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M7.27 1.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1H1.654C.78 9.5.326 8.455.924 7.816zM4.5 13.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
