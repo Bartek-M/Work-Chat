@@ -17,6 +17,7 @@ class User(AbstractUser):
 
     def repr(self) -> dict:
         return {
+            "id": self.id,
             "username": self.username,
             "email": self.email,
             "first_name": self.first_name,

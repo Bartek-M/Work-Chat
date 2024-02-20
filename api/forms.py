@@ -74,6 +74,7 @@ class ChannelCreateForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+        print(cleaned_data)
 
         return cleaned_data
 

@@ -72,13 +72,15 @@
                 </div>
             </nav>
             <div class="d-flex flex-column overflow-y-auto p-2" style="max-height: calc(100% - 49px)">
-                <button class="channel-open btn d-flex align-items-center">
-                    <div class="position-relative">
-                        <img class="sidebar-icon" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
-                        <span class="status-icon position-absolute translate-middle bg-danger rounded-circle"></span>
-                    </div>
-                    Bartosz Mroczkowski
-                </button>
+                {% for channel in channels %}
+                    <button class="channel-open btn d-flex align-items-center" id="channel-{{ channel.id }}">
+                        <div class="position-relative">
+                            <img class="sidebar-icon" src="api/files/{{ channel.icon }}" alt="Avatar">
+                            <span class="status-icon position-absolute translate-middle bg-danger rounded-circle"></span>
+                        </div>
+                        {{ channel.name }}
+                    </button>
+                {% endfor %}
             </div>
         </div>
         <div class="d-flex flex-column justify-content-between h-100" id="chat-wrapper">
@@ -211,7 +213,7 @@
                     <h5 class="modal-title">Utwórz Grupę</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex flex-column gap-3 px-4">
+                <div class="channel-create-form modal-body d-flex flex-column gap-3 px-4">
                     <div class="d-flex align-items-center gap-4 mb-3">
                         <button class="btn p-0 border-0">
                             <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
@@ -220,7 +222,7 @@
                         </button>
                         <div class="w-100">
                             <div>Nazwa grupy</div>
-                            <input class="form-control my-2" type="text">
+                            <input class="form-control my-2" type="text" id="group-name">
                         </div>
                     </div>
                     <div class="d-flex gap-2 align-items-center flex-wrap px-2">

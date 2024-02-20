@@ -3,29 +3,38 @@ import * as $ from "jquery"
 
 import { showToast } from "../utils"
 
-// $("#login-form").on("submit", async (e) => {
-//     e.preventDefault()
 
-//     await fetch("/api/auth/channels/create/", {
-//         method: "POST",
-//         headers: {
-//             "Content-type": "application/json",
-//             "X-CSRFToken": $.cookie("csrftoken")
-//         },
-//         body: JSON.stringify({
+$(".channel-create-form").each((_, el) => {
+    const form = $(el)
 
-//         }),
-//     }).then(async (resp) => {
-//         if (resp.status == 200) return
+    form.on("submit", async (e) => {
+        e.preventDefault()
 
-//         await resp.json().then((data) => {
-//             let errors = data.errors
-//             if (!errors) return showToast("API", "Coś poszło nie tak", "error")
-//         })
-//     }).catch(() => {
-//         showToast("API", "Coś poszło nie tak", "error")
-//     })
-// })
+        let groupName = form.find("#group-name").val()
+        let direct = groupName ? false : true
+
+        await fetch("/api/auth/channels/create/", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "X-CSRFToken": $.cookie("csrftoken")
+            },
+            body: JSON.stringify({
+                name: groupName,
+                direct: direct
+            }),
+        }).then(async (resp) => {
+            if (resp.status == 200) return
+
+            await resp.json().then((data) => {
+                let errors = data.errors
+                if (!errors) return showToast("API", "Coś poszło nie tak", "error")
+            })
+        }).catch(() => {
+            showToast("API", "Coś poszło nie tak", "error")
+        })
+    })
+})
 
 
 $(".search-form").each((_, el) => {

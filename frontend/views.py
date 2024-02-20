@@ -3,24 +3,21 @@ from django.contrib.auth import logout
 from django.urls import path
 
 
-def home(request):
-    return render(request, "app.html" if request.user.is_authenticated else "home.html")
-
-
-def docs(request):
-    return render(request, "docs.html")
-
-
-def view_login(request):
+def app(request, page):
+    if not request.user.is_authenticated:
+        return render(request, page)
+    
     return render(
-        request, "app.html" if request.user.is_authenticated else "login.html"
+        request,
+        "app.html",
+        {"channels": request.user.channels.all()},
     )
 
 
-def view_register(request):
-    return render(
-        request, "app.html" if request.user.is_authenticated else "register.html"
-    )
+home = lambda request: app(request, "home.html")
+docs = lambda request: render(request, "docs.html")
+view_login = lambda request: app(request, "login.html")
+view_register = lambda request: app(request, "register.html")
 
 
 def view_logout(request):

@@ -23,6 +23,9 @@ def search(request):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         return JsonResponse({"errors": {"user": _("User not found")}}, status=400)
+    
+    if user.id == request.user.id:
+        return JsonResponse({"errors": {"user": _("User is client user")}}, status=400)
 
     return JsonResponse({"user": user.repr()}, status=200)
 
