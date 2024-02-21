@@ -44,7 +44,7 @@ $(".search-form").each((_, el) => {
     form.on("submit", async (e) => {
         e.preventDefault()
 
-        let username = form.find("#search-inpt").val()
+        let username = form.find(".search-inpt").val()
         if (!username || username == lastUsername) return
 
         lastUsername = (username as string)
@@ -61,8 +61,8 @@ $(".search-form").each((_, el) => {
         }).then(async (resp) => {
             await resp.json().then((data) => {
                 if (resp.status == 200 && data.user) {
-                    form.find("#searched-users").html(`
-                        <button class="btn d-flex align-items-center w-100" type="button" id="searched-${data.user.id}">
+                    form.find(".searched-users").html(`
+                        <button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${data.user.id}">
                             <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar">
                             ${data.user.first_name} ${data.user.last_name}
                         </button>
@@ -70,7 +70,7 @@ $(".search-form").each((_, el) => {
                     return
                 }
 
-                form.find("#searched-users").html("")
+                form.find(".searched-users").html("")
 
                 let errors = data.errors
                 if (!errors) return showToast("API", "Coś poszło nie tak", "error")
@@ -110,4 +110,4 @@ async function openDirect(userId: string) {
     })
 }
 
-$("#searched-users").on("click", (e) => openDirect(e.target.id))
+$("#open-direct").on("click", (e) => openDirect(e.target.id))

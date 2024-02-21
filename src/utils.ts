@@ -53,13 +53,10 @@ export function showToast(title: string, message: string, type: "info" | "succes
 
     $("#toast-wrapper").append(toast)
     new bootstrap.Toast(toast.get(0), {
-        autohide: (type != "error" ? true : false),
-        delay: 4000
+        autohide: type != "error",
+        delay: (type == "success" ? 1000 : 4000)
     }).show()
 
     if (type != "error") return
-
-    setTimeout(() => {
-        toast.remove()
-    }, 6000)
+    setTimeout(() => toast.remove(), 6000)
 }

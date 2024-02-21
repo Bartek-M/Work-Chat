@@ -144,12 +144,8 @@
 <div>
     <!-- PROFILE -->
     <div class="modal fade" tabindex="-1" id="profile-modal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Profil użytkownika</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body d-flex flex-column">
                     <div>
                         <div>Ikona użytkownika:</div>
@@ -202,9 +198,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary w-100">Zapisz</button>
-                </div>
+                <button type="button" class="btn-close position-absolute end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
         </div>
     </div>
@@ -336,7 +330,7 @@
     </div>
     <!-- CREATE CHANNEL DIRECT -->
     <div class="modal fade" tabindex="-1" id="direct-create-modal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Rozpocznij Czat</h5>
@@ -345,14 +339,14 @@
                 <div class="modal-body">
                     <form class="search-form">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="search-inpt" placeholder="Nazwa użytkownika">
+                            <input type="text" class="form-control search-inpt" placeholder="Nazwa użytkownika">
                             <button class="input-group-text bg-body-tertiary" type="submit">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                 </svg>
                             </button>
                         </div>
-                        <div id="searched-users"></div>
+                        <div class="searched-users" id="open-direct"></div>
                     </form>
                 </div>
             </div>
@@ -360,7 +354,7 @@
     </div>
     <!-- CREATE CHANNEL GROUP -->
     <div class="modal fade" tabindex="-1" id="group-create-modal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Utwórz Grupę</h5>
@@ -386,14 +380,14 @@
                     </div>
                     <form class="search-form">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="search-inpt" placeholder="Nazwa użytkownika">
+                            <input type="text" class="form-control search-inpt" placeholder="Nazwa użytkownika">
                             <button class="input-group-text bg-body-tertiary" type="submit">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                 </svg>
                             </button>
                         </div>
-                        <div id="searched-users"></div>
+                        <div class="searched-users"></div>
                     </form>
                     <button type="button" class="btn btn-outline-primary w-100 mt-2">Utwórz</button>
                 </div>
@@ -402,7 +396,7 @@
     </div>
     <!-- CHANNEL SETTINGS -->
     <div class="modal fade" tabindex="-1" id="channel-settings-modal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Create Channel</h5>
