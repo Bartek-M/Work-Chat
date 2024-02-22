@@ -41,10 +41,7 @@ class UserSettings(models.Model):
         default=3,
     )
     notifications = models.BooleanField(default=True)
-    language = models.TextField(
-        {0: "en", 1: "pl"},
-        default=1,
-    )
+    notification_sound = models.BooleanField(default=True)
 
 
 class Channel(models.Model):
@@ -56,7 +53,7 @@ class Channel(models.Model):
     direct = models.BooleanField(default=False)
     icon = models.IntegerField(null=True)
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="ownership", null=True
+        User, on_delete=models.CASCADE, related_name="ownership"
     )
     members = models.ManyToManyField(
         User, through="ChannelUsers", related_name="members"

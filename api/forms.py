@@ -73,7 +73,6 @@ class ChannelCreateForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         # ENSURE CHANNEL DOESN'T EXIST
-
         return cleaned_data
 
     def save(self):

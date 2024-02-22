@@ -15,15 +15,15 @@ def channels_create(request):
 
     if data.get("members"):
         data["members"].append(request.user)
+        data["owner_id"] = request.user.id
 
     form = ChannelCreateForm(data)
 
     if not form.is_valid():
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
-    # channel = form.save()
-    # return JsonResponse({"channel": channel.repr()}, status=200)
-    return HttpResponse(status=200)
+    channel = form.save()
+    return JsonResponse({"channel": channel.repr()}, status=200)
 
 
 @require_http_methods(["DELETE"])
