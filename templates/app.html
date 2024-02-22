@@ -146,54 +146,46 @@
     <div class="modal fade" tabindex="-1" id="profile-modal">
         <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
-                <div class="modal-body row">
-                    <div class="col-3">
+                <div class="modal-body d-flex gap-4">
+                    <div class="position-relative">
                         <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
                             <circle cx="8" cy="8" r="8"/>
                         </svg>
-                        <div class="btn-group dropend" style="position: absolute; left: 4.4rem; top: 3.6rem;">
-                            <button type="button" class="btn py-0 px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="position-absolute dropend status-icon translate-middle">
+                            <button class="btn border-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="16" height="16" fill="#21bf4b" viewBox="0 0 16 16">
                                     <circle cx="8" cy="8" r="8"/>
                                 </svg>
                             </button>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="a">
-                                        <svg width="16" height="16" fill="#21bf4b" viewBox="0 0 16 16">
-                                            <circle cx="8" cy="8" r="8"/>
-                                        </svg>
-                                        Online
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="a">
-                                        <svg width="16" height="16" fill="#b5bf21" viewBox="0 0 16 16">
-                                            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
-                                        </svg>
-                                        Zdala od komputera
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="a">
-                                        <svg width="16" height="16" fill="#404040" viewBox="0 0 16 16">
-                                            <circle cx="8" cy="8" r="8"/>
-                                        </svg>
-                                        Offline
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="a">
-                                        <svg width="16" height="16" fill="#bf2121" viewBox="0 0 16 16">
-                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/>
-                                        </svg>
-                                        Nie przeszkadzać
-                                    </button>
-                                </li>
+                                <li><button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="status-online">
+                                    <svg width="16" height="16" fill="#21bf4b" viewBox="0 0 16 16">
+                                        <circle cx="8" cy="8" r="8"/>
+                                    </svg>
+                                    Online
+                                </button></li>
+                                <li><button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="status-busy">
+                                    <svg width="16" height="16" fill="#bf2121" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/>
+                                    </svg>
+                                    Nie przeszkadzać
+                                </button></li>
+                                <li><button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="status-away">
+                                    <svg width="16" height="16" fill="#b5bf21" viewBox="0 0 16 16">
+                                        <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+                                    </svg>
+                                    Z dala od komputera
+                                </button></li>
+                                <li><button class="dropdown-item d-flex gap-3 align-items-center rounded change-theme" id="status-offline">
+                                    <svg width="16" height="16" fill="#404040" viewBox="0 0 16 16">
+                                        <circle cx="8" cy="8" r="8"/>
+                                    </svg>
+                                    Offline
+                                </button></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col d-flex flex-column justify-content-center">
+                    <div class="d-flex flex-column justify-content-center">
                         <div class="fs-4">Bartosz Mroczkowski</div>
                         <div class="fs-6 text-secondary">B4rt2asd2</div>
                     </div>
@@ -205,84 +197,93 @@
     <!-- SETTINGS -->
     <div class="modal" tabindex="-1" id="settings-modal">
         <div class="modal-dialog modal-fullscreen modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header container">
+            <div class="modal-content overflow-y-auto" style="max-height: 100%;">
+                <div class="modal-header">
                     <h5 class="modal-title">Ustawienia</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body container">
-                    <div class="fs-3 pb-1 border-bottom mb-3">Profil</div>
-                    <div class="mt-2">
-                        <label for="first-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Imię <span class="text-danger" id="first-name-error">*</span></label>
-                        <input type="text" class="form-control" style="max-width: 600px;" id="first-name-input" value="Aktualne imie" required>
-                    </div>
-                    <div class="mt-2">
-                        <label for="last-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwisko <span class="text-danger" id="last-name-error">*</span></label>
-                        <input type="text" class="form-control" style="max-width: 600px;" id="last-name-input" value="Aktualne nazwisko" required>
-                    </div>
-                    <div class="mt-2">
-                        <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwa Użytkownika <span class="text-danger" id="username-error">*</span></label>
-                        <input type="text" class="form-control" style="max-width: 600px;" id="username-input" value="Aktualna nazwa użytkownika">
-                    </div>
-                    <button type="button" class="btn btn-outline-success mt-4" style="width: 200px;">Zapisz</button>
-                    <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Bezpieczeństwo</div>
-                    <div>
-                        <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Hasło <span class="text-danger" id="password-error">*</span></label>
-                        <input type="password" class="form-control" style="max-width: 600px;" id="password-input" required>
-                    </div>
-                    <div>
-                        <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Potwierdz hasło <span class="text-danger" id="password-error">*</span></label>
-                        <input type="password" class="form-control" style="max-width: 600px;" id="password-input" required>
-                    </div>
-                    <button type="button" class="btn btn-outline-success mt-4" style="width: 200px;">Zapisz</button>
+                <div class="modal-body container overflow-y-visible">
+                    <!-- PROFILE -->
+                    <form>
+                        <div class="fs-3 pb-1 border-bottom mb-3">Profil</div>
+                        <div class="mt-2">
+                            <label for="first-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Imię <span class="text-danger" id="first-name-error">*</span></label>
+                            <input type="text" class="form-control" style="max-width: 600px;" id="first-name-input" value="Aktualne imie" required>
+                        </div>
+                        <div class="mt-2">
+                            <label for="last-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwisko <span class="text-danger" id="last-name-error">*</span></label>
+                            <input type="text" class="form-control" style="max-width: 600px;" id="last-name-input" value="Aktualne nazwisko" required>
+                        </div>
+                        <div class="mt-2">
+                            <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwa Użytkownika <span class="text-danger" id="username-error">*</span></label>
+                            <input type="text" class="form-control" style="max-width: 600px;" id="username-input" value="Aktualna nazwa użytkownika">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mt-4" style="width: 200px;">Zapisz</button>
+                    </form>
+                    <!-- SECURITY -->
+                    <form>
+                        <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Bezpieczeństwo</div>
+                        <div>
+                            <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Hasło <span class="text-danger" id="password-error">*</span></label>
+                            <input type="password" class="form-control" style="max-width: 600px;" id="password-input" required>
+                        </div>
+                        <div>
+                            <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Potwierdź hasło <span class="text-danger" id="password-error">*</span></label>
+                            <input type="password" class="form-control" style="max-width: 600px;" id="password-input" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mt-4" style="width: 200px;">Zapisz</button>
+                    </form>
+                    <!-- THEME -->
                     <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Motyw</div>
-                    <div class="form-check">
+                    <div>
                         <input type="radio" class="btn-check change-theme" name="options-base" id="auto" autocomplete="off" checked>
-                        <label class="btn" for="auto">
-                            Auto
+                        <label class="btn d-flex gap-3 align-items-center rounded change-theme" for="auto">
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 0 8 1zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16"/>
                             </svg>
+                            Auto
                         </label>
                     </div>
-                    <div class="form-check">
+                    <div>
                         <input type="radio" class="btn-check change-theme" name="options-base" id="dark" autocomplete="off">
-                        <label class="btn" for="dark">
-                            Ciemny
+                        <label class="btn d-flex gap-3 align-items-center rounded change-theme" for="dark">
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"/>
                             </svg>
+                            Ciemny
                         </label>
                     </div>
-                    <div class="form-check">
+                    <div>
                         <input type="radio" class="btn-check change-theme" name="options-base" id="light" autocomplete="off">
-                        <label class="btn" for="light">
-                            Jasny
+                        <label class="btn d-flex gap-3 align-items-center rounded change-theme"" for="light">
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
                             </svg>
+                            Jasny
                         </label>
                     </div>
-                    <div class="form-check">
+                    <div>
                         <input type="radio" class="btn-check change-theme" name="options-base" id="high-contrast" autocomplete="off">
-                        <label class="btn" for="high-contrast">
-                            Kontrast
+                        <label class="btn d-flex gap-3 align-items-center rounded change-theme"" for="high-contrast">
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-8 5v1H4.5a.5.5 0 0 0-.093.009A7 7 0 0 1 3.1 13zm0-1H2.255a7 7 0 0 1-.581-1H8zm-6.71-2a7 7 0 0 1-.22-1H8v1zM1 8q0-.51.07-1H8v1zm.29-2q.155-.519.384-1H8v1zm.965-2q.377-.54.846-1H8v1zm2.137-2A6.97 6.97 0 0 1 8 1v1z"/>
                             </svg>
+                            Kontrast
                         </label>
                     </div>
+                    <!-- NOTIFICATIONS -->
                     <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Powiadomienia</div>
                     <div class="form-check form-switch">
                         <label class="form-check-label" for="flexSwitchCheckChecked">Wszystkie Powiadomienia</label>
                         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                     </div>
                     <div class="form-check form-switch">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Dzwięk powiadomień</label>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Dźwięk powiadomień</label>
                         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                     </div>
+                    <!-- DELETE ACCOUNT -->
                     <div class="fs-3 mt-5 pb-1 border-bottom mb-3 text-danger">Usuń konto</div>
-                    <div>Pamiętaj usunięcie konta jest pernamentne i nieodwracalne</div>
+                    <div>Pamiętaj usunięcie konta jest permanentne i nieodwracalne</div>
                     <button type="button" class="btn btn-outline-danger mt-4" style="width: 200px;">Usuń</button>
                 </div>
             </div>
@@ -297,7 +298,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="search-form">
+                    <div class="search-form">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control search-inpt" placeholder="Nazwa użytkownika">
                             <button class="input-group-text bg-body-tertiary" type="submit">
@@ -307,7 +308,7 @@
                             </button>
                         </div>
                         <div class="searched-users" id="open-direct"></div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -363,7 +364,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div>Zmień nazwe grupy:</div>
+                    <div>Zmień nazwę grupy:</div>
                     <form class="">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="search-inpt">
