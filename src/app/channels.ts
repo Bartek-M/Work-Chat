@@ -13,7 +13,7 @@ $(".channel-create-form").each((_, el) => {
         let groupName = form.find("#group-name").val()
         let direct = groupName ? false : true
 
-        await fetch("/api/auth/channels/create/", {
+        await fetch("/api/channels/create/", {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -41,10 +41,10 @@ $(".search-form").each((_, el) => {
     let form = $(el)
     let lastUsername: string
 
-    form.on("submit", async (e) => {
+    form.find("button").on("click", async (e) => {
         e.preventDefault()
 
-        let username = form.find(".search-inpt").val()
+        let username = form.find("[name='search-inpt']").val()
         if (!username || username == lastUsername) return
 
         lastUsername = (username as string)
@@ -111,3 +111,8 @@ async function openDirect(userId: string) {
 }
 
 $("#open-direct").on("click", (e) => openDirect(e.target.id))
+
+
+function addUser(userId: string) {
+    
+}

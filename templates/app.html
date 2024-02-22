@@ -224,12 +224,12 @@
                     <form>
                         <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Bezpieczeństwo</div>
                         <div>
-                            <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Hasło <span class="text-danger" id="password-error">*</span></label>
-                            <input type="password" class="form-control" style="max-width: 600px;" id="password-input" required>
+                            <label for="password1-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Hasło <span class="text-danger" id="password-error">*</span></label>
+                            <input type="password" class="form-control" style="max-width: 600px;" id="password1-input" required>
                         </div>
                         <div>
-                            <label for="password-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Potwierdź hasło <span class="text-danger" id="password-error">*</span></label>
-                            <input type="password" class="form-control" style="max-width: 600px;" id="password-input" required>
+                            <label for="password2-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Potwierdź hasło <span class="text-danger" id="password-error">*</span></label>
+                            <input type="password" class="form-control" style="max-width: 600px;" id="password2-input" required>
                         </div>
                         <button type="submit" class="btn btn-outline-success mt-4" style="width: 200px;">Zapisz</button>
                     </form>
@@ -274,12 +274,12 @@
                     <!-- NOTIFICATIONS -->
                     <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Powiadomienia</div>
                     <div class="form-check form-switch">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Wszystkie Powiadomienia</label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                        <label class="form-check-label" for="notifications-all">Wszystkie Powiadomienia</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="notifications-all" checked>
                     </div>
                     <div class="form-check form-switch">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Dźwięk powiadomień</label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                        <label class="form-check-label" for="notifications-sound">Dźwięk powiadomień</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="notifications-sound" checked>
                     </div>
                     <!-- DELETE ACCOUNT -->
                     <div class="fs-3 mt-5 pb-1 border-bottom mb-3 text-danger">Usuń konto</div>
@@ -300,8 +300,8 @@
                 <div class="modal-body">
                     <div class="search-form">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control search-inpt" placeholder="Nazwa użytkownika">
-                            <button class="input-group-text bg-body-tertiary" type="submit">
+                            <input type="text" class="form-control" name="search-inpt" placeholder="Nazwa użytkownika">
+                            <button class="input-group-text bg-body-tertiary" type="button">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                 </svg>
@@ -321,7 +321,7 @@
                     <h5 class="modal-title">Utwórz Grupę</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="channel-create-form modal-body d-flex flex-column gap-3 px-4">
+                <form class="channel-create-form modal-body d-flex flex-column gap-3 px-4">
                     <div class="d-flex align-items-center gap-4 mb-3">
                         <button class="btn p-0 border-0">
                             <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
@@ -335,23 +335,23 @@
                     </div>
                     <div class="d-flex gap-2 align-items-center flex-wrap px-2">
                         <span>Użytkownicy:</span>
-                        <button class="btn p-0 border-0">
+                        <button class="btn p-0 border-0" type="button">
                             <img class="title-avatar" src="{% static 'icons/avatar_1.jpg' %}" alt="Avatar">
                         </button>
                     </div>
-                    <form class="search-form">
+                    <div class="search-form">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control search-inpt" placeholder="Nazwa użytkownika">
-                            <button class="input-group-text bg-body-tertiary" type="submit">
+                            <input type="text" class="form-control" name="search-inpt" placeholder="Nazwa użytkownika" onkeypress="return event.keyCode != 13;">
+                            <button class="input-group-text bg-body-tertiary" type="button">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                 </svg>
                             </button>
                         </div>
                         <div class="searched-users"></div>
-                    </form>
+                    </div>
                     <button type="button" class="btn btn-outline-primary w-100 mt-2">Utwórz</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
