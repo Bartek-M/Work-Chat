@@ -186,8 +186,8 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column justify-content-center">
-                        <div class="fs-4">Bartosz Mroczkowski</div>
-                        <div class="fs-6 text-secondary">B4rt2asd2</div>
+                        <div class="fs-4">{{ user.first_name }} {{ user.last_name }}</div>
+                        <div class="fs-6 text-secondary">{{ user.username }}</div>
                     </div>
                 </div>
                 <button type="button" class="btn-close position-absolute end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -214,15 +214,15 @@
                         </button>
                         <div class="mt-2">
                             <label for="first-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Imię <span class="text-danger" id="first-name-error">*</span></label>
-                            <input type="text" class="form-control" style="max-width: 600px;" id="first-name-input" value="Aktualne imie" required>
+                            <input type="text" class="form-control" style="max-width: 600px;" id="first-name-input" value="{{ user.first_name }}" required>
                         </div>
                         <div class="mt-2">
                             <label for="last-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwisko <span class="text-danger" id="last-name-error">*</span></label>
-                            <input type="text" class="form-control" style="max-width: 600px;" id="last-name-input" value="Aktualne nazwisko" required>
+                            <input type="text" class="form-control" style="max-width: 600px;" id="last-name-input" value="{{ user.last_name }}" required>
                         </div>
                         <div class="mt-2">
                             <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwa Użytkownika <span class="text-danger" id="username-error">*</span></label>
-                            <input type="text" class="form-control" style="max-width: 600px;" id="username-input" value="Aktualna nazwa użytkownika">
+                            <input type="text" class="form-control" style="max-width: 600px;" id="username-input" value="{{ user.username }}">
                         </div>
                         <button type="submit" class="btn btn-outline-success mt-4" style="width: 200px;">Zapisz</button>
                     </form>
@@ -335,7 +335,7 @@
                             </svg>
                         </button>
                         <div class="w-100">
-                            <div>Nazwa grupy</div>
+                            <div>Nazwa</div>
                             <input class="form-control my-2" type="text" id="group-name">
                         </div>
                     </div>
@@ -377,10 +377,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
+                <button type="submit" class="btn btn-outline-primary w-100">Save changes</button>
             </div>
         </div>
     </div>

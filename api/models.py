@@ -43,6 +43,14 @@ class UserSettings(models.Model):
     notifications = models.BooleanField(default=True)
     notification_sound = models.BooleanField(default=True)
 
+    def repr(self) -> dict:
+        return {
+            "theme": self.theme,
+            "status": self.status,
+            "notifications": self.notifications,
+            "notification_sound": self.notification_sound
+        }
+
 
 class Channel(models.Model):
     """

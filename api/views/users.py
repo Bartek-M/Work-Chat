@@ -6,11 +6,21 @@ from django.utils.translation import gettext as _
 from django.http import JsonResponse
 from django.urls import path
 
-from api.models import User
+from api.models import User, UserSettings
 
 
+@login_required
 def user(request):
-    return JsonResponse({"Hello": "World"})
+    user = request.user()
+    settings = UserSettings.objects.get(pk=user.id)
+
+    return JsonResponse(
+        {
+            "user": user.repr(),
+            "settings": settings.repr(),
+        },
+        status=200,
+    )
 
 
 @require_http_methods(["POST"])
@@ -23,7 +33,7 @@ def search(request):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         return JsonResponse({"errors": {"user": _("User not found")}}, status=400)
-    
+
     if user.id == request.user.id:
         return JsonResponse({"errors": {"user": _("User is client user")}}, status=400)
 
@@ -31,6 +41,6 @@ def search(request):
 
 
 urlpatterns = [
-    path("", user),
+    path("me/", user),
     path("search/", search),
 ]

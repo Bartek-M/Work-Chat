@@ -6,11 +6,14 @@ from django.urls import path
 def app(request, page):
     if not request.user.is_authenticated:
         return render(request, page)
-    
+
     return render(
         request,
         "app.html",
-        {"channels": request.user.channels.all()},
+        {
+            "user": request.user,
+            "channels": request.user.channels.all(),
+        },
     )
 
 
