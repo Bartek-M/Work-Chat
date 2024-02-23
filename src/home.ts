@@ -39,7 +39,7 @@ $(".card").each((_, card) => {
             card.style.transform = "rotate3d(0.2, 1, -0.2, 10deg)"
         } else if (positionX < 30 && positionY > 70) {
             // lewy dolny
-            card.style.transform = "rotate3d(1, 1, -0.2, 10deg)"
+            card.style.transform = "rotate3d(0.2, 1, 0.2, 10deg)"
         } else if (positionX > 70 && positionY > 70) {
             // prawy dolny
             card.style.transform = "rotate3d(-1, 1, -0.2, 10deg)"
