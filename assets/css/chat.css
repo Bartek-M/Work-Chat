@@ -70,7 +70,9 @@ html,
     --bs-btn-hover-bg: rgb(var(--bs-dark-rgb));
     --bs-btn-hover-border-color: rgb(var(--bs-dark-rgb));
     --bs-btn-active-border-color: rgb(var(--bs-dark-rgb));
-    gap: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.85rem;
 }
 

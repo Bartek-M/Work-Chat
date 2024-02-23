@@ -3,6 +3,7 @@ const bootstrap = window["bootstrap"]
 
 import { showToast } from "../utils"
 
+let selectedMembers: string[] = []
 
 $(".channel-create-form").each((_, el) => {
     const form = $(el)
@@ -61,13 +62,18 @@ $(".search-form").each((_, el) => {
         }).then(async (resp) => {
             await resp.json().then((data) => {
                 if (resp.status == 200 && data.user) {
-                    form.find(".searched-users").html(`
-                        <button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${data.user.id}">
-                            <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar">
-                            ${data.user.first_name} ${data.user.last_name}
-                        </button>
-                    `)
-                    return
+                    return form.find(".searched-users").html(
+                        form.find("[name='add-members']")
+                            ? `<label class="channel-open btn w-100">
+                                <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar" />
+                                <span class="flex-fill text-start">${data.user.first_name} ${data.user.last_name}</span>
+                                <input id="searched-${data.user.id}" type="checkbox" data-name="${data.user.username}" ${selectedMembers.includes(String(data.user.id)) ? "checked" : null} />
+                            </label>`
+                            : `<button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${data.user.id}">
+                                <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar">
+                                ${data.user.first_name} ${data.user.last_name}
+                            </button>`
+                    )
                 }
 
                 form.find(".searched-users").html("")
@@ -77,7 +83,8 @@ $(".search-form").each((_, el) => {
 
                 showToast("API", errors.user, "error")
             })
-        }).catch(() => {
+        }).catch((e) => {
+            console.log(e)
             showToast("API", "Coś poszło nie tak", "error")
         })
     })
@@ -105,14 +112,30 @@ async function openDirect(userId: string) {
             showToast("API", errors.channel, "error")
         })
     }).catch((e) => {
-        console.log(e)
         showToast("API", "Coś poszło nie tak", "error")
     })
 }
 
-$("#open-direct").on("click", (e) => openDirect(e.target.id))
 
 
-function addUser(userId: string) {
-    
+function addMember(userId: string, username: string | null) {
+    if (!userId) return
+    userId = userId.replace("searched-", "").replace("added-", "")
+
+    if (selectedMembers.includes(userId)) {
+        selectedMembers = selectedMembers.filter(val => val != userId)
+        $("#added-members").find(`#added-${userId}`).remove()
+        $("#to-add").find(`#searched-${userId}`).prop("checked", false)
+    } else {
+        selectedMembers.push(userId)
+        $("#added-members").append(`
+            <button class="channel-open btn bg-body-tertiary" type="button" id="added-${userId}">
+                ${username}
+                <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
+            </label>
+        `)
+    }
 }
+
+$("#open-direct").on("click", (e) => openDirect(e.target.id))
+$("[name='add-members']").on("click", (e) => addMember(e.target.id, e.target.dataset.name))

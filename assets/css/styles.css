@@ -76,12 +76,14 @@ body {
     color: var(--bs-cute-rgb);
 }
 
+.pointer-events *,
 button {
     pointer-events: all;
 }
 
+.pointer-events,
 button * {
-    pointer-events: none;
+    pointer-events: none!important;
 }
 
 button:active {
