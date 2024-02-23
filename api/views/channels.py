@@ -15,7 +15,7 @@ def channels_create(request):
 
     if data.get("members"):
         data["members"].append(request.user)
-        data["owner_id"] = request.user.id
+        data["owner"] = request.user.id
 
     form = ChannelCreateForm(data)
 

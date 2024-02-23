@@ -5,35 +5,33 @@ import { showToast } from "../utils"
 
 let selectedMembers: string[] = []
 
-$(".channel-create-form").each((_, el) => {
-    const form = $(el)
+const form = $(".channel-create-form")
+form.on("submit", async (e) => {
+    e.preventDefault()
 
-    form.on("submit", async (e) => {
-        e.preventDefault()
+    let groupName = form.find("#group-name").val()
+    if (!groupName) return
 
-        let groupName = form.find("#group-name").val()
-        let direct = groupName ? false : true
+    await fetch("/api/channels/create/", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+            "X-CSRFToken": (window as any)["csrf"]
+        },
+        body: JSON.stringify({
+            name: groupName,
+            direct: true,
+            members: selectedMembers
+        }),
+    }).then(async (resp) => {
+        if (resp.status == 200) return $("#group-create-modal").modal("hide")
 
-        await fetch("/api/channels/create/", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-                "X-CSRFToken": (window as any)["csrf"]
-            },
-            body: JSON.stringify({
-                name: groupName,
-                direct: direct
-            }),
-        }).then(async (resp) => {
-            if (resp.status == 200) return
-
-            await resp.json().then((data) => {
-                let errors = data.errors
-                if (!errors) return showToast("API", "Coś poszło nie tak", "error")
-            })
-        }).catch(() => {
-            showToast("API", "Coś poszło nie tak", "error")
+        await resp.json().then((data) => {
+            let errors = data.errors
+            if (!errors) return showToast("API", "Coś poszło nie tak", "error")
         })
+    }).catch(() => {
+        showToast("API", "Coś poszło nie tak", "error")
     })
 })
 
@@ -111,7 +109,7 @@ async function openDirect(userId: string) {
 
             showToast("API", errors.channel, "error")
         })
-    }).catch((e) => {
+    }).catch(() => {
         showToast("API", "Coś poszło nie tak", "error")
     })
 }

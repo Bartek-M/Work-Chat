@@ -53,7 +53,8 @@ class Channel(models.Model):
     direct = models.BooleanField(default=False)
     icon = models.IntegerField(null=True)
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="ownership"
+        User, on_delete=models.CASCADE, related_name="ownership",
+        null=False
     )
     members = models.ManyToManyField(
         User, through="ChannelUsers", related_name="members"

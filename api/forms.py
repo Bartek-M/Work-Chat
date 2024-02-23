@@ -67,7 +67,7 @@ class LoginForm(forms.Form):
 class ChannelCreateForm(forms.ModelForm):
     class Meta:
         model = Channel
-        fields = ("direct", "name", "members")
+        fields = ("direct", "name", "members", "owner")
 
     def clean(self):
         cleaned_data = super().clean()
