@@ -12,7 +12,9 @@ def app(request, page):
         "app.html",
         {
             "user": request.user,
-            "channels": request.user.channels.all(),
+            "channels": sorted(
+                request.user.channels.all(), key=lambda ch: ch.last_message
+            ),
         },
     )
 

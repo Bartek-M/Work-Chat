@@ -67,12 +67,24 @@ class LoginForm(forms.Form):
 class ChannelCreateForm(forms.ModelForm):
     class Meta:
         model = Channel
-        fields = ("direct", "name", "members", "owner")
+        fields = ("name", "members", "direct", "direct_id", "owner")
 
     def clean(self):
         cleaned_data = super().clean()
 
-        # ENSURE CHANNEL DOESN'T EXIST
+        if cleaned_data.get("direct"):
+            members = cleaned_data.get("members")
+
+            direct_id = f"{min(members, key=lambda user: user.id).id}-{max(members, key=lambda user: user.id).id}"
+            cleaned_data["direct_id"] = direct_id
+
+            try:
+                channel = Channel.objects.get(direct_id=direct_id)
+                cleaned_data["channel"] = channel.repr()
+                raise ValidationError("Exists")
+            except Channel.DoesNotExist:
+                pass
+
         return cleaned_data
 
     def save(self):

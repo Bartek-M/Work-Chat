@@ -20,6 +20,9 @@ def channels_create(request):
     form = ChannelCreateForm(data)
 
     if not form.is_valid():
+        if channel := form.cleaned_data.get("channel"):
+            return JsonResponse({"channel": channel}, status=200)
+
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
     channel = form.save()
@@ -30,6 +33,20 @@ def channels_create(request):
 @login_required
 def channels_delete(request):
     return HttpResponse(status=200)
+
+
+@login_required
+def channel_messages(request):
+    # CHECK IF USER BELONGS TO CHANNEL
+
+    return
+
+
+@login_required
+def channel_members(request):
+    # CHECK IF USER BELONGS TO CHANNEL
+
+    return
 
 
 urlpatterns = [

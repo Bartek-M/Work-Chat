@@ -25,6 +25,9 @@ class User(AbstractUser):
             "avatar": self.avatar,
         }
 
+    def get_channels(self) -> list:
+        return []
+
 
 class UserSettings(models.Model):
     """
@@ -48,7 +51,7 @@ class UserSettings(models.Model):
             "theme": self.theme,
             "status": self.status,
             "notifications": self.notifications,
-            "notification_sound": self.notification_sound
+            "notification_sound": self.notification_sound,
         }
 
 
@@ -59,15 +62,16 @@ class Channel(models.Model):
 
     name = models.CharField(max_length=100, blank=True, default="")
     direct = models.BooleanField(default=False)
+    direct_id = models.TextField(unique=True, blank=True)
     icon = models.IntegerField(null=True)
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="ownership",
-        null=False
+        User, on_delete=models.CASCADE, related_name="ownership", null=False
     )
     members = models.ManyToManyField(
         User, through="ChannelUsers", related_name="members"
     )
     create_time = models.DateTimeField(default=timezone.now)
+    last_message = models.DateTimeField(default=timezone.now)
 
     def repr(self) -> dict:
         return {

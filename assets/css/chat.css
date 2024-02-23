@@ -29,7 +29,7 @@ html,
     }
 
     #chat-wrapper {
-        position: fixed;
+        position: fixed!important;
         transform: translateX(100%);
         transition: transform 0.25s;
         width: 100%;
@@ -48,6 +48,8 @@ html,
 .title-avatar {
     width: 26px;
     height: 26px;
+    max-height: 26px;
+    max-width: 26px;
     object-fit: cover;
     border-radius: 100%;
 }
@@ -55,6 +57,7 @@ html,
 .sidebar-icon {
     width: 32px;
     height: 32px;
+    max-height: 32px;
     max-width: 32px;
     object-fit: cover;
     border-radius: 100%;

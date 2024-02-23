@@ -11,7 +11,7 @@ from api.models import User, UserSettings
 
 @login_required
 def user(request):
-    user = request.user()
+    user = request.user
     settings = UserSettings.objects.get(pk=user.id)
 
     return JsonResponse(
@@ -19,6 +19,14 @@ def user(request):
             "user": user.repr(),
             "settings": settings.repr(),
         },
+        status=200,
+    )
+
+
+@login_required
+def get_channels(request):
+    return JsonResponse(
+        {"channels": request.user.get_channels()},
         status=200,
     )
 
@@ -42,5 +50,6 @@ def search(request):
 
 urlpatterns = [
     path("me/", user),
+    path("me/channels/", get_channels),
     path("search/", search),
 ]
