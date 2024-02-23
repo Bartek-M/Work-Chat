@@ -5,7 +5,7 @@ import { showToast } from "../utils"
 
 let selectedMembers: string[] = []
 
-const form = $(".channel-create-form")
+let form = $(".channel-create-form")
 form.on("submit", async (e) => {
     e.preventDefault()
 
@@ -38,9 +38,16 @@ form.on("submit", async (e) => {
 
 $(".search-form").each((_, el) => {
     let form = $(el)
+    let button = form.find("button")
     let lastUsername: string
 
-    form.find("button").on("click", async (e) => {
+    form.find("input").on("keydown", (e) => {
+        if (e.key != "Enter") return true
+        button.get(0).click()
+        return false
+    })
+
+    button.on("click", async (e) => {
         e.preventDefault()
 
         let username = form.find("[name='search-inpt']").val()
@@ -61,7 +68,7 @@ $(".search-form").each((_, el) => {
             await resp.json().then((data) => {
                 if (resp.status == 200 && data.user) {
                     return form.find(".searched-users").html(
-                        form.find("[name='add-members']")
+                        form.find("[name='add-members']").length
                             ? `<label class="channel-open btn w-100">
                                 <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar" />
                                 <span class="flex-fill text-start">${data.user.first_name} ${data.user.last_name}</span>
