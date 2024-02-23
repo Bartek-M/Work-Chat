@@ -6,7 +6,7 @@ import { showToast } from "../utils"
 let currentChannel: any = null
 let selectedMembers: string[] = []
 
-let channels: { [id: string]: {} } = {}
+let channels: { [id: string]: any } = {}
 export const setChannels = (toSet: any) => {
     channels = toSet.reduce((obj: any, item: any) => { obj[`${item.id}`] = item; return obj }, {})
 }
@@ -149,7 +149,37 @@ $("#open-direct").on("click", (e) => openDirect(e.target.id))
 $("[name='add-members']").on("click", (e) => addMember(e.target.id, e.target.dataset.name))
 
 
-function openChannel(channelId: string) {
+async function getChannelData(channelId: string) {
+    await fetch(`/api/channels/${channelId}/messages`, {
+        headers: {
+            "Content-type": "application/json",
+            "X-CSRFToken": (window as any)["csrf"]
+        }
+    }).then(async (resp) => {
+        await resp.json().then((data) => {
+            if (resp.status == 200 && data.messages) return channels[channelId].messages = data.messages
+            showToast("API", "Nie udało się wczytać wiadomości", "error")
+        })
+    }).catch(() => {
+        showToast("API", "Nie udało się wczytać wiadomości", "error")
+    })
+
+    await fetch(`/api/channels/${channelId}/members`, {
+        headers: {
+            "Content-type": "application/json",
+            "X-CSRFToken": (window as any)["csrf"]
+        }
+    }).then(async (resp) => {
+        await resp.json().then((data) => {
+            if (resp.status == 200 && data.members) return channels[channelId].members = data.members
+            showToast("API", "Nie udało się wczytać użytkowników", "error")
+        })
+    }).catch(() => {
+        showToast("API", "Nie udało się wczytać użytkowników", "error")
+    })
+}
+
+async function openChannel(channelId: string) {
     if (currentChannel) {
         if (currentChannel.id == channelId) return $("#chat-wrapper").addClass("active")
         $(`#channel-${currentChannel.id}`).removeClass("active")
@@ -158,6 +188,11 @@ function openChannel(channelId: string) {
     currentChannel = channels[channelId]
     if (!currentChannel) return
     $("#chat-wrapper").addClass("active")
+
+    if (!channels[channelId].messages || !channels[channelId].members) {
+        await getChannelData(channelId)
+        currentChannel = channels[channelId]
+    }
 
     $("#chat-wrapper").html(`
         <nav class="navbar py-1 border-bottom">
