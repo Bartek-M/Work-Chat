@@ -26,7 +26,26 @@ class User(AbstractUser):
         }
 
     def get_channels(self) -> list:
-        return []
+        return [
+            {
+                "id": channel.id,
+                "name": (
+                    channel.name
+                    if not channel.direct
+                    else channel.members.exclude(id=self.id)[0].get_full_name()
+                ),
+                "icon": (
+                    channel.icon
+                    if not channel.direct
+                    else channel.members.exclude(id=self.id)[0].avatar
+                ),
+                "last_message": channel.last_message,
+                "settings": (
+                    ChannelUsers.objects.filter(user=self, channel=channel)[0].repr()
+                ),
+            }
+            for channel in self.channels.all()
+        ]
 
 
 class UserSettings(models.Model):
@@ -78,6 +97,7 @@ class Channel(models.Model):
             "id": self.id,
             "name": self.name,
             "icon": self.icon,
+            "create_time": self.create_time
         }
 
 
@@ -102,3 +122,9 @@ class ChannelUsers(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     notifications = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
+
+    def repr(self) -> dict:
+        return {
+            "notifications": self.notifications,
+            "date_joined": self.date_joined,
+        }

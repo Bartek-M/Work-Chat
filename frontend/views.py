@@ -6,14 +6,14 @@ from django.urls import path
 def app(request, page):
     if not request.user.is_authenticated:
         return render(request, page)
-
+    
     return render(
         request,
         "app.html",
         {
             "user": request.user,
             "channels": sorted(
-                request.user.channels.all(), key=lambda ch: ch.last_message
+                request.user.get_channels(), key=lambda ch: ch.get("last_message")
             ),
         },
     )

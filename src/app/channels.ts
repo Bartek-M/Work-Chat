@@ -7,8 +7,9 @@ let currentChannel: any = null
 let selectedMembers: string[] = []
 
 let channels: { [id: string]: {} } = {}
-export const setChannels = (toSet: any) => channels = toSet
-console.log(channels)
+export const setChannels = (toSet: any) => {
+    channels = toSet.reduce((obj: any, item: any) => { obj[`${item.id}`] = item; return obj }, {})
+}
 
 
 let form = $(".channel-create-form")
@@ -151,7 +152,7 @@ $("[name='add-members']").on("click", (e) => addMember(e.target.id, e.target.dat
 function openChannel(channelId: string) {
     if (currentChannel) {
         if (currentChannel.id == channelId) return $("#chat-wrapper").addClass("active")
-        $(`#channel-{{ currentChannel.id }}`).removeClass("active")
+        $(`#channel-${currentChannel.id}`).removeClass("active")
     }
 
     currentChannel = channels[channelId]
@@ -167,8 +168,8 @@ function openChannel(channelId: string) {
                             <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
                         </svg>
                     </button>
-                    <img class="title-avatar ms-1" src="api/files/{{ currentChannel.icon }}" alt="Avatar">
-                    {{ currentChannel.name }}
+                    <img class="title-avatar ms-1" src="api/files/${currentChannel.icon}" alt="Avatar">
+                    ${currentChannel.name}
                 </div>
                 <div class="dropstart" data-bs-toggle="dropdown" aria-expanded="false">
                     <button class="btn border-0">
@@ -214,8 +215,8 @@ function openChannel(channelId: string) {
         </div>
     `)
 
-    $(`#channel-{{ currentChannel.id }}`).addClass("active")
+    $(`#channel-${currentChannel.id}`).addClass("active")
+    $("#chat-close").on("click", () => { console.log("HELLO???"); $("#chat-wrapper").removeClass("active") })
 }
 
-$(".channel-open").each((_, el) => { $(el).on("click", (e) => openChannel(e.target.id)) })
-$("#chat-close").on("click", () => $("#chat-wrapper")?.removeClass("active"))
+$(".channel-open").each((_, el) => { $(el).on("click", (e) => openChannel(e.target.id.replace("channel-", ""))) })
