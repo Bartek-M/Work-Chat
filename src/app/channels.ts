@@ -1,7 +1,7 @@
 const $: JQueryStatic = (window as any)["$"]
 const bootstrap = window["bootstrap"]
 
-import { showToast } from "../utils"
+import { showToast, smoothScroll, encodeHTML } from "../utils"
 
 let currentChannel: any = null
 let selectedMembers: string[] = []
@@ -197,17 +197,16 @@ async function sendMessage(channelId: string, content: string) {
     })
 }
 
-function formatMessages(currentChannel: any, messages: any) {
-    if (!messages.length) return ""
+export function formatMessages(messages: any) {
+    if (!messages.length || !currentChannel) return ""
 
     return messages.map((msg: any) => {
         let author = currentChannel.members.find((user: any) => user.id == msg.author_id)
-
-        return `<div class="d-flex align-items-center my-2">
-                <img class="sidebar-icon mx-3 col" src="/api/files/${author.avatar}" alt="Avatar">
+        return `<div class="d-flex my-2">
+                <img class="sidebar-icon mx-3 mt-2 col" src="/api/files/${author.avatar}" alt="Avatar">
                 <div>
                     <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
-                    <div>${msg.content}</div>
+                    <div name="message-content">${encodeHTML(msg.content)}</div>
                 </div>
             </div>`
     }).join("")
@@ -265,9 +264,9 @@ async function openChannel(channelId: string) {
                 </div>
             </div>
         </nav>
-        <div class="d-flex flex-column overflow-y-scroll h-100">${formatMessages(currentChannel, currentChannel.messages)}</div>
+        <div class="d-flex flex-column overflow-y-scroll h-100" id="message-wrapper">${formatMessages(currentChannel.messages)}</div>
         <div class="input-group align-items-end p-2">
-            <div class="form-control" id="chat-inpt-send" style="height: 38px;" data-placeholder="Wpisz wiadomość" contenteditable></div>
+            <div class="form-control" id="chat-inpt-send" style="min-height: 38px;" data-placeholder="Wpisz wiadomość" contenteditable></div>
             <button class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
@@ -281,6 +280,8 @@ async function openChannel(channelId: string) {
             </button>
         </div>
     `)
+
+    smoothScroll($("#message-wrapper").get(0))
 
     $(`#channel-${currentChannel.id}`).addClass("active")
     $("#chat-close").on("click", () => $("#chat-wrapper").removeClass("active"))

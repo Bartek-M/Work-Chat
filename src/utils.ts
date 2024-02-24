@@ -60,3 +60,12 @@ export function showToast(title: string, message: string, type: "info" | "succes
     if (type != "error") return
     setTimeout(() => toast.remove(), 6000)
 }
+
+export function smoothScroll(element: HTMLElement) {
+    if (!element) return
+    element.scrollBy({ top: element.scrollHeight - element.clientHeight })
+}
+
+export function encodeHTML(html: string) {
+    return html.replace(/[\u00A0-\u9999<>&]/gim, (i) => "&#" + i.charCodeAt(0) + ";").replace(/\n/g, '<br>')
+}

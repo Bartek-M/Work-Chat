@@ -72,6 +72,7 @@ html,
 .channel-open {
     --bs-btn-hover-bg: rgb(var(--bs-dark-rgb));
     --bs-btn-hover-border-color: rgb(var(--bs-dark-rgb));
+    --bs-btn-active-bg: rgb(var(--bs-dark-rgb));
     --bs-btn-active-border-color: rgb(var(--bs-dark-rgb));
     display: flex;
     align-items: center;
