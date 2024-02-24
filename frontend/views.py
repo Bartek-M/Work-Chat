@@ -20,10 +20,12 @@ def app(request, page):
 
 
 home = lambda request: app(request, "home.html")
-docs = lambda request: render(request, "docs.html")
 view_login = lambda request: app(request, "login.html")
 view_register = lambda request: app(request, "register.html")
 
+docs_main = lambda request: render(request, "docs/main.html")
+docs_install = lambda request: render(request, "docs/install.html")
+docs_manual = lambda request: render(request, "docs/manual.html")
 
 def view_logout(request):
     logout(request)
@@ -32,8 +34,10 @@ def view_logout(request):
 
 urlpatterns = [
     path("", home),
-    path("docs/", docs),
     path("login/", view_login),
     path("register/", view_register),
     path("logout/", view_logout),
+    path("docs/", docs_main),
+    path("docs/install/", docs_install),
+    path("docs/manual/", docs_manual),
 ]
