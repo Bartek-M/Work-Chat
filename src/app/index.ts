@@ -14,7 +14,7 @@ async function getData() {
         }
     }).then(async (resp) => {
         await resp.json().then((data) => {
-            if (resp.status == 200 && data.user && data.settings) return console.log(data)
+            if (resp.status == 200 && data.user && data.settings) return
             showToast("API", "Nie udało się wczytać ustawień", "error")
         })
     }).catch(() => {

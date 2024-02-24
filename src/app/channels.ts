@@ -12,6 +12,7 @@ export const setChannels = (toSet: any) => {
 }
 
 
+// CHANNEL CREATE
 let form = $(".channel-create-form")
 form.on("submit", async (e) => {
     e.preventDefault()
@@ -149,34 +150,56 @@ $("#open-direct").on("click", (e) => openDirect(e.target.id))
 $("[name='add-members']").on("click", (e) => addMember(e.target.id, e.target.dataset.name))
 
 
+// CHANNEL OPERATIONS
 async function getChannelData(channelId: string) {
-    await fetch(`/api/channels/${channelId}/messages`, {
-        headers: {
-            "Content-type": "application/json",
-            "X-CSRFToken": (window as any)["csrf"]
-        }
+    await fetch(`/api/channels/${channelId}/messages/`, {
+        headers: { "X-CSRFToken": (window as any)["csrf"] }
     }).then(async (resp) => {
         await resp.json().then((data) => {
             if (resp.status == 200 && data.messages) return channels[channelId].messages = data.messages
+            if (resp.status == 403) return showToast("Channel", "Nie należysz do tego kanału", "error")
             showToast("API", "Nie udało się wczytać wiadomości", "error")
         })
     }).catch(() => {
         showToast("API", "Nie udało się wczytać wiadomości", "error")
     })
 
-    await fetch(`/api/channels/${channelId}/members`, {
-        headers: {
-            "Content-type": "application/json",
-            "X-CSRFToken": (window as any)["csrf"]
-        }
+    await fetch(`/api/channels/${channelId}/members/`, {
+        headers: { "X-CSRFToken": (window as any)["csrf"] }
     }).then(async (resp) => {
         await resp.json().then((data) => {
             if (resp.status == 200 && data.members) return channels[channelId].members = data.members
+            if (resp.status == 403) return showToast("Channel", "Nie należysz do tego kanału", "error")
             showToast("API", "Nie udało się wczytać użytkowników", "error")
         })
     }).catch(() => {
         showToast("API", "Nie udało się wczytać użytkowników", "error")
     })
+}
+
+async function sendMessage(channelId: string, content: string) {
+    if (!channelId || !content) return
+
+    await fetch(`/api/channels/${channelId}/message/`, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+            "X-CSRFToken": (window as any)["csrf"]
+        },
+        body: JSON.stringify({
+            content: content
+        })
+    }).then(async (resp) => {
+        if (resp.status == 200) return $("#chat-inpt-send").text("")
+        showToast("API", "Nie udało się wysłać wiadomości", "error")
+    }).catch(() => {
+        showToast("API", "Nie udało się wysłać wiadomości", "error")
+    })
+}
+
+function formatMessages(messages: any) {
+    if (!messages.length) return ""
+    console.log(messages)
 }
 
 async function openChannel(channelId: string) {
@@ -189,7 +212,7 @@ async function openChannel(channelId: string) {
     if (!currentChannel) return
     $("#chat-wrapper").addClass("active")
 
-    if (!channels[channelId].messages || !channels[channelId].members) {
+    if (!currentChannel.messages || !currentChannel.members) {
         await getChannelData(channelId)
         currentChannel = channels[channelId]
     }
@@ -231,18 +254,16 @@ async function openChannel(channelId: string) {
                 </div>
             </div>
         </nav>
-        <div class="d-flex flex-column">
-            MESSAGES
-        </div>
+        <div class="d-flex flex-column">${formatMessages(currentChannel.messages)}</div>
         <div class="input-group align-items-end p-2">
-            <div class="chat-inpt form-control" data-placeholder="Wpisz wiadomość" contenteditable></div>
+            <div class="form-control" id="chat-inpt-send" data-placeholder="Wpisz wiadomość" contenteditable></div>
             <button class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
                 </svg>
                 <input class="d-none" type="file"/>
             </button>
-            <button class="input-group-text bg-body-tertiary" style="height: 38px;">
+            <button class="input-group-text bg-body-tertiary" id="chat-btn-send" style="height: 38px;">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
                 </svg>
@@ -251,7 +272,19 @@ async function openChannel(channelId: string) {
     `)
 
     $(`#channel-${currentChannel.id}`).addClass("active")
-    $("#chat-close").on("click", () => { console.log("HELLO???"); $("#chat-wrapper").removeClass("active") })
+    $("#chat-close").on("click", () => $("#chat-wrapper").removeClass("active"))
+
+    $("#chat-btn-send").on("click", () => sendMessage(String(currentChannel.id), $("#chat-inpt-send").get(0).innerText))
+    $("#chat-inpt-send").on("keydown", (e) => {
+        if (window.matchMedia("(pointer: coarse)").matches) return
+        if (!e.shiftKey && e.code == "Enter") e.preventDefault()
+    })
+    $("#chat-inpt-send").on("keyup", (e) => {
+        if (e.shiftKey || e.code !== "Enter") return
+        if (window.matchMedia("(pointer: coarse)").matches) return
+
+        sendMessage(currentChannel.id, $("#chat-inpt-send").get(0).innerText)
+    })
 }
 
 $(".channel-open").each((_, el) => { $(el).on("click", (e) => openChannel(e.target.id.replace("channel-", ""))) })

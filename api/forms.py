@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django import forms
 
-from .models import User, UserSettings, Channel, ChannelUsers
+from .models import User, UserSettings, Channel, Message
 
 
 class RegisterForm(forms.ModelForm):
@@ -90,3 +90,23 @@ class ChannelCreateForm(forms.ModelForm):
     def save(self):
         channel = super().save()
         return channel
+
+
+class MessageCreateForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ("channel", "author", "content")
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        try:
+            cleaned_data.get("author").channels.get(id=cleaned_data.get("channel").id)
+        except Channel.DoesNotExist:
+            return ValidationError(_("You are not a member of this channel"))
+
+        return cleaned_data
+
+    def save(self):
+        message = super().save()
+        return message

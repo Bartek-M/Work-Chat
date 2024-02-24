@@ -87,7 +87,7 @@ html,
 }
 
 /* CHAT */
-.chat-inpt:empty:before {
+#chat-inpt-send:empty:before {
     content: attr(data-placeholder);
     color: gray;
 }

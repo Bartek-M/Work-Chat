@@ -97,7 +97,7 @@ class Channel(models.Model):
             "id": self.id,
             "name": self.name,
             "icon": self.icon,
-            "create_time": self.create_time
+            "create_time": self.create_time,
         }
 
 
@@ -109,13 +109,21 @@ class Message(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=2000)
-    is_edited = models.BooleanField(default=False)
     create_time = models.DateTimeField(default=timezone.now)
+
+    def repr(self) -> dict:
+        return {
+            "id": self.id,
+            "channel_id": self.channel.id,
+            "author_id": self.author.id,
+            "content": self.content,
+            "create_time": self.create_time,
+        }
 
 
 class ChannelUsers(models.Model):
     """
-    Channel member representation
+    Channel Member Representation
     """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -128,3 +136,13 @@ class ChannelUsers(models.Model):
             "notifications": self.notifications,
             "date_joined": self.date_joined,
         }
+
+
+class Files(models.Model):
+    """
+    Files Representation
+    """
+
+    file = models.BinaryField()
+    name = models.CharField(max_length=255)
+    create_time = models.DateTimeField(default=timezone.now)

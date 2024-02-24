@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-20 16:35+0100\n"
+"POT-Creation-Date: 2024-02-24 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,10 +24,14 @@ msgstr ""
 msgid "Login or password is invalid"
 msgstr "Login lub hasło są niepoprawne"
 
-#: .\api\views\users.py:25
+#: .\api\forms.py:106
+msgid "You are not a member of this channel"
+msgstr "Nie jesteś członkiem tego kanału"
+
+#: .\api\views\users.py:43
 msgid "User not found"
 msgstr "Nie znaleziono użytkownika"
 
-#: .\api\views\users.py:28
+#: .\api\views\users.py:46
 msgid "User is client user"
 msgstr "Użytkownik jest użytkownikiem klienta"

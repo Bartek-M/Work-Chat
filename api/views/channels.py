@@ -5,10 +5,38 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
-from api.forms import ChannelCreateForm
+from api.forms import ChannelCreateForm, MessageCreateForm
 from api.models import Channel, Message
 
 
+# GET
+@login_required
+def channel_messages(request, channel_id):
+    try:
+        channel = request.user.channels.get(id=channel_id)
+    except Channel.DoesNotExist:
+        return HttpResponse(status=403)
+
+    try:
+        msgs = Message.objects.filter(channel_id=channel.id).order_by("-create_time")[:100]
+        return JsonResponse({"messages": [msg.repr() for msg in msgs]}, status=200)
+    except Message.DoesNotExist:
+        return JsonResponse({"messages": []}, status=200)
+
+
+@login_required
+def channel_members(request, channel_id):
+    try:
+        channel = request.user.channels.get(id=channel_id)
+    except Channel.DoesNotExist:
+        return HttpResponse(status=403)
+
+    return JsonResponse(
+        {"members": [user.repr() for user in channel.members.all()]}, status=200
+    )
+
+
+# POST
 @require_http_methods(["POST"])
 @login_required
 def channels_create(request):
@@ -30,44 +58,41 @@ def channels_create(request):
     return JsonResponse({"channel": channel.repr()}, status=200)
 
 
+@require_http_methods(["POST"])
+@login_required
+def message_create(request, channel_id):
+    data = json.loads(request.body)
+
+    data["author"] = request.user.id
+    data["channel"] = channel_id
+
+    form = MessageCreateForm(data)
+
+    if not form.is_valid():
+        return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
+
+    message = form.save()
+    return JsonResponse({"message": message.repr()}, status=200)
+
+
+# DELETE
 @require_http_methods(["DELETE"])
 @login_required
-def channels_delete(request):
+def channels_delete(request, channel_id):
     return HttpResponse(status=200)
 
 
+@require_http_methods(["DELETE"])
 @login_required
-def channel_messages(request, channel_id):
-    try:
-        channel = request.user.channels.get(id=channel_id)
-    except Channel.DoesNotExist:
-        return HttpResponse(status=403)
-
-    try:
-        messages = Message.objects.get(
-            channel_id=channel.id,
-        ).order_by(
-            "-create_time"
-        )[:50]
-
-        return JsonResponse({"messages": list(messages)}, status=200)
-    except Message.DoesNotExist:
-        return JsonResponse({"messages": []}, status=200)
-
-
-@login_required
-def channel_members(request, channel_id):
-    try:
-        channel = request.user.channels.get(id=channel_id)
-    except Channel.DoesNotExist:
-        return HttpResponse(status=403)
-
-    return JsonResponse({"members": [user.repr() for user in channel.members.all()]}, status=200)
+def message_delete(request, channel_id, message_id):
+    return HttpResponse
 
 
 urlpatterns = [
     path("create/", channels_create),
-    path("delete/", channels_delete),
+    path("<int:channel_id>/delete/", channels_delete),
     path("<int:channel_id>/messages/", channel_messages),
     path("<int:channel_id>/members/", channel_members),
+    path("<int:channel_id>/message/", message_create),
+    path("<int:channel_id>/message/<int:message_id>/delete", message_delete),
 ]
