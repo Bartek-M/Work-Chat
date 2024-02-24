@@ -19,9 +19,7 @@ def channel_messages(request, channel_id):
         return HttpResponse(status=403)
 
     try:
-        msgs = Message.objects.filter(channel_id=channel.id).order_by("-create_time")[
-            :100
-        ]
+        msgs = Message.objects.filter(channel_id=channel.id)[:100]
         return JsonResponse({"messages": [msg.repr() for msg in msgs]}, status=200)
     except Message.DoesNotExist:
         return JsonResponse({"messages": []}, status=200)
