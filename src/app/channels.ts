@@ -199,7 +199,13 @@ async function sendMessage(channelId: string, content: string) {
 
 function formatMessages(messages: any) {
     if (!messages.length) return ""
-    console.log(messages)
+    return `<div class="d-flex align-items-center">
+        <img class="sidebar-icon mx-3 col" src="/api/files/{{ user.avatar }}" alt="Avatar">
+        <div class="col">
+            <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">{{ user.first_name }} {{ user.last_name }}</div>
+            <div>${messages}</div>
+        </div>
+    </div>`
 }
 
 async function openChannel(channelId: string) {
