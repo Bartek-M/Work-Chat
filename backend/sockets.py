@@ -21,7 +21,7 @@ def connect(sid, environ):
     sio.enter_room(sid, f"user-{user.id}")
 
     for channel in user.channels.all():
-        sio.enter_room(sid, channel.id)
+        sio.enter_room(sid, f"channel-{channel.id}")
 
 
 @sio.on("disconnect")

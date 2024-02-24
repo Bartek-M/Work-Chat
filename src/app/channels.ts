@@ -197,15 +197,20 @@ async function sendMessage(channelId: string, content: string) {
     })
 }
 
-function formatMessages(messages: any) {
+function formatMessages(currentChannel: any, messages: any) {
     if (!messages.length) return ""
-    return `<div class="d-flex align-items-center">
-        <img class="sidebar-icon mx-3 col" src="/api/files/{{ user.avatar }}" alt="Avatar">
-        <div class="col">
-            <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">{{ user.first_name }} {{ user.last_name }}</div>
-            <div>${messages}</div>
-        </div>
-    </div>`
+
+    return messages.map((msg: any) => {
+        let author = currentChannel.members.find((user: any) => user.id == msg.author_id)
+
+        return `<div class="d-flex align-items-center my-2">
+                <img class="sidebar-icon mx-3 col" src="/api/files/${author.avatar}" alt="Avatar">
+                <div>
+                    <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
+                    <div>${msg.content}</div>
+                </div>
+            </div>`
+    }).join("")
 }
 
 async function openChannel(channelId: string) {
@@ -260,7 +265,7 @@ async function openChannel(channelId: string) {
                 </div>
             </div>
         </nav>
-        <div class="d-flex flex-column">${formatMessages(currentChannel.messages)}</div>
+        <div class="d-flex flex-column overflow-y-scroll h-100">${formatMessages(currentChannel, currentChannel.messages)}</div>
         <div class="input-group align-items-end p-2">
             <div class="form-control" id="chat-inpt-send" style="height: 38px;" data-placeholder="Wpisz wiadomość" contenteditable></div>
             <button class="input-group-text bg-body-tertiary" style="height: 38px;">

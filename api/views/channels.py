@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
+from backend.sockets import sio
 from api.forms import ChannelCreateForm, MessageCreateForm
 from api.models import Channel, Message
 
@@ -18,7 +19,9 @@ def channel_messages(request, channel_id):
         return HttpResponse(status=403)
 
     try:
-        msgs = Message.objects.filter(channel_id=channel.id).order_by("-create_time")[:100]
+        msgs = Message.objects.filter(channel_id=channel.id).order_by("-create_time")[
+            :100
+        ]
         return JsonResponse({"messages": [msg.repr() for msg in msgs]}, status=200)
     except Message.DoesNotExist:
         return JsonResponse({"messages": []}, status=200)
@@ -72,6 +75,7 @@ def message_create(request, channel_id):
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
     message = form.save()
+    sio.send(message.repr(), room=f"channel-{channel_id}")
     return JsonResponse({"message": message.repr()}, status=200)
 
 

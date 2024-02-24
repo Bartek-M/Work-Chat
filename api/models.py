@@ -117,7 +117,7 @@ class Message(models.Model):
             "channel_id": self.channel.id,
             "author_id": self.author.id,
             "content": self.content,
-            "create_time": self.create_time,
+            "create_time": self.create_time.isoformat(),
         }
 
 
