@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </nav>
-            <div class="d-flex flex-column overflow-y-auto p-2" style="max-height: calc(100% - 49px)">
+            <div class="d-flex flex-column overflow-y-auto p-2 pe-none" style="max-height: calc(100% - 49px)" id="channel-wrapper">
                 {% for channel in channels %}
                     <button class="channel-open btn d-flex align-items-center" id="channel-{{ channel.id }}">
                         <div class="position-relative">

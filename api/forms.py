@@ -73,7 +73,7 @@ class ChannelCreateForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         if cleaned_data.get("direct"):
-            members = cleaned_data.get("members")
+            members = cleaned_data.get("members", [])
 
             direct_id = f"{min(members, key=lambda user: user.id).id}-{max(members, key=lambda user: user.id).id}"
             cleaned_data["direct_id"] = direct_id

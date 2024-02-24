@@ -7,9 +7,8 @@ let currentChannel: any = null
 let selectedMembers: string[] = []
 
 let channels: { [id: string]: any } = {}
-export const setChannels = (toSet: any) => {
-    channels = toSet.reduce((obj: any, item: any) => { obj[`${item.id}`] = item; return obj }, {})
-}
+export const setChannels = (toSet: any) => { channels = toSet.reduce((obj: any, item: any) => { obj[item.id] = item; return obj }, {}) }
+export const addChannel = (toAdd: any) => { channels[toAdd.id] = toAdd }
 
 
 // CHANNEL CREATE
@@ -28,7 +27,7 @@ form.on("submit", async (e) => {
         },
         body: JSON.stringify({
             name: groupName,
-            direct: true,
+            direct: false,
             members: selectedMembers
         }),
     }).then(async (resp) => {
@@ -212,7 +211,8 @@ export function formatMessages(messages: any) {
     }).join("")
 }
 
-async function openChannel(channelId: string) {
+export async function openChannel(channelId: string) {
+    console.log(channelId, channels)
     if (currentChannel) {
         if (currentChannel.id == channelId) return $("#chat-wrapper").addClass("active")
         $(`#channel-${currentChannel.id}`).removeClass("active")
@@ -299,4 +299,4 @@ async function openChannel(channelId: string) {
     })
 }
 
-$(".channel-open").each((_, el) => { $(el).on("click", (e) => openChannel(e.target.id.replace("channel-", ""))) })
+$("#channel-wrapper").on("click", (e) => openChannel(e.target.id.replace("channel-", "")))

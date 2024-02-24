@@ -43,9 +43,11 @@ def channel_members(request, channel_id):
 def channels_create(request):
     data = json.loads(request.body)
 
-    if data.get("members"):
-        data["members"].append(request.user)
-        data["owner"] = request.user.id
+    if not data.get("members"):
+        return HttpResponse(status=400)
+
+    data["members"].append(request.user)
+    data["owner"] = request.user.id
 
     form = ChannelCreateForm(data)
 
@@ -56,6 +58,33 @@ def channels_create(request):
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
     channel = form.save()
+
+    for member in channel.members.all():
+        user_room = f"user-{member.id}"
+        if not any(user_room in room for room in sio.manager.rooms.values()):
+            continue
+
+        sio.emit(
+            "channel_create",
+            {
+                **channel.repr(),
+                "name": (
+                    channel.name
+                    if not channel.direct
+                    else channel.members.exclude(id=member.id)[0].get_full_name()
+                ),
+                "icon": (
+                    channel.icon
+                    if not channel.direct
+                    else channel.members.exclude(id=member.id)[0].avatar
+                ),
+            },
+            room=user_room,
+        )
+
+        for sid in sio.manager.rooms["/"].get(user_room, 0):
+            sio.enter_room(sid, f"channel-{channel.id}")
+
     return JsonResponse({"channel": channel.repr()}, status=200)
 
 

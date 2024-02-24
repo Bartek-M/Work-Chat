@@ -39,7 +39,7 @@ class User(AbstractUser):
                     if not channel.direct
                     else channel.members.exclude(id=self.id)[0].avatar
                 ),
-                "last_message": channel.last_message,
+                "last_message": channel.last_message.isoformat(),
                 "settings": (
                     ChannelUsers.objects.filter(user=self, channel=channel)[0].repr()
                 ),
@@ -97,7 +97,8 @@ class Channel(models.Model):
             "id": self.id,
             "name": self.name,
             "icon": self.icon,
-            "create_time": self.create_time,
+            "create_time": self.create_time.isoformat(),
+            "last_message": self.last_message.isoformat()
         }
 
 
@@ -134,7 +135,7 @@ class ChannelUsers(models.Model):
     def repr(self) -> dict:
         return {
             "notifications": self.notifications,
-            "date_joined": self.date_joined,
+            "date_joined": self.date_joined.isoformat(),
         }
 
 
