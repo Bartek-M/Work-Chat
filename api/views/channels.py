@@ -82,17 +82,10 @@ def channels_delete(request, channel_id):
     return HttpResponse(status=200)
 
 
-@require_http_methods(["DELETE"])
-@login_required
-def message_delete(request, channel_id, message_id):
-    return HttpResponse
-
-
 urlpatterns = [
     path("create/", channels_create),
     path("<int:channel_id>/delete/", channels_delete),
     path("<int:channel_id>/messages/", channel_messages),
     path("<int:channel_id>/members/", channel_members),
     path("<int:channel_id>/message/", message_create),
-    path("<int:channel_id>/message/<int:message_id>/delete", message_delete),
 ]
