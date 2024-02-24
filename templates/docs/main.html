@@ -1,0 +1,33 @@
+{% extends 'base/docsBase.html' %}
+{% load static %}
+
+{% block text %}
+<div class="fs-2 pb-1 border-bottom border-black-subtle mb-3">Dokumentacja</div>
+<div>Witaj w Dokumentacja</div>
+<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Sekcje w dokumentacji</div>
+<ul>
+    <li><a href="/docs/install">Instalacja</a>
+        <ol>
+            <li><a href="/docs/manual">instrukcja</a></li>
+            <li><a href="/docs/">Tworzenie kopii zapasowych</a></li>
+            <li><a href="/docs/">Odtwarzanie z kopii zapasowych</a></li>
+        </ol>
+    </li>
+    <li><a href="/docs/">Opis działania systemu</a>
+        <ol>
+            <li><a href="/docs/">funkcja 1</a></li>
+            <li><a href="/docs/">Skalowalność</a></li>
+            <li><a href="/docs/">Zabezpieczenia</a></li>
+        </ol>
+    </li>
+    <li><a href="/docs/">Testy wydajności</a>
+        <ol>
+            <li><a href="/docs/">test 1</a></li>
+        </ol>
+    </li>
+</ul>
+<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Instalacja</div>
+<div>Instalacja to sekcja ukazująca sposób ustawienia aplikcji do pełnej gotowości</div>
+<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Początek</div>
+<div>Początek to sekcja ukazująca sposób ustawienia aplikcji do pełnej gotowości</div>
+{% endblock %}
