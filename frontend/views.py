@@ -6,14 +6,16 @@ from django.urls import path
 def app(request, page):
     if not request.user.is_authenticated:
         return render(request, page)
-    
+
     return render(
         request,
         "app.html",
         {
             "user": request.user,
             "channels": sorted(
-                request.user.get_channels(), key=lambda ch: ch.get("last_message")
+                request.user.get_channels(),
+                key=lambda ch: ch.get("last_message"),
+                reverse=True,
             ),
         },
     )
@@ -31,6 +33,7 @@ docs_functions = lambda request: render(request, "docs/functions.html")
 docs_scalability = lambda request: render(request, "docs/scalability.html")
 docs_security = lambda request: render(request, "docs/security.html")
 docs_performence = lambda request: render(request, "docs/performence.html")
+
 
 def view_logout(request):
     logout(request)

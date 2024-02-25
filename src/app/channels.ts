@@ -31,11 +31,13 @@ form.on("submit", async (e) => {
             members: selectedMembers
         }),
     }).then(async (resp) => {
-        if (resp.status == 200) return $("#group-create-modal").modal("hide")
-
         await resp.json().then((data) => {
-            let errors = data.errors
-            if (!errors) return showToast("API", "Coś poszło nie tak", "error")
+            if (resp.status == 200 && data.channel) {
+                if (channels[data.channel.id]) openChannel(data.channel.id)
+                return $("#group-create-modal").modal("hide")
+            }
+
+            if (!data.errors) return showToast("API", "Coś poszło nie tak", "error")
         })
     }).catch(() => {
         showToast("API", "Coś poszło nie tak", "error")
@@ -113,13 +115,14 @@ async function openDirect(userId: string) {
             members: [userId.replace("searched-", "")]
         }),
     }).then(async (resp) => {
-        if (resp.status == 200) return $("#direct-create-modal").modal("hide")
-
         await resp.json().then((data) => {
-            let errors = data.errors
-            if (!errors) return showToast("API", "Coś poszło nie tak", "error")
+            if (resp.status == 200 && data.channel) {
+                if (channels[data.channel.id]) openChannel(data.channel.id)
+                return $("#direct-create-modal").modal("hide")
+            }
 
-            showToast("API", errors.channel, "error")
+            if (!data.errors) return showToast("API", data.errors.channel, "error")
+            showToast("API", "Coś poszło nie tak", "error")
         })
     }).catch(() => {
         showToast("API", "Coś poszło nie tak", "error")
@@ -212,7 +215,6 @@ export function formatMessages(messages: any) {
 }
 
 export async function openChannel(channelId: string) {
-    console.log(channelId, channels)
     if (currentChannel) {
         if (currentChannel.id == channelId) return $("#chat-wrapper").addClass("active")
         $(`#channel-${currentChannel.id}`).removeClass("active")

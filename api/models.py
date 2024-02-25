@@ -94,7 +94,7 @@ class Channel(models.Model):
 
     def repr(self) -> dict:
         return {
-            "id": self.id,
+            "id": str(self.id),
             "name": self.name,
             "icon": self.icon,
             "create_time": self.create_time.isoformat(),
