@@ -72,6 +72,17 @@ def change_theme(request):
 def change_notifications(request):
     data = json.loads(request.body)
 
+    notifications = data.get("notifications")
+    sound = data.get("sound")
+
+    if notifications is None or sound is None:
+        return 400
+
+    settings = UserSettings.objects.get(pk=request.user.id)
+    settings.notifications = True if notifications else False
+    settings.notification_sound = True if sound else False
+    settings.save()
+
     return HttpResponse(status=200)
 
 
@@ -80,4 +91,5 @@ urlpatterns = [
     path("me/channels/", get_channels),
     path("search/", search),
     path("me/theme/", change_theme),
+    path("me/notifications/", change_notifications)
 ]

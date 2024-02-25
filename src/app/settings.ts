@@ -17,7 +17,28 @@ $("[name='options-theme'").each((_, el) => {
                 theme: e.target.id
             })
         }).then(async (resp) => {
-            if (resp.status == 200) return showToast("Ustawienia", "Zmieniono motyw", "error")
+            if (resp.status == 200) return showToast("Ustawienia", "Zmieniono motyw", "success")
+            return showToast("API", "Coś poszło nie tak", "error")
+        }).catch(() => {
+            showToast("API", "Coś poszło nie tak", "error")
+        })
+    })
+})
+
+$("[name='options-notifications'").each((_, el) => {
+    $(el).on("click", async () => {
+        await fetch("/api/users/me/notifications/", {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+                "X-CSRFToken": (window as any)["csrf"]
+            },
+            body: JSON.stringify({
+                notifications: $("#notifications-all").is(":checked"),
+                sound: $("#notifications-sound").is(":checked")
+            })
+        }).then(async (resp) => {
+            if (resp.status == 200) return showToast("Ustawienia", "Zmieniono ustawienia powiadomień", "success")
             return showToast("API", "Coś poszło nie tak", "error")
         }).catch(() => {
             showToast("API", "Coś poszło nie tak", "error")
