@@ -1,3 +1,4 @@
+import magic
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
@@ -98,7 +99,7 @@ class Channel(models.Model):
             "name": self.name,
             "icon": self.icon,
             "create_time": self.create_time.isoformat(),
-            "last_message": self.last_message.isoformat()
+            "last_message": self.last_message.isoformat(),
         }
 
 
@@ -147,3 +148,6 @@ class Files(models.Model):
     file = models.BinaryField()
     name = models.CharField(max_length=255)
     create_time = models.DateTimeField(default=timezone.now)
+
+    def get_type(self):
+        return magic.Magic().from_buffer(self.file)

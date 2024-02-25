@@ -75,7 +75,7 @@
                 {% for channel in channels %}
                     <button class="channel-open btn d-flex align-items-center" id="channel-{{ channel.id }}">
                         <div class="position-relative">
-                            <img class="sidebar-icon" src="api/files/{{ channel.icon }}" alt="Avatar">
+                            <img class="sidebar-icon" src="api/files/{{ channel.icon }}/" alt="Avatar">
                             <span class="status-icon position-absolute translate-middle bg-danger rounded-circle"></span>
                         </div>
                         {{ channel.name }}

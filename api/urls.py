@@ -6,4 +6,5 @@ urlpatterns = [
     path("auth/", include(views.auth)),
     path("users/", include(views.users)),
     path("channels/", include(views.channels)),
+    path("files/", include(views.files))
 ]

@@ -16,6 +16,7 @@ First you will need to install dependencies
 pip3 install -r requirements.txt
 npm install -g typescript
 npm install
+sudo apt install libmagic1
 sudo apt install gunicorn
 ```
 

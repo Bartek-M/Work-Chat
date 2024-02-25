@@ -1,4 +1,5 @@
 Django==5.0.1
 python-dotenv==1.0.1
+python-magic==0.4.27
 python-socketio==5.11.1
 eventlet==0.35.1
