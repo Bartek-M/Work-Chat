@@ -11,10 +11,8 @@ class User(AbstractUser):
 
     email = models.EmailField(max_length=254, blank=False, unique=True)
     avatar = models.IntegerField(null=True)
+    job_title = models.CharField(max_length=254, blank=True)
     channels = models.ManyToManyField("Channel", through="ChannelUsers")
-
-    def __str__(self) -> str:
-        return self.username
 
     def repr(self) -> dict:
         return {
@@ -23,6 +21,7 @@ class User(AbstractUser):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
+            "job_title": self.job_title,
             "avatar": self.avatar,
         }
 
@@ -40,7 +39,7 @@ class User(AbstractUser):
                     if not channel.direct
                     else channel.members.exclude(id=self.id)[0].avatar
                 ),
-                "last_message": channel.last_message.isoformat(),
+                "last_message": channel.last_message.timestamp(),
                 "settings": (
                     ChannelUsers.objects.filter(user=self, channel=channel)[0].repr()
                 ),
@@ -98,8 +97,8 @@ class Channel(models.Model):
             "id": str(self.id),
             "name": self.name,
             "icon": self.icon,
-            "create_time": self.create_time.isoformat(),
-            "last_message": self.last_message.isoformat(),
+            "create_time": self.create_time.timestamp(),
+            "last_message": self.last_message.timestamp(),
         }
 
 
@@ -120,7 +119,7 @@ class Message(models.Model):
             "channel_id": self.channel.id,
             "author_id": self.author.id,
             "content": self.content,
-            "create_time": self.create_time.isoformat(),
+            "create_time": self.create_time.timestamp(),
         }
 
 
@@ -137,7 +136,7 @@ class ChannelUsers(models.Model):
     def repr(self) -> dict:
         return {
             "notifications": self.notifications,
-            "date_joined": self.date_joined.isoformat(),
+            "date_joined": self.date_joined.timestamp(),
         }
 
 

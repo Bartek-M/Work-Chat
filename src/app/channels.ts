@@ -9,6 +9,7 @@ let selectedMembers: string[] = []
 export let channels: { [id: string]: any } = {}
 export const setChannels = (toSet: any) => { channels = toSet.reduce((obj: any, item: any) => { obj[item.id] = item; return obj }, {}) }
 export const addChannel = (toAdd: any) => { channels[toAdd.id] = toAdd }
+export const addMessage = (channel_id: number, toAdd: any) => { channels[channel_id].messages.push(toAdd) }
 
 
 // CHANNEL CREATE
@@ -199,16 +200,25 @@ async function sendMessage(channelId: string, content: string) {
     })
 }
 
-export function formatMessages(messages: any) {
+export function formatMessages(messages: any, adding?: boolean) {
     if (!messages.length || !currentChannel) return ""
+    let lastMessage = adding ? channels[currentChannel.id].messages[channels[currentChannel.id].messages.length - 2] : null
 
     return messages.map((msg: any) => {
         let author = currentChannel.members.find((user: any) => user.id == msg.author_id)
-        return `<div class="d-flex my-2">
+        if (!author) author = { first_name: "Usunięty", last_name: "Użytkownik", avatar: null }
+
+        if (lastMessage && lastMessage.id != msg.id && lastMessage.author_id == author.id && (msg.create_time - lastMessage.create_time) < 360) {
+            lastMessage = msg
+            return `<div style="margin-left: 4rem;">${encodeHTML(msg.content)}</div>`
+        }
+
+        lastMessage = msg
+        return `<div class="d-flex mt-2">
                 <img class="sidebar-icon mx-3 mt-2 col" src="/api/files/${author.avatar}" alt="Avatar">
                 <div>
                     <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
-                    <div name="message-content">${encodeHTML(msg.content)}</div>
+                    <div>${encodeHTML(msg.content)}</div>
                 </div>
             </div>`
     }).join("")
