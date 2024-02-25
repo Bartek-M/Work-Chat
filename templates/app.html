@@ -155,29 +155,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body container overflow-y-visible">
-                    <!-- PROFILE -->
-                    <form>
-                        <div class="fs-3 pb-1 border-bottom mb-3">Profil</div>
-                        <button class="btn p-0 border-0 position-absolute" style="top: 100px; left: 700px;">
-                            <div>Ikona użytkownika</div>
-                            <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
-                                <circle cx="8" cy="8" r="8"/>
-                            </svg>
-                        </button>
-                        <div class="mt-2">
-                            <label for="first-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Imię <span class="text-danger" id="first-name-error">*</span></label>
-                            <input type="text" class="form-control" style="max-width: 600px;" id="first-name-input" value="{{ user.first_name }}" required>
-                        </div>
-                        <div class="mt-2">
-                            <label for="last-name-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwisko <span class="text-danger" id="last-name-error">*</span></label>
-                            <input type="text" class="form-control" style="max-width: 600px;" id="last-name-input" value="{{ user.last_name }}" required>
-                        </div>
-                        <div class="mt-2">
-                            <label for="username-input" class="form-label text-secondary-emphasis" style="font-size: 0.75rem">Nazwa Użytkownika <span class="text-danger" id="username-error">*</span></label>
-                            <input type="text" class="form-control" style="max-width: 600px;" id="username-input" value="{{ user.username }}">
-                        </div>
-                        <button type="submit" class="btn btn-outline-success mt-4" style="width: 200px;">Zapisz</button>
-                    </form>
                     <!-- SECURITY -->
                     <form>
                         <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Bezpieczeństwo</div>
@@ -241,7 +218,7 @@
                     </div>
                     <!-- DOC LINK -->
                     <div class="fs-3 mt-5 pb-1 border-bottom mb-3">Dokumentacja</div>
-                    <button class="btn btn-outline-primary" onclick="location.href='/docs/'">Dokumentacja</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='/docs/'" style="width: 200px;">Dokumentacja</button>
                     <!-- DELETE ACCOUNT -->
                     <div class="fs-3 mt-5 pb-1 border-bottom mb-3 text-danger">Usuń konto</div>
                     <div>Pamiętaj usunięcie konta jest permanentne i nieodwracalne</div>
