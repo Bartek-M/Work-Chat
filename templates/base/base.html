@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" data-bs-theme="dark">
+<html lang="pl" data-bs-theme="{% if settings %}{{ settings.theme }}{% else %}auto{% endif %}">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

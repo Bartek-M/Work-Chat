@@ -55,11 +55,21 @@ class UserSettings(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     theme = models.PositiveSmallIntegerField(
-        {0: "auto", 1: "dark", 2: "light", 3: "high-contrast"},
+        choices=[
+            (0, "auto"),
+            (1, "dark"),
+            (2, "light"),
+            (3, "high-contrast"),
+        ],
         default=0,
     )
     status = models.PositiveSmallIntegerField(
-        {0: "offline", 1: "away", 2: "busy", 3: "available"},
+        choices=[
+            (0, "offline"), 
+            (1, "away"), 
+            (2, "busy"), 
+            (3, "available"),
+        ],
         default=3,
     )
     notifications = models.BooleanField(default=True)
@@ -67,8 +77,8 @@ class UserSettings(models.Model):
 
     def repr(self) -> dict:
         return {
-            "theme": self.theme,
-            "status": self.status,
+            "theme": self.get_theme_display(),
+            "status": self.get_status_display(),
             "notifications": self.notifications,
             "notification_sound": self.notification_sound,
         }

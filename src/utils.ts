@@ -8,7 +8,7 @@ function preferredTheme() {
     else document.documentElement.setAttribute("data-bs-theme", "light")
 }
 
-function changeTheme(theme?: string) {
+export function changeTheme(theme?: string) {
     if (!theme) {
         let storedTheme = localStorage.getItem("theme")
         if (storedTheme) return changeTheme(storedTheme)

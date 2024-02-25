@@ -53,7 +53,23 @@ def search(request):
 # PATCH
 @require_http_methods(["PATCH"])
 @login_required
-def change_settings(request):
+def change_theme(request):
+    theme = json.loads(request.body).get("theme")
+    avail_themes = ["auto", "dark", "light", "high-contrast"]
+
+    if not theme or theme not in avail_themes:
+        return 400
+
+    settings = UserSettings.objects.get(pk=request.user.id)
+    settings.theme = avail_themes.index(theme)
+    settings.save()
+
+    return HttpResponse(status=200)
+
+
+@require_http_methods(["PATCH"])
+@login_required
+def change_notifications(request):
     data = json.loads(request.body)
 
     return HttpResponse(status=200)
@@ -63,4 +79,5 @@ urlpatterns = [
     path("me/", user),
     path("me/channels/", get_channels),
     path("search/", search),
+    path("me/theme/", change_theme),
 ]

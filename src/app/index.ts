@@ -2,6 +2,7 @@ const $: JQueryStatic = (window as any)["$"]
 import { showToast } from "../utils"
 
 import "./sockets"
+import { setSettings } from "./settings"
 import { setChannels } from "./channels"
 
 showToast("Login", "Witaj w Work-Chat", "success")
@@ -14,7 +15,7 @@ async function getData() {
         }
     }).then(async (resp) => {
         await resp.json().then((data) => {
-            if (resp.status == 200 && data.user && data.settings) return
+            if (resp.status == 200 && data.user && data.settings) return setSettings(data.settings)
             showToast("API", "Nie udało się wczytać ustawień", "error")
         })
     }).catch(() => {
