@@ -1,9 +1,10 @@
 import json
 
+from django.urls import path
+from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
-from django.urls import path
 
 from backend.sockets import sio
 from api.forms import ChannelCreateForm, MessageCreateForm
@@ -102,6 +103,10 @@ def message_create(request, channel_id):
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
 
     message = form.save()
+    channel = message.channel
+    channel.last_message = timezone.now()
+    channel.save()
+
     sio.send(message.repr(), room=f"channel-{channel_id}")
     return JsonResponse({"message": message.repr()}, status=200)
 
