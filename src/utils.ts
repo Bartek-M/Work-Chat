@@ -46,7 +46,7 @@ export function showToast(title: string, message: string, type: "info" | "succes
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-                ${message}
+                ${encodeHTML(message)}
             </div>
         </div>
     `)

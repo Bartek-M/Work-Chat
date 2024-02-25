@@ -18,8 +18,8 @@
         {% block content %}{% endblock %} 
         {% endblock %}
         <div class="toast-container position-fixed top-0 end-0 p-3" id="toast-wrapper"></div>
-        <script src="{% static 'js/loader.js' %}"></script>
         <script>window["csrf"] = "{{ csrf_token }}"</script>
+        <script src="{% static 'js/loader.js' %}"></script>
         {% block script %}{% endblock %}
     </body>
 </html>

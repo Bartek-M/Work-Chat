@@ -3,10 +3,10 @@ const bootstrap = window["bootstrap"]
 
 import { showToast, smoothScroll, encodeHTML } from "../utils"
 
-let currentChannel: any = null
+export let currentChannel: any = null
 let selectedMembers: string[] = []
 
-let channels: { [id: string]: any } = {}
+export let channels: { [id: string]: any } = {}
 export const setChannels = (toSet: any) => { channels = toSet.reduce((obj: any, item: any) => { obj[item.id] = item; return obj }, {}) }
 export const addChannel = (toAdd: any) => { channels[toAdd.id] = toAdd }
 
