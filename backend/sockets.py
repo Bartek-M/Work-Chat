@@ -18,7 +18,10 @@ def connect(sid, environ):
     if not user.is_authenticated:
         return sio.disconnect(sid)
 
-    sio.enter_room(sid, f"user-{user.id}")
+    if not len(sio.manager.rooms["/"].get(f"user-{user.id}", [])):
+        sio.emit("status", {"id": str(user.id), "status": "online"})
+
+    sio.enter_room(sid, f"user-{user.id}")        
 
     for channel in user.channels.all():
         sio.enter_room(sid, f"channel-{channel.id}")
@@ -26,8 +29,21 @@ def connect(sid, environ):
 
 @sio.on("disconnect")
 def disconnect(sid):
+    user_disconnected = None
+
     for room in sio.rooms(sid):
         sio.leave_room(sid, room)
+
+        if len(sio.manager.rooms["/"].get(room, [])):
+            continue
+
+        sio.close_room(room)
+
+        if "user-" in room:
+            user_disconnected = room[5:]
+
+    if user_disconnected:
+        sio.emit("status", {"id": user_disconnected, "status": "offline"})
 
 
 @sio.on("message")

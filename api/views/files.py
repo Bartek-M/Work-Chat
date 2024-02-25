@@ -1,5 +1,5 @@
 from django.urls import path
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse
 
 from api.models import Files
 
@@ -15,11 +15,6 @@ def get_file(request, file_id):
     return resp
 
 
-def upload_file(request):
-    return HttpResponse(status=200)
-
-
 urlpatterns = [
     path("<int:file_id>/", get_file),
-    path("upload/", upload_file),
 ]

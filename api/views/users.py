@@ -3,12 +3,13 @@ import json
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
 from api.models import User, UserSettings
 
 
+# GET
 @login_required
 def user(request):
     user = request.user
@@ -31,6 +32,7 @@ def get_channels(request):
     )
 
 
+# POST
 @require_http_methods(["POST"])
 @login_required
 def search(request):
@@ -46,6 +48,15 @@ def search(request):
         return JsonResponse({"errors": {"user": _("User is client user")}}, status=400)
 
     return JsonResponse({"user": user.repr()}, status=200)
+
+
+# PATCH
+@require_http_methods(["PATCH"])
+@login_required
+def change_settings(request):
+    data = json.loads(request.body)
+
+    return HttpResponse(status=200)
 
 
 urlpatterns = [

@@ -82,7 +82,7 @@ def channels_create(request):
             room=user_room,
         )
 
-        for sid in sio.manager.rooms["/"].get(user_room, 0):
+        for sid in sio.manager.rooms["/"].get(user_room, []):
             sio.enter_room(sid, f"channel-{channel.id}")
 
     return JsonResponse({"channel": channel.repr()}, status=200)
