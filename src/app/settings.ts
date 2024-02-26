@@ -45,3 +45,7 @@ $("[name='options-notifications'").each((_, el) => {
         })
     })
 })
+
+
+$("#user-avatar-btn").on("click", () => $("#user-avatar-file").get(0).click())
+$("#user-avatar-file").on("change", (e) => console.log(e))

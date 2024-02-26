@@ -5,6 +5,9 @@ from api.models import Files
 
 
 def get_file(request, file_id):
+    resp = HttpResponse(open("./assets/icons/avatar_1.jpg", "rb").read(), "image/jpg")
+    resp["Content-Disposition"] = "attachment"
+    return resp
     try:
         file = Files.objects.get(pk=file_id)
     except Files.DoesNotExist:
@@ -17,4 +20,5 @@ def get_file(request, file_id):
 
 urlpatterns = [
     path("<int:file_id>/", get_file),
+    path("<str:file_id>/", get_file),
 ]

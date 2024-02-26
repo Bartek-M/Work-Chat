@@ -107,11 +107,17 @@
         <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
                 <div class="modal-body d-flex gap-4">
-                    <div class="position-relative mt-2" style="height: max-content;">
-                        <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8"/>
+                    <div class="icon-wrapper mt-2" id="user-avatar-btn">
+                        <img class="settings-icon rounded-circle" src="/api/files/none" />
+                        <div class="change-icon position-absolute d-flex align-items-center justify-content-center rounded-circle">
+                            ZMIEŃ<br />IKONKĘ
+                            <input type="file" accept="image/*" id="user-avatar-file" />
+                        </div>
+                        <svg class="add-icon position-absolute translate-middle" width="16" height="16" fill="var(--bs-secondary-color)" viewBox="0 0 16 16">
+                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
                         </svg>
-                        <div class="position-absolute dropend status-icon translate-middle">
+                        <div class="status-icon dropend position-absolute translate-middle">
                             <button class="btn border-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="16" height="16" fill="#21bf4b" viewBox="0 0 16 16">
                                     <circle cx="8" cy="8" r="8"/>

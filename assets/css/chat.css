@@ -92,3 +92,49 @@ html,
     content: attr(data-placeholder);
     color: gray;
 }
+
+/* ICON */
+.icon-wrapper {
+    width: 82px;
+    max-width: 82px;
+    height: 82px;
+    position: relative;
+    cursor: pointer;
+}
+
+.add-icon {
+    top: 10%;
+    left: 90%;
+}
+
+.settings-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid black;
+}
+
+.change-icon {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 82px;
+    height: 82px;
+    opacity: 0.8;
+    text-align: center;
+    background-color: #000;
+    color: var(--bs-body-color);
+    object-fit: cover;
+    line-height: 0.75rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    transition: none;
+    transform: scale(0);
+}
+.icon-wrapper:hover .change-icon {
+    transform: scale(1);
+}
+.change-icon input {
+    display: none;
+}
