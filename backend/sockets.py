@@ -21,7 +21,7 @@ def connect(sid, environ):
     if not len(sio.manager.rooms["/"].get(f"user-{user.id}", [])):
         sio.emit("status", {"id": str(user.id), "status": "online"})
 
-    sio.enter_room(sid, f"user-{user.id}")        
+    sio.enter_room(sid, f"user-{user.id}")
 
     for channel in user.channels.all():
         sio.enter_room(sid, f"channel-{channel.id}")

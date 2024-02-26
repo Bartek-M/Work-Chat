@@ -87,6 +87,26 @@ $("[name='options-notifications'").each((_, el) => {
     })
 })
 
+$("[name='options-status'").each((_, el) => {
+    $(el).on("click", async (e) => {
+        await fetch("/api/users/me/status/", {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+                "X-CSRFToken": (window as any)["csrf"]
+            },
+            body: JSON.stringify({
+                status: e.target.id,
+            })
+        }).then(async (resp) => {
+            if (resp.status == 200) return showToast("Ustawienia", "Zmieniono ustawienia statusów", "success")
+            return showToast("API", "Coś poszło nie tak", "error")
+        }).catch(() => {
+            showToast("API", "Coś poszło nie tak", "error")
+        })
+    })
+})
+
 // FILES
 async function changeAvatar(file: any) {
     const icon = file.files[0]

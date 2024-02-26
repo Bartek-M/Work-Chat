@@ -39,6 +39,7 @@ class User(AbstractUser):
                     if not channel.direct
                     else channel.members.exclude(id=self.id)[0].avatar
                 ),
+                "direct": channel.direct,
                 "last_message": channel.last_message.timestamp(),
                 "settings": (
                     ChannelUsers.objects.filter(user=self, channel=channel)[0].repr()
@@ -68,7 +69,7 @@ class UserSettings(models.Model):
             (0, "offline"), 
             (1, "away"), 
             (2, "busy"), 
-            (3, "available"),
+            (3, "online"),
         ],
         default=3,
     )

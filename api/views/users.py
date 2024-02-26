@@ -132,6 +132,22 @@ def change_notifications(request):
     return HttpResponse(status=200)
 
 
+@require_http_methods(["PATCH"])
+@login_required
+def change_status(request):
+    status = json.loads(request.body).get("status")
+    avail_status = ["offline", "away", "busy", "online"]
+
+    if not status or status not in avail_status:
+        return 400
+
+    settings = UserSettings.objects.get(pk=request.user.id)
+    settings.status = avail_status.index(status)
+    settings.save()
+
+    return HttpResponse(status=200)
+
+
 urlpatterns = [
     path("me/", user),
     path("me/channels/", get_channels),
@@ -140,4 +156,5 @@ urlpatterns = [
     path("me/password/", change_password),
     path("me/theme/", change_theme),
     path("me/notifications/", change_notifications),
+    path("me/status/", change_status),
 ]
