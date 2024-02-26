@@ -1,4 +1,5 @@
 import { showToast } from "../utils"
+import { currentChannel } from "./channels"
 
 export let user: any = {}
 export let settings: any = {}
@@ -139,8 +140,39 @@ async function changeAvatar(file: any) {
     })
 }
 
+async function changeIcon(file: any, channelId: number) {
+    const icon = file.files[0]
+    if (!icon) return
+
+    const formData = new FormData()
+    formData.append("icon", icon, "untitled.webp")
+
+    await fetch(`/api/channels/${channelId}/icon/`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": (window as any)["csrf"]
+        },
+        body: formData
+    }).then(async (resp) => {
+        await resp.json().then((data) => {
+            if (resp.status == 200) {
+                $("[name='user-avatar']").each((_, el) => { (el as HTMLImageElement).src = `/api/files/${data.id}` })
+                return showToast("Ustawienia", "Zmieniono ikonkę grupy", "success")
+            }
+
+            if (data.errors) return showToast("Ustawienia", data.errors.image, "error")
+            showToast("API", "Coś poszło nie tak", "error")
+        })
+    }).catch(() => {
+        showToast("API", "Coś poszło nie tak", "error")
+    })
+}
+
 $("#user-avatar-btn").on("click", () => $("#user-avatar-file").get(0).click())
 $("#user-avatar-file").on("change", (e) => changeAvatar(e.target))
+
+$("#user-avatar-btn").on("click", () => $("#user-avatar-file").get(0).click())
+$("#user-avatar-file").on("change", (e) => changeIcon(e.target, currentChannel.id))
 
 
 // MODALS

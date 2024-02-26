@@ -13,7 +13,7 @@ export const setChannels = (toSet: any) => {
     $("#channel-wrapper").html(toSet.map((channel: any) => `
         <button class="channel-open btn d-flex align-items-center" id="channel-${channel.id}">
             <div class="position-relative">
-                <img class="sidebar-icon" src="api/files/${channel.icon}/" alt="Avatar">
+                <img class="sidebar-icon" src="${channel.icon ? `/api/files/${channel.icon}/` : `/assets/icons/generic_${channel.direct ? 'avatar' : 'group'}.webp`}" alt="Avatar">
                 ${channel.direct ? `
                     <span class="status-icon position-absolute translate-middle" name="status-user-${channel.status_id}">
                         ${getStatus(channel.status_type)}
@@ -98,7 +98,7 @@ $(".search-form").each((_, el) => {
                     if (form.find("[name='add-members']").length) {
                         return form.find(".searched-users").html(data.users.map((user: any) =>
                             `<label class="channel-open btn w-100">
-                                <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar" />
+                                <img class="sidebar-icon" src="${user.icon ? `/api/files/${user.icon}/` : "/assets/icons/generic_avatar.webp"}" alt="Avatar" />
                                 <span class="flex-fill text-start">${user.first_name} ${user.last_name}</span>
                                 <input id="searched-${user.id}" type="checkbox" data-name="${user.username}" ${selectedMembers.includes(String(user.id)) ? "checked" : null} />
                             </label>`
@@ -107,7 +107,7 @@ $(".search-form").each((_, el) => {
 
                     return form.find(".searched-users").html(data.users.map((user: any) =>
                         `<button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${user.id}">
-                            <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar">
+                            <img class="sidebar-icon" src="${user.icon ? `/api/files/${user.icon}/` : "/assets/icons/generic_avatar.webp"}" alt="Avatar">
                             ${user.first_name} ${user.last_name}
                         </button>`
                     ))
@@ -227,7 +227,7 @@ export async function openChannel(channelId: string) {
                             <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
                         </svg>
                     </button>
-                    <img class="title-avatar ms-1" src="api/files/${currentChannel.icon}" alt="Avatar">
+                    <img class="title-avatar ms-1" src="${currentChannel.icon ? `/api/files/${currentChannel.icon}/` : `/assets/icons/generic_${currentChannel.direct ? 'avatar' : 'group'}.webp`}" alt="Avatar">
                     ${currentChannel.name}
                 </div>
                 <div class="dropstart" data-bs-toggle="dropdown" aria-expanded="false">
@@ -344,7 +344,7 @@ export function formatMessages(messages: any, adding?: boolean) {
 
         lastMessage = msg
         return `<div class="d-flex mt-2">
-                <img class="sidebar-icon mx-3 mt-2 col" src="/api/files/${author.avatar}" alt="Avatar">
+                <img class="sidebar-icon mx-3 mt-2 col" src="${author.icon ? `/api/files/${author.icon}/` : "/assets/icons/generic_avatar.webp"}" alt="Avatar">
                 <div>
                     <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
                     <div>${encodeHTML(msg.content)}</div>
