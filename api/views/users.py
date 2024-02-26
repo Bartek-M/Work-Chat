@@ -2,11 +2,13 @@ import json
 
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 from django.utils.translation import gettext as _
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
 from api.models import User, UserSettings
+from api.forms import PasswordChangeForm
 
 
 # GET
@@ -60,6 +62,19 @@ def search(request):
 # PATCH
 @require_http_methods(["PATCH"])
 @login_required
+def change_password(request):
+    form = PasswordChangeForm(request.user, data=json.loads(request.body))
+
+    if not form.is_valid():
+        return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)
+
+    user = form.save()
+    update_session_auth_hash(request, user)
+    return HttpResponse(status=200)
+
+
+@require_http_methods(["PATCH"])
+@login_required
 def change_theme(request):
     theme = json.loads(request.body).get("theme")
     avail_themes = ["auto", "dark", "light", "high-contrast"]
@@ -97,6 +112,7 @@ urlpatterns = [
     path("me/", user),
     path("me/channels/", get_channels),
     path("search/", search),
+    path("me/password/", change_password),
     path("me/theme/", change_theme),
     path("me/notifications/", change_notifications),
 ]

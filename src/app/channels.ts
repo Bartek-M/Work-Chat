@@ -77,7 +77,7 @@ $(".search-form").each((_, el) => {
             await resp.json().then((data) => {
                 if (resp.status == 200 && data.users && data.users.length) {
                     if (form.find("[name='add-members']").length) {
-                        return form.find(".searched-users").html(data.users.map((user: any) => 
+                        return form.find(".searched-users").html(data.users.map((user: any) =>
                             `<label class="channel-open btn w-100">
                                 <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar" />
                                 <span class="flex-fill text-start">${user.first_name} ${user.last_name}</span>
@@ -86,7 +86,7 @@ $(".search-form").each((_, el) => {
                         ))
                     }
 
-                    return form.find(".searched-users").html(data.users.map((user: any) => 
+                    return form.find(".searched-users").html(data.users.map((user: any) =>
                         `<button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${user.id}">
                             <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar">
                             ${user.first_name} ${user.last_name}
@@ -283,7 +283,7 @@ export async function openChannel(channelId: string) {
         </nav>
         <div class="d-flex flex-column overflow-y-scroll h-100" id="message-wrapper">${formatMessages(currentChannel.messages)}</div>
         <div class="input-group align-items-end p-2">
-            <div class="form-control" id="chat-inpt-send" style="min-height: 38px;" data-placeholder="Wpisz wiadomość" contenteditable></div>
+            <div class="form-control" id="chat-inpt-send" style="min-height: 38px; max-height: 40%" data-placeholder="Wpisz wiadomość" contenteditable></div>
             <button class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>

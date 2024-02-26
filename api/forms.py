@@ -103,10 +103,42 @@ class MessageCreateForm(forms.ModelForm):
         try:
             cleaned_data.get("author").channels.get(id=cleaned_data.get("channel").id)
         except Channel.DoesNotExist:
-            return ValidationError(_("You are not a member of this channel"))
+            raise ValidationError(_("You are not a member of this channel"))
 
         return cleaned_data
 
     def save(self):
         message = super().save()
         return message
+
+
+class PasswordChangeForm(forms.Form):
+    old_password = forms.CharField(max_length=128)
+    new_password1 = forms.CharField(max_length=128)
+    new_password2 = forms.CharField(max_length=128)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not self.user.check_password(cleaned_data.get("old_password")):
+            self.add_error("old_password", _("Passwords is invalid"))
+
+        if cleaned_data.get("new_password1") != cleaned_data.get("new_password2"):
+            self.add_error("new_password2", _("Passwords doesn't match"))
+
+        try:
+            validate_password(cleaned_data.get("new_password1"))
+        except ValidationError as e:
+            self.add_error("new_password1", e)
+
+        return cleaned_data
+
+    def save(self):
+        self.user.set_password(self.cleaned_data["new_password1"])
+        self.user.save()
+
+        return self.user
