@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-26 08:23+0000\n"
+"POT-Creation-Date: 2024-02-26 10:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,10 +28,24 @@ msgstr "Login lub hasło są niepoprawne"
 msgid "You are not a member of this channel"
 msgstr "Nie jesteś członkiem tego kanału"
 
-#: api/views/users.py:44
+#: api/forms.py:128
+#, fuzzy
+#| msgid "Login or password is invalid"
+msgid "Passwords is invalid"
+msgstr "Login lub hasło są niepoprawne"
+
+#: api/forms.py:131
+msgid "Passwords doesn't match"
+msgstr "Hasła nie zgadzają si"
+
+#: api/views/users.py:47
 msgid "Pass at least 2 characters"
 msgstr "Podaj przynajmniej dwa znaki"
 
-#: api/views/users.py:56
+#: api/views/users.py:58
 msgid "User not found"
 msgstr "Nie znaleziono użytkownika"
+
+#: api/views/users.py:120
+msgid "Invalid image format"
+msgstr "Niepoprawny format zdjęcia"

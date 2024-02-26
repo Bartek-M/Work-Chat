@@ -3,6 +3,7 @@ import json
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
@@ -119,6 +120,8 @@ def change_avatar(request):
         return JsonResponse(
             {"errors": {"image": _("Invalid image format")}}, status=400
         )
+
+    get_object_or_404(Files, id=request.user.avatar).delete()
 
     file = Files(name="avatar.webp", file=img)
     file.save()
