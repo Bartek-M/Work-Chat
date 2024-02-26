@@ -88,8 +88,38 @@ $("[name='options-notifications'").each((_, el) => {
 })
 
 // FILES
+async function changeAvatar(file: any) {
+    const icon = file.files[0]
+    if (!icon) return
+
+    const formData = new FormData()
+    formData.append("icon", icon, "untitled.webp")
+
+    await fetch("/api/users/me/avatar/", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": (window as any)["csrf"]
+        },
+        body: formData
+    }).then(async (resp) => {
+        await resp.json().then((data) => {
+            if (resp.status == 200) {
+                $("[name='user-avatar']").each((_, el) => { (el as HTMLImageElement).src = `/api/files/${data.id}` })
+                return showToast("Ustawienia", "Zmieniono zdjęcie profilowe", "success")
+            }
+
+            if (data.errors) return showToast("Ustawienia", data.errors.image, "error")
+            showToast("API", "Coś poszło nie tak", "error")
+        })
+    }).catch(() => {
+        showToast("API", "Coś poszło nie tak", "error")
+    })
+}
+
+
 $("#user-avatar-btn").on("click", () => $("#user-avatar-file").get(0).click())
-$("#user-avatar-file").on("change", (e) => console.log(e))
+$("#user-avatar-file").on("change", (e) => changeAvatar(e.target))
+
 
 
 // MODALS

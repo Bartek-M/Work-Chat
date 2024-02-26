@@ -42,7 +42,7 @@
                         </div>
                         <div class="dropdown">
                             <button class="btn p-0 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="title-avatar ms-1" src="/api/files/{{ user.avatar }}" alt="Avatar">
+                                <img class="title-avatar ms-1" name="user-avatar" src="/api/files/{{ user.avatar }}" alt="Avatar">
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end p-2">
                                 <li><button class="dropdown-item d-flex justify-content-between align-items-center px-2 rounded" data-bs-toggle="modal" data-bs-target="#profile-modal">
@@ -108,7 +108,7 @@
             <div class="modal-content">
                 <div class="modal-body d-flex gap-4">
                     <div class="icon-wrapper mt-2">
-                        <img class="settings-icon rounded-circle" src="/api/files/none" />
+                        <img class="settings-icon rounded-circle" name="user-avatar" src="/api/files/{{ user.avatar }}" />
                         <div class="change-icon position-absolute d-flex align-items-center justify-content-center rounded-circle" id="user-avatar-btn">
                             ZMIEŃ<br />IKONKĘ
                             <input type="file" accept="image/*" id="user-avatar-file" />

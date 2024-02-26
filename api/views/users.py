@@ -7,8 +7,9 @@ from django.utils.translation import gettext as _
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
-from api.models import User, UserSettings
+from api.models import User, UserSettings, Files
 from api.forms import PasswordChangeForm
+from api.utils import crop_image
 
 
 # GET
@@ -108,6 +109,26 @@ def change_notifications(request):
     return HttpResponse(status=200)
 
 
+@require_http_methods(["POST"])
+@login_required
+def change_avatar(request):
+    if not (file := request.FILES.get("icon")):
+        return HttpResponse(status=400)
+
+    if not (img := crop_image(file)):
+        return JsonResponse(
+            {"errors": {"image": _("Invalid image format")}}, status=400
+        )
+
+    file = Files(name="avatar.webp", file=img)
+    file.save()
+
+    request.user.avatar = file.id
+    request.user.save()
+
+    return JsonResponse({"id": file.id}, status=200)
+
+
 urlpatterns = [
     path("me/", user),
     path("me/channels/", get_channels),
@@ -115,4 +136,5 @@ urlpatterns = [
     path("me/password/", change_password),
     path("me/theme/", change_theme),
     path("me/notifications/", change_notifications),
+    path("me/avatar/", change_avatar),
 ]
