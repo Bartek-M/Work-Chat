@@ -1,14 +1,32 @@
 const $: JQueryStatic = (window as any)["$"]
 const bootstrap = window["bootstrap"]
 
-import { showToast, smoothScroll, encodeHTML } from "../utils"
+import { showToast, smoothScroll, encodeHTML, getStatus } from "../utils"
 
 export let currentChannel: any = null
 let selectedMembers: string[] = []
 let selectedFiles: any[] = []
 
 export let channels: { [id: string]: any } = {}
-export const setChannels = (toSet: any) => { channels = toSet.reduce((obj: any, item: any) => { obj[item.id] = item; return obj }, {}) }
+export const setChannels = (toSet: any) => {
+    toSet.sort((a: any, b: any) => b.last_message - a.last_message)
+    $("#channel-wrapper").html(toSet.map((channel: any) => `
+        <button class="channel-open btn d-flex align-items-center" id="channel-${channel.id}">
+            <div class="position-relative">
+                <img class="sidebar-icon" src="api/files/${channel.icon}/" alt="Avatar">
+                ${channel.direct ? `
+                    <span class="status-icon position-absolute translate-middle" name="status-user-${channel.status_id}">
+                        ${getStatus(channel.status_type)}
+                    </span>
+                `: ''}
+            </div>
+            ${channel.name}
+        </button>
+    `))
+
+    channels = toSet.reduce((obj: any, item: any) => { obj[item.id] = item; return obj }, {})
+}
+
 export const addChannel = (toAdd: any) => { channels[toAdd.id] = toAdd }
 export const addMessage = (channel_id: number, toAdd: any) => { channels[channel_id].messages.push(toAdd) }
 

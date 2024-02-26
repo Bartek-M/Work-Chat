@@ -3,7 +3,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
-
 class User(AbstractUser):
     """
     User Representation
@@ -26,25 +25,45 @@ class User(AbstractUser):
         }
 
     def get_channels(self) -> list:
+        from backend.sockets import sio
+
         return [
-            {
-                "id": channel.id,
-                "name": (
-                    channel.name
-                    if not channel.direct
-                    else channel.members.exclude(id=self.id)[0].get_full_name()
-                ),
-                "icon": (
-                    channel.icon
-                    if not channel.direct
-                    else channel.members.exclude(id=self.id)[0].avatar
-                ),
-                "direct": channel.direct,
-                "last_message": channel.last_message.timestamp(),
-                "settings": (
-                    ChannelUsers.objects.filter(user=self, channel=channel)[0].repr()
-                ),
-            }
+            (
+                {
+                    "id": channel.id,
+                    "name": (
+                        user_2 := channel.members.exclude(id=self.id)[0]
+                    ).get_full_name(),
+                    "icon": user_2.avatar,
+                    "direct": channel.direct,
+                    "status_id": user_2.id,
+                    "status_type": (
+                        "Offline"
+                        if not len(sio.manager.rooms["/"].get(f"user-{user_2.id}", []))
+                        else UserSettings.objects.get(pk=user_2.id).get_status_display()
+                    ),
+                    "last_message": channel.last_message.timestamp(),
+                    "settings": (
+                        ChannelUsers.objects.filter(
+                            user=self,
+                            channel=channel,
+                        )[0].repr()
+                    ),
+                }
+                if channel.direct
+                else {
+                    "id": channel.id,
+                    "name": channel.name,
+                    "icon": channel.icon,
+                    "last_message": channel.last_message.timestamp(),
+                    "settings": (
+                        ChannelUsers.objects.filter(
+                            user=self,
+                            channel=channel,
+                        )[0].repr()
+                    ),
+                }
+            )
             for channel in self.channels.all()
         ]
 
@@ -66,9 +85,9 @@ class UserSettings(models.Model):
     )
     status = models.PositiveSmallIntegerField(
         choices=[
-            (0, "offline"), 
-            (1, "away"), 
-            (2, "busy"), 
+            (0, "offline"),
+            (1, "away"),
+            (2, "busy"),
             (3, "online"),
         ],
         default=3,

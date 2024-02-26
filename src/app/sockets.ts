@@ -1,7 +1,8 @@
 import { io } from "socket.io-client"
 
+import { user } from "./settings"
 import { addMessage, currentChannel, channels, addChannel, formatMessages } from "./channels"
-import { showToast, smoothScroll } from "../utils"
+import { showToast, smoothScroll, getStatus } from "../utils"
 
 const socket = io()
 
@@ -33,4 +34,12 @@ socket.on("channel_create", (data) => {
             ${data.name}
         </button>
     `)
+})
+
+socket.on("status", (data) => {
+    $(`[name='status-user-${data.id}']`).each((_, el) => {
+        $(el).html(getStatus(data.status, 12))
+    })
+
+    if (data.id == user.id) $(`#profile-status-${user.id}`).html(getStatus(data.status, 20))
 })

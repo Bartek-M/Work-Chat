@@ -3,6 +3,8 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.core.handlers.wsgi import WSGIRequest
 
+from api.models import UserSettings
+
 sio = socketio.Server(cors_allowed_origins="*")
 
 
@@ -18,8 +20,12 @@ def connect(sid, environ):
     if not user.is_authenticated:
         return sio.disconnect(sid)
 
+    settings = UserSettings.objects.get(pk=request.user.id)
+
     if not len(sio.manager.rooms["/"].get(f"user-{user.id}", [])):
-        sio.emit("status", {"id": str(user.id), "status": "online"})
+        sio.emit(
+            "status", {"id": str(user.id), "status": settings.get_status_display()}
+        )
 
     sio.enter_room(sid, f"user-{user.id}")
 
