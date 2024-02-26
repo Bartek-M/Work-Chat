@@ -58,7 +58,11 @@
     <code>DB_HOST = "127.0.0.1"</code> IP host bazy danych</br>
     <code>DB_PORT = "8534"</code> Port do łączenia się z bazą danych</br>
     <code>DB_USER = ""</code> Użytkownik wykorzystywany do łączenia się z bazą danych</br>
-    <code>DB_PASSWORD = ""</code> Hasło do bazy danych
+    <code>DB_PASSWORD = ""</code> Hasło do bazy danych</br>
+    <code>LDAP_SERVER = 'AD_name'</code> Nazwa domeny active directory</br>
+    <code>LDAP_ADMIN = 'cn=admin_account_name,cn=users,dc=first_AD_part,dc=second_AD_part'</code> Dane konta administrator</br>
+    <code>LDAP_ADMIN_PASSWORD = 'admin_password'</code> Hasło do konta administratora</br>
+    <code>LDAP_SEARCH_BASE = 'dc=first_AD_part,dc=second_AD_part'</code> Dane domeny active directory do szukania kont
 </div>
 <div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Uruchomienie</div>
 <div>Należy wpisać te komende <code>gunicorn -k eventlet -w 1 backend.wsgi:application</code></div>

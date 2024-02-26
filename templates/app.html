@@ -327,23 +327,43 @@
         <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create Channel</h5>
+                    <h5 class="modal-title">Ustawienia grupy</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div>Zmień nazwę grupy:</div>
-                    <form class="">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="search-inpt">
-                            <button class="input-group-text bg-body-tertiary" type="submit">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M7.27 1.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1H1.654C.78 9.5.326 8.455.924 7.816zM4.5 13.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1z"/>
+                    <form class="d-flex flex-column px-4">
+                        <div class="d-flex align-items-center gap-4 mb-3">
+                            <div class="icon-wrapper mt-2">
+                                <img class="settings-icon rounded-circle" src="/api/files/none" />
+                                <div class="change-icon position-absolute d-flex align-items-center justify-content-center rounded-circle" id="update-icon-btn">
+                                    ZMIEŃ<br />IKONKĘ
+                                    <input type="file" accept="image/*" id="update-icon-file"/>
+                                </div>
+                                <svg class="add-icon position-absolute translate-middle" width="16" height="16" fill="var(--bs-secondary-color)" viewBox="0 0 16 16">
+                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
                                 </svg>
-                            </button>
+                            </div> 
+                            <div class="w-100">
+                                <div>Nazwa grupy</div>
+                                <input class="form-control my-2" type="text" id="group-name" value="aktualna nazwa">
+                            </div>
                         </div>
+                        <div class="search-form">
+                            <div class="d-flex flex-wrap gap-2 pb-2 pointer-events" name="add-members" id="added-members"></div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="search-inpt" placeholder="Wyszukaj użytkowników" />
+                                <button class="input-group-text bg-body-tertiary" type="button">
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="searched-users" name="add-members" id="to-add"></div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary w-100 mt-4">Utwórz</button>
                     </form>
                 </div>
-                <button type="submit" class="btn btn-outline-primary w-100">Save changes</button>
             </div>
         </div>
     </div>
