@@ -28,7 +28,7 @@ socket.on("channel_create", (data) => {
     $("#channel-wrapper").prepend(`
         <button class= "channel-open btn d-flex align-items-center" id = "channel-${data.id}">
             <div class="position-relative" >
-                <img class="sidebar-icon" src = "api/files/${data.icon}" alt = "Avatar" >
+                <img class="sidebar-icon" src="${data.icon ? `api/files/${data.icon}` : "/assets/icons/generic_group.webp"}" alt = "Avatar" >
                 <span class="status-icon position-absolute translate-middle bg-danger rounded-circle"> </span>
             </div>
             ${data.name}

@@ -4,11 +4,13 @@ from django.urls import path
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext as _
 from django.http import JsonResponse, HttpResponse
 
 from backend.sockets import sio
 from api.forms import ChannelCreateForm, MessageCreateForm
-from api.models import Channel, Message
+from api.models import Channel, Message, Files
+from api.utils import crop_image
 
 
 # GET
@@ -110,18 +112,40 @@ def message_create(request, channel_id):
     sio.send(message.repr(), room=f"channel-{channel_id}")
     return JsonResponse({"message": message.repr()}, status=200)
 
-
-# DELETE
-@require_http_methods(["DELETE"])
+@require_http_methods(["POST"])
 @login_required
-def channels_delete(request, channel_id):
-    return HttpResponse(status=200)
+def change_icon(request, channel_id):
+    try:
+        channel = request.user.channels.get(id=channel_id)
+    except Channel.DoesNotExist:
+        return HttpResponse(status=403)
+
+    if not (file := request.FILES.get("icon")):
+        return HttpResponse(status=400)
+
+    if not (img := crop_image(file)):
+        return JsonResponse(
+            {"errors": {"image": _("Invalid image format")}}, status=400
+        )
+
+    try:
+        Files.objects.get(id=request.user.avatar).delete()
+    except Files.DoesNotExist:
+        pass
+
+    file = Files(name="avatar.webp", file=img)
+    file.save()
+
+    channel.avatar = file.id
+    channel.save()
+
+    return JsonResponse({"id": file.id}, status=200)
 
 
 urlpatterns = [
     path("create/", channels_create),
-    path("<int:channel_id>/delete/", channels_delete),
     path("<int:channel_id>/messages/", channel_messages),
     path("<int:channel_id>/members/", channel_members),
     path("<int:channel_id>/message/", message_create),
+    path("<int:channel_id>/icon/", change_icon),
 ]
