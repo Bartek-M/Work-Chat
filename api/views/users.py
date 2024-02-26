@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 from django.http import JsonResponse, HttpResponse
 from django.urls import path
 
+from backend.sockets import sio
 from api.models import User, UserSettings, Files
 from api.forms import PasswordChangeForm
 from api.utils import crop_image
@@ -49,7 +50,7 @@ def search(request):
 
     query = User.objects.exclude(id=request.user.id)
     result = (
-        query.filter(username__icontains=name.lower())
+        query.filter(username__icontains=name)
         | query.filter(first_name__icontains=name)
         | query.filter(last_name__icontains=name)
     )
@@ -147,6 +148,7 @@ def change_status(request):
     settings.status = avail_status.index(status)
     settings.save()
 
+    sio.emit("status", {"id": str(request.user.id), "status": settings.get_status_display()})
     return HttpResponse(status=200)
 
 

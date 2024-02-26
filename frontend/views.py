@@ -22,11 +22,6 @@ def chat(request):
         {
             "user": request.user.repr(),
             "settings": UserSettings.objects.get(pk=request.user.id).repr(),
-            "channels": sorted(
-                request.user.get_channels(),
-                key=lambda ch: ch.get("last_message"),
-                reverse=True,
-            ),
         },
     )
 

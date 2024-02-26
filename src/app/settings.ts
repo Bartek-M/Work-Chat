@@ -1,6 +1,9 @@
 import { showToast } from "../utils"
 
-let settings: any = {}
+export let user: any = {}
+export let settings: any = {}
+
+export const setUser = (toSet: any) => { user = toSet }
 export const setSettings = (toSet: any) => { settings = toSet }
 
 const passwForm = $("#password-form")
