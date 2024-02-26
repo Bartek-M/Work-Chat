@@ -13,7 +13,7 @@ export const setChannels = (toSet: any) => {
     $("#channel-wrapper").html(toSet.map((channel: any) => `
         <button class="channel-open btn d-flex align-items-center" id="channel-${channel.id}">
             <div class="position-relative">
-                <img class="sidebar-icon" src="api/files/${channel.icon}/" alt="Avatar">
+                <img class="sidebar-icon" src="${channel.icon ? `/api/files/${channel.icon}/` : `/assets/icons/generic_${channel.direct ? 'avatar' : 'group'}.webp`}" alt="Avatar">
                 ${channel.direct ? `
                     <span class="status-icon position-absolute translate-middle" name="status-user-${channel.status_id}">
                         ${getStatus(channel.status_type)}
@@ -98,7 +98,7 @@ $(".search-form").each((_, el) => {
                     if (form.find("[name='add-members']").length) {
                         return form.find(".searched-users").html(data.users.map((user: any) =>
                             `<label class="channel-open btn w-100">
-                                <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar" />
+                                <img class="sidebar-icon" src="${user.icon ? `/api/files/${user.icon}/` : "/assets/icons/generic_avatar.webp"}" alt="Avatar" />
                                 <span class="flex-fill text-start">${user.first_name} ${user.last_name}</span>
                                 <input id="searched-${user.id}" type="checkbox" data-name="${user.username}" ${selectedMembers.includes(String(user.id)) ? "checked" : null} />
                             </label>`
@@ -107,7 +107,7 @@ $(".search-form").each((_, el) => {
 
                     return form.find(".searched-users").html(data.users.map((user: any) =>
                         `<button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${user.id}">
-                            <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar">
+                            <img class="sidebar-icon" src="${user.icon ? `/api/files/${user.icon}/` : "/assets/icons/generic_avatar.webp"}" alt="Avatar">
                             ${user.first_name} ${user.last_name}
                         </button>`
                     ))
@@ -167,7 +167,7 @@ function addMember(userId: string, username: string | null) {
             <button class="channel-open btn bg-body-tertiary" type="button" id="added-${userId}">
                 ${username}
                 <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
-            </label>
+            </button>
         `)
     }
 }
@@ -218,6 +218,8 @@ export async function openChannel(channelId: string) {
         currentChannel = channels[channelId]
     }
 
+    selectedFiles = []
+
     $("#chat-wrapper").html(`
         <nav class="navbar py-1 border-bottom">
             <div class="container-fluid ps-2 justify-content-between">
@@ -227,7 +229,7 @@ export async function openChannel(channelId: string) {
                             <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
                         </svg>
                     </button>
-                    <img class="title-avatar ms-1" src="api/files/${currentChannel.icon}" alt="Avatar">
+                    <img class="title-avatar ms-1" src="${currentChannel.icon ? `/api/files/${currentChannel.icon}/` : `/assets/icons/generic_${currentChannel.direct ? 'avatar' : 'group'}.webp`}" alt="Avatar">
                     ${currentChannel.name}
                 </div>
                 <div class="dropstart" data-bs-toggle="dropdown" aria-expanded="false">
@@ -256,7 +258,8 @@ export async function openChannel(channelId: string) {
             </div>
         </nav>
         <div class="d-flex flex-column overflow-y-scroll h-100" id="message-wrapper">${formatMessages(currentChannel.messages)}</div>
-        <div class="input-group align-items-end p-2 overflow-y-hidden" style="max-height: 40%">
+        <div class="input-group align-items-end p-2" style="max-height: 40%">
+            <div style="position: absolute; bottom: 100%;" id="attached-file"></div>
             <div class="form-control overflow-y-scroll" id="chat-inpt-send" style="min-height: 38px; max-height: 100%" data-placeholder="Wpisz wiadomość" contenteditable></div>
             <label class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -319,14 +322,41 @@ async function sendMessage(channelId: string, content: string) {
 }
 
 function attachFile(file: any) {
-    const files = file.files[file.files.length - 1]
-    if (!files.length) return
-
-    const formData = new FormData()
+    const files = file.files[0]
+    if (!files) return 
+    selectedFiles.push(files)
+    $("#attached-file").append(`
+        <div style="position: absolute; bottom: 100%;">
+            <button class="channel-open btn bg-body-tertiary" type="button" id="file-${selectedFiles.length}">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+                </svg>
+                ${file.name}
+                <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
+            </button>
+        </div>
+    `)
 }
 
 function detachFile(file: any) {
-
+    if (selectedFiles[file]) {
+        selectedFiles = selectedFiles.splice(file, 1)
+        $("#attached-file").find(`#attached-${file}`).remove()
+        $("#to-add").find(`#searched-${file}`).prop("checked", false)
+    } else {
+        selectedFiles.push(file)
+        $("#attached-file").append(`
+            <div style="position: absolute; bottom: 100%;">
+                <button class="channel-open btn bg-body-tertiary" type="button" id="file-${selectedFiles.length}">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+                    </svg>
+                    ${file.name}
+                    <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
+                </button>
+            </div>
+        `)
+    }
 }
 
 export function formatMessages(messages: any, adding?: boolean) {
@@ -344,7 +374,7 @@ export function formatMessages(messages: any, adding?: boolean) {
 
         lastMessage = msg
         return `<div class="d-flex mt-2">
-                <img class="sidebar-icon mx-3 mt-2 col" src="/api/files/${author.avatar}" alt="Avatar">
+                <img class="sidebar-icon mx-3 mt-2 col" src="${author.icon ? `/api/files/${author.icon}/` : "/assets/icons/generic_avatar.webp"}" alt="Avatar">
                 <div>
                     <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
                     <div>${encodeHTML(msg.content)}</div>

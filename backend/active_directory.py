@@ -2,24 +2,20 @@ from api.models import User
 from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES
 import os
 
-# Configuration
 LDAP_SERVER = os.getenv("LDAP_SERVER")
 LDAP_ADMIN = os.getenv("LDAP_ADMIN")
 LDAP_ADMIN_PASSWORD = os.getenv("LDAP_ADMIN_PASSWORD")
 LDAP_SEARCH_BASE = os.getenv("LDAP_SEARCH_BASE")
 
 def fetchAccounts():
-    # Connect to the server
     server = Server(LDAP_SERVER, get_info=ALL)
     conn = Connection(server, user=LDAP_ADMIN, password=LDAP_ADMIN_PASSWORD, authentication='SIMPLE')
     if not conn.bind():
         print('Error in bind', conn.result)
         exit()
 
-    # Search for users
     conn.search(LDAP_SEARCH_BASE, '(objectClass=user)', attributes=['givenName', 'sn', 'mail', 'userPrincipalName', 'physicalDeliveryOfficeName'])
 
-    # Extracting user details
     users = []
     for entry in conn.entries:
         user_dict = {
@@ -28,7 +24,6 @@ def fetchAccounts():
             'email': entry.mail.value if entry.mail else '',
             'username': entry.userPrincipalName.value if entry.userPrincipalName else '',
             'title': entry.physicalDeliveryOfficeName.value if entry.physicalDeliveryOfficeName else '',
-            # Passwords cannot be fetched
         }
         users.append(user_dict)
 
@@ -39,7 +34,6 @@ def fetchAccounts():
         user["username"] = user["username"].split("@")[0]
         createUser(username=user.get("username"), email=user.get("email"), first_name=user.get("name"), last_name=user.get("surname"), job_title=user.get("title"))
 
-    # Unbind the connection
     conn.unbind()
 
 def createUser(username, email, first_name, last_name, job_title):
