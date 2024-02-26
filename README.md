@@ -6,11 +6,19 @@ Communication system for **work** with many features and highly **secure** backe
 > If you find any bugs or you have and propositions, feel free to create a new **issue** on this repository.
 
 ## Requirements
+- Docker 4.2 or above
 - Linux OS 
 - Python 3.11 or above
 - Node.js 16 or above 
 
-## Setup
+## Docker Setup
+```bash
+docker-compose build
+docker-compose up -d
+docker-compose down
+```
+
+## Manual Setup
 First you will need to install dependencies
 ```bash
 pip3 install -r requirements.txt

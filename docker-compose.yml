@@ -1,0 +1,10 @@
+version: "4.27.2"
+
+services:
+  web:
+    build: .
+    command: gunicorn -k gevent -w 1 backend.wsgi:application -b 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports: 
+      - "8000:8000"
