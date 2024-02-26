@@ -2,10 +2,66 @@
 {% load static %}
 
 {% block text %}
-<div class="fs-2 pb-1 border-bottom border-black-subtle mb-3">Nagłówek sekcji</div>
-<div>opis sekcji</div>
+<div class="fs-2 pb-1 border-bottom border-black-subtle mb-3">Kopie zapasowe</div>
+<div>Docker, narzędzie ułatwiające konteneryzację aplikacji, posiada wbudowane mechanizmy do skutecznego tworzenia kopii zapasowych kontenerów wraz z powiązanymi danymi. W tej dokumentacji przedstawię proces tworzenia niezbędnych kopii zapasowych przy użyciu dostępnych narzędzi przy pomocy Dockera.
+</div>
+<div>
+    Do tworzenia kopii zapasowych jest potrzebne:
+    <ol class="m-0">
+        <li>zainstalowane oprogramowanie Docker łącznie z odpowiednimi uprawnienia do korzystania z Dockera</li>
+        <li>Odpowiednia przestrzeń ilości wolnego miejsca na dysku</li>
+        <li>Możliwość zapisu kopii zapasowej</li>
+    </ol>
+    Będzie również potrzebny sprawny komputer z systemem operacyjny.
+</div>
+<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Instalacja Dockera</div>
+<div>Do instalacji Dockera musimy wpisać odpowiednie komendy:
+    <ol class="m-0">
+        <li>Zaktualizuj listę pakietów:<br/>
+            sudo apt update
+        </li>
+        <li>Zainstaluj niezbędne pakiety:
+            <br/>sudo apt install apt-transport-https ca-certificates curl software-properties-common
+        </li>
+        <li>Dodaj klucz GPG Dockera:
+        </br>
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        </li>
+        <li>dodajemy oficjalne repozytorium Dockera. 
+            <br/>echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        </li>
+        <li>Zainstaluj Docker:
+            <br/>
+            sudo apt install docker-ce docker-ce-cli containerd.io
+        </li>
+        <li>Dodaj swojego użytkownika do grupy docker, aby korzystać z Dockera bez sudo:
+            <br/>
+            sudo usermod -aG docker $USER
+        </li>
+    </ol>
+</div>
 <div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Tworzenie kopii zapasowy</div>
-<div>miejsce na tekst</div>
+<div>Jeśli spełniamy ww. wymagania co do odpowiedniego sprzetu i oprogramowania możemy stworzyć swoją kopię zapasową.</div>
+Do tego będziemy potrzebowali następujących komend:
+<ol class="m-0">
+    <li>Tworzenie kopii zapasowej kontenera:</br>docker commit [ID_kontenera] nazwa_obrazu:wersja_backup
+    </li>
+    <li>Tworzenie kopii zapasowej obrazu: <br/>docker save -o sciezka/do/zapisu/moj_obraz_backup.tar moj_obraz:wersja </li>
+    <li>Następnie załadowujemy ten obraz<br/>docker load -i sciezka/do/zapisu/moj_obraz_backup.tar
+    </li>
+    <li>Tworzenie kopii zapasowych volumenów<br/>
+        docker run --rm -v [nazwa_volume]:/backup -v $(pwd):/backup ubuntu tar czf /backup/backup.tar.gz /nazwa_volume
+    </li>
+</ol>
+Kopia zapasowa została utworzona. To były przykładowe nazwy plików.
 <div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Odtwarzanie z kopii zapasowych</div>
-<div>miejsce na tekst</div>
+<div>Teraz jeśli chcemy odtworzyć kopie zapasowe musimy użyć następujące komendy:</div>
+<ol class="m-0">
+    <li>Odtwarzanie Kontenera z Kopii Zapasowej:</br>docker run --name nowy_kontener -d nazwa_obrazu:wersja_backup
+    </li>
+    <li>Odtwarzanie Obrazu z Kopii Zapasowej: <br/>docker load -i sciezka/do/zapisu/moj_obraz_backup.tar
+    </li>
+    <li>Odtwarzanie Danych Volumenu z Kopii Zapasowej<br/>docker run --rm -v [nazwa_volume]:/nowy_volume -v $(pwd):/backup ubuntu tar xzf /backup/backup.tar.gz</li>
+</ol>
+To były przykładowe nazwy plików.
 {% endblock %}
