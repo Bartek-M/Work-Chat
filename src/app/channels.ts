@@ -5,6 +5,7 @@ import { showToast, smoothScroll, encodeHTML } from "../utils"
 
 export let currentChannel: any = null
 let selectedMembers: string[] = []
+let selectedFiles: any[] = []
 
 export let channels: { [id: string]: any } = {}
 export const setChannels = (toSet: any) => { channels = toSet.reduce((obj: any, item: any) => { obj[item.id] = item; return obj }, {}) }
@@ -102,7 +103,6 @@ $(".search-form").each((_, el) => {
                 showToast("API", errors.user, "error")
             })
         }).catch((e) => {
-            console.log(e)
             showToast("API", "Coś poszło nie tak", "error")
         })
     })
@@ -185,50 +185,6 @@ async function getChannelData(channelId: string) {
     })
 }
 
-async function sendMessage(channelId: string, content: string) {
-    if (!channelId || !content) return
-
-    await fetch(`/api/channels/${channelId}/message/`, {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json",
-            "X-CSRFToken": (window as any)["csrf"]
-        },
-        body: JSON.stringify({
-            content: content
-        })
-    }).then(async (resp) => {
-        if (resp.status == 200) return $("#chat-inpt-send").text("")
-        showToast("API", "Nie udało się wysłać wiadomości", "error")
-    }).catch(() => {
-        showToast("API", "Nie udało się wysłać wiadomości", "error")
-    })
-}
-
-export function formatMessages(messages: any, adding?: boolean) {
-    if (!messages.length || !currentChannel) return ""
-    let lastMessage = adding ? channels[currentChannel.id].messages[channels[currentChannel.id].messages.length - 2] : null
-
-    return messages.map((msg: any) => {
-        let author = currentChannel.members.find((user: any) => user.id == msg.author_id)
-        if (!author) author = { first_name: "Usunięty", last_name: "Użytkownik", avatar: null }
-
-        if (lastMessage && lastMessage.id != msg.id && lastMessage.author_id == author.id && (msg.create_time - lastMessage.create_time) < 360) {
-            lastMessage = msg
-            return `<div style="margin-left: 4rem;">${encodeHTML(msg.content)}</div>`
-        }
-
-        lastMessage = msg
-        return `<div class="d-flex mt-2">
-                <img class="sidebar-icon mx-3 mt-2 col" src="/api/files/${author.avatar}" alt="Avatar">
-                <div>
-                    <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
-                    <div>${encodeHTML(msg.content)}</div>
-                </div>
-            </div>`
-    }).join("")
-}
-
 export async function openChannel(channelId: string) {
     if (currentChannel) {
         if (currentChannel.id == channelId) return $("#chat-wrapper").addClass("active")
@@ -282,14 +238,14 @@ export async function openChannel(channelId: string) {
             </div>
         </nav>
         <div class="d-flex flex-column overflow-y-scroll h-100" id="message-wrapper">${formatMessages(currentChannel.messages)}</div>
-        <div class="input-group align-items-end p-2">
-            <div class="form-control" id="chat-inpt-send" style="min-height: 38px; max-height: 40%" data-placeholder="Wpisz wiadomość" contenteditable></div>
-            <button class="input-group-text bg-body-tertiary" style="height: 38px;">
+        <div class="input-group align-items-end p-2 overflow-y-hidden" style="max-height: 40%">
+            <div class="form-control overflow-y-scroll" id="chat-inpt-send" style="min-height: 38px; max-height: 100%" data-placeholder="Wpisz wiadomość" contenteditable></div>
+            <label class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
                 </svg>
-                <input class="d-none" type="file"/>
-            </button>
+                <input class="d-none" type="file" id="msg-file-inpt" multiple />
+            </label>
             <button class="input-group-text bg-body-tertiary" id="chat-btn-send" style="height: 38px;">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
@@ -302,6 +258,8 @@ export async function openChannel(channelId: string) {
 
     $(`#channel-${currentChannel.id}`).addClass("active")
     $("#chat-close").on("click", () => $("#chat-wrapper").removeClass("active"))
+
+    $("#msg-file-inpt").on("change", (e) => attachFile(e.target))
 
     $("#chat-btn-send").on("click", () => sendMessage(String(currentChannel.id), $("#chat-inpt-send").get(0).innerText))
     $("#chat-inpt-send").on("keydown", (e) => {
@@ -317,3 +275,62 @@ export async function openChannel(channelId: string) {
 }
 
 $("#channel-wrapper").on("click", (e) => openChannel(e.target.id.replace("channel-", "")))
+
+// MESSAGES
+async function sendMessage(channelId: string, content: string) {
+    if (!channelId || !content) return
+
+    const formData = new FormData()
+    formData.append("content", content)
+
+    const files = ($("#msg-file-inpt").get(0) as HTMLInputElement).files
+    for (let i = 0; i < files.length; i++) formData.append(`file${i}`, files[0])
+
+    await fetch(`/api/channels/${channelId}/message/`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": (window as any)["csrf"]
+        },
+        body: formData
+    }).then(async (resp) => {
+        if (resp.status == 200) return $("#chat-inpt-send").text("")
+        showToast("API", "Nie udało się wysłać wiadomości", "error")
+    }).catch(() => {
+        showToast("API", "Nie udało się wysłać wiadomości", "error")
+    })
+}
+
+function attachFile(file: any) {
+    const files = file.files[file.files.length - 1]
+    if (!files.length) return
+
+    const formData = new FormData()
+}
+
+function detachFile(file: any) {
+
+}
+
+export function formatMessages(messages: any, adding?: boolean) {
+    if (!messages.length || !currentChannel) return ""
+    let lastMessage = adding ? channels[currentChannel.id].messages[channels[currentChannel.id].messages.length - 2] : null
+
+    return messages.map((msg: any) => {
+        let author = currentChannel.members.find((user: any) => user.id == msg.author_id)
+        if (!author) author = { first_name: "Usunięty", last_name: "Użytkownik", avatar: null }
+
+        if (lastMessage && lastMessage.id != msg.id && lastMessage.author_id == author.id && (msg.create_time - lastMessage.create_time) < 360) {
+            lastMessage = msg
+            return `<div style="margin-left: 4rem;">${encodeHTML(msg.content)}</div>`
+        }
+
+        lastMessage = msg
+        return `<div class="d-flex mt-2">
+                <img class="sidebar-icon mx-3 mt-2 col" src="/api/files/${author.avatar}" alt="Avatar">
+                <div>
+                    <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
+                    <div>${encodeHTML(msg.content)}</div>
+                </div>
+            </div>`
+    }).join("")
+}

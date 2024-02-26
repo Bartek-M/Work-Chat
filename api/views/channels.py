@@ -92,12 +92,12 @@ def channels_create(request):
 @require_http_methods(["POST"])
 @login_required
 def message_create(request, channel_id):
-    data = json.loads(request.body)
+    data = request.POST.copy()
 
     data["author"] = request.user.id
     data["channel"] = channel_id
 
-    form = MessageCreateForm(data)
+    form = MessageCreateForm(data, request.FILES)
 
     if not form.is_valid():
         return JsonResponse({"errors": json.loads(form.errors.as_json())}, status=400)

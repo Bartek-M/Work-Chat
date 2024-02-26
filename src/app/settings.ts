@@ -116,10 +116,8 @@ async function changeAvatar(file: any) {
     })
 }
 
-
 $("#user-avatar-btn").on("click", () => $("#user-avatar-file").get(0).click())
 $("#user-avatar-file").on("change", (e) => changeAvatar(e.target))
-
 
 
 // MODALS

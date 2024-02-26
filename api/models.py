@@ -120,7 +120,7 @@ class Message(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=2000)
-    files = models.ManyToManyField("Files")
+    files = models.ManyToManyField("Files", blank=True)
     create_time = models.DateTimeField(default=timezone.now)
 
     def repr(self) -> dict:

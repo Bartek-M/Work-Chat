@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django import forms
 
-from .models import User, UserSettings, Channel, Message
+from .models import User, UserSettings, Channel, Message, Files
 
 
 class RegisterForm(forms.ModelForm):
@@ -87,15 +87,17 @@ class ChannelCreateForm(forms.ModelForm):
 
         return cleaned_data
 
-    def save(self):
-        channel = super().save()
-        return channel
-
 
 class MessageCreateForm(forms.ModelForm):
     class Meta:
         model = Message
-        fields = ("channel", "author", "content")
+        fields = ("channel", "author", "content", "files")
+
+    def clean_files(self):
+        return [
+            Files.objects.create(file=file.read(), name=file.name)
+            for file in self.files.values()
+        ]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -106,10 +108,6 @@ class MessageCreateForm(forms.ModelForm):
             raise ValidationError(_("You are not a member of this channel"))
 
         return cleaned_data
-
-    def save(self):
-        message = super().save()
-        return message
 
 
 class PasswordChangeForm(forms.Form):

@@ -61,6 +61,28 @@ def search(request):
     return JsonResponse({"users": [user.repr() for user in result[:10]]}, status=200)
 
 
+@require_http_methods(["POST"])
+@login_required
+def change_avatar(request):
+    if not (file := request.FILES.get("icon")):
+        return HttpResponse(status=400)
+
+    if not (img := crop_image(file)):
+        return JsonResponse(
+            {"errors": {"image": _("Invalid image format")}}, status=400
+        )
+
+    get_object_or_404(Files, id=request.user.avatar).delete()
+
+    file = Files(name="avatar.webp", file=img)
+    file.save()
+
+    request.user.avatar = file.id
+    request.user.save()
+
+    return JsonResponse({"id": file.id}, status=200)
+
+
 # PATCH
 @require_http_methods(["PATCH"])
 @login_required
@@ -110,34 +132,12 @@ def change_notifications(request):
     return HttpResponse(status=200)
 
 
-@require_http_methods(["POST"])
-@login_required
-def change_avatar(request):
-    if not (file := request.FILES.get("icon")):
-        return HttpResponse(status=400)
-
-    if not (img := crop_image(file)):
-        return JsonResponse(
-            {"errors": {"image": _("Invalid image format")}}, status=400
-        )
-
-    get_object_or_404(Files, id=request.user.avatar).delete()
-
-    file = Files(name="avatar.webp", file=img)
-    file.save()
-
-    request.user.avatar = file.id
-    request.user.save()
-
-    return JsonResponse({"id": file.id}, status=200)
-
-
 urlpatterns = [
     path("me/", user),
     path("me/channels/", get_channels),
     path("search/", search),
+    path("me/avatar/", change_avatar),
     path("me/password/", change_password),
     path("me/theme/", change_theme),
     path("me/notifications/", change_notifications),
-    path("me/avatar/", change_avatar),
 ]

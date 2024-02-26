@@ -17,5 +17,4 @@ def get_file(request, file_id):
 
 urlpatterns = [
     path("<int:file_id>/", get_file),
-    path("<str:file_id>/", get_file),
 ]
