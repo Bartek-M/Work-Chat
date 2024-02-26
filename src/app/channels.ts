@@ -167,7 +167,7 @@ function addMember(userId: string, username: string | null) {
             <button class="channel-open btn bg-body-tertiary" type="button" id="added-${userId}">
                 ${username}
                 <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
-            </label>
+            </button>
         `)
     }
 }
@@ -218,6 +218,8 @@ export async function openChannel(channelId: string) {
         currentChannel = channels[channelId]
     }
 
+    selectedFiles = []
+
     $("#chat-wrapper").html(`
         <nav class="navbar py-1 border-bottom">
             <div class="container-fluid ps-2 justify-content-between">
@@ -256,7 +258,8 @@ export async function openChannel(channelId: string) {
             </div>
         </nav>
         <div class="d-flex flex-column overflow-y-scroll h-100" id="message-wrapper">${formatMessages(currentChannel.messages)}</div>
-        <div class="input-group align-items-end p-2 overflow-y-hidden" style="max-height: 40%">
+        <div class="input-group align-items-end p-2" style="max-height: 40%">
+            <div style="position: absolute; bottom: 100%;" id="attached-file"></div>
             <div class="form-control overflow-y-scroll" id="chat-inpt-send" style="min-height: 38px; max-height: 100%" data-placeholder="Wpisz wiadomość" contenteditable></div>
             <label class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -319,14 +322,41 @@ async function sendMessage(channelId: string, content: string) {
 }
 
 function attachFile(file: any) {
-    const files = file.files[file.files.length - 1]
-    if (!files.length) return
-
-    const formData = new FormData()
+    const files = file.files[0]
+    if (!files) return 
+    selectedFiles.push(files)
+    $("#attached-file").append(`
+        <div style="position: absolute; bottom: 100%;">
+            <button class="channel-open btn bg-body-tertiary" type="button" id="file-${selectedFiles.length}">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+                </svg>
+                ${file.name}
+                <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
+            </button>
+        </div>
+    `)
 }
 
 function detachFile(file: any) {
-
+    if (selectedFiles[file]) {
+        selectedFiles = selectedFiles.splice(file, 1)
+        $("#attached-file").find(`#attached-${file}`).remove()
+        $("#to-add").find(`#searched-${file}`).prop("checked", false)
+    } else {
+        selectedFiles.push(file)
+        $("#attached-file").append(`
+            <div style="position: absolute; bottom: 100%;">
+                <button class="channel-open btn bg-body-tertiary" type="button" id="file-${selectedFiles.length}">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+                    </svg>
+                    ${file.name}
+                    <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
+                </button>
+            </div>
+        `)
+    }
 }
 
 export function formatMessages(messages: any, adding?: boolean) {
