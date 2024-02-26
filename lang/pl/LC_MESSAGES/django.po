@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-24 16:37+0100\n"
+"POT-Creation-Date: 2024-02-26 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,22 +16,22 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\api\forms.py:61
+#: api/forms.py:61
 msgid "Login or password is invalid"
 msgstr "Login lub hasło są niepoprawne"
 
-#: .\api\forms.py:106
+#: api/forms.py:106
 msgid "You are not a member of this channel"
 msgstr "Nie jesteś członkiem tego kanału"
 
-#: .\api\views\users.py:43
+#: api/views/users.py:44
+msgid "Pass at least 2 characters"
+msgstr "Podaj przynajmniej dwa znaki"
+
+#: api/views/users.py:56
 msgid "User not found"
 msgstr "Nie znaleziono użytkownika"
-
-#: .\api\views\users.py:46
-msgid "User is client user"
-msgstr "Użytkownik jest użytkownikiem klienta"

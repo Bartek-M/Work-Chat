@@ -37,17 +37,24 @@ def get_channels(request):
 @login_required
 def search(request):
     data = json.loads(request.body)
-    username = data.get("username", "").lower()
+    name = data.get("name", "")
 
-    try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
+    if len(name) < 2:
+        return JsonResponse(
+            {"errors": {"user": _("Pass at least 2 characters")}}, status=400
+        )
+
+    query = User.objects.exclude(id=request.user.id)
+    result = (
+        query.filter(username__icontains=name.lower())
+        | query.filter(first_name__icontains=name)
+        | query.filter(last_name__icontains=name)
+    )
+
+    if not len(result):
         return JsonResponse({"errors": {"user": _("User not found")}}, status=400)
 
-    if user.id == request.user.id:
-        return JsonResponse({"errors": {"user": _("User is client user")}}, status=400)
-
-    return JsonResponse({"user": user.repr()}, status=200)
+    return JsonResponse({"users": [user.repr() for user in result[:10]]}, status=200)
 
 
 # PATCH
@@ -91,5 +98,5 @@ urlpatterns = [
     path("me/channels/", get_channels),
     path("search/", search),
     path("me/theme/", change_theme),
-    path("me/notifications/", change_notifications)
+    path("me/notifications/", change_notifications),
 ]

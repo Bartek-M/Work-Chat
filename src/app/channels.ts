@@ -48,7 +48,7 @@ form.on("submit", async (e) => {
 $(".search-form").each((_, el) => {
     let form = $(el)
     let button = form.find("button")
-    let lastUsername: string
+    let lastSearch: string
 
     form.find("input").on("keydown", (e) => {
         if (e.key != "Enter") return true
@@ -59,10 +59,10 @@ $(".search-form").each((_, el) => {
     button.on("click", async (e) => {
         e.preventDefault()
 
-        let username = form.find("[name='search-inpt']").val()
-        if (!username || username == lastUsername) return
+        let search = form.find("[name='search-inpt']").val()
+        if (!search || search == lastSearch) return
 
-        lastUsername = (username as string)
+        lastSearch = (search as string)
 
         await fetch("/api/users/search/", {
             method: "POST",
@@ -71,23 +71,27 @@ $(".search-form").each((_, el) => {
                 "X-CSRFToken": (window as any)["csrf"]
             },
             body: JSON.stringify({
-                username: username
+                name: search
             }),
         }).then(async (resp) => {
             await resp.json().then((data) => {
-                if (resp.status == 200 && data.user) {
-                    return form.find(".searched-users").html(
-                        form.find("[name='add-members']").length
-                            ? `<label class="channel-open btn w-100">
-                                <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar" />
-                                <span class="flex-fill text-start">${data.user.first_name} ${data.user.last_name}</span>
-                                <input id="searched-${data.user.id}" type="checkbox" data-name="${data.user.username}" ${selectedMembers.includes(String(data.user.id)) ? "checked" : null} />
+                if (resp.status == 200 && data.users && data.users.length) {
+                    if (form.find("[name='add-members']").length) {
+                        return form.find(".searched-users").html(data.users.map((user: any) => 
+                            `<label class="channel-open btn w-100">
+                                <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar" />
+                                <span class="flex-fill text-start">${user.first_name} ${user.last_name}</span>
+                                <input id="searched-${user.id}" type="checkbox" data-name="${user.username}" ${selectedMembers.includes(String(user.id)) ? "checked" : null} />
                             </label>`
-                            : `<button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${data.user.id}">
-                                <img class="sidebar-icon" src="api/files/${data.user.avatar}" alt="Avatar">
-                                ${data.user.first_name} ${data.user.last_name}
-                            </button>`
-                    )
+                        ))
+                    }
+
+                    return form.find(".searched-users").html(data.users.map((user: any) => 
+                        `<button class="channel-open btn d-flex align-items-center w-100" type="button" id="searched-${user.id}">
+                            <img class="sidebar-icon" src="api/files/${user.avatar}" alt="Avatar">
+                            ${user.first_name} ${user.last_name}
+                        </button>`
+                    ))
                 }
 
                 form.find(".searched-users").html("")
@@ -97,7 +101,8 @@ $(".search-form").each((_, el) => {
 
                 showToast("API", errors.user, "error")
             })
-        }).catch(() => {
+        }).catch((e) => {
+            console.log(e)
             showToast("API", "Coś poszło nie tak", "error")
         })
     })

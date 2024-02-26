@@ -13,7 +13,8 @@ export function changeTheme(theme?: string) {
         let storedTheme = localStorage.getItem("theme")
         if (storedTheme) return changeTheme(storedTheme)
 
-        return localStorage.setItem("theme", "auto")
+        localStorage.setItem("theme", "auto")
+        return preferredTheme()
     }
 
     if (theme == "auto") {

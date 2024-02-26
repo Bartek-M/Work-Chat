@@ -132,7 +132,9 @@ html,
     transition: none;
     transform: scale(0);
 }
-.icon-wrapper:hover .change-icon {
+
+.change-icon:hover,
+.icon-wrapper > .settings-icon:hover + .change-icon {
     transform: scale(1);
 }
 .change-icon input {

@@ -107,9 +107,9 @@
         <div class="modal-dialog modal-dialog-centered modal-medium">
             <div class="modal-content">
                 <div class="modal-body d-flex gap-4">
-                    <div class="icon-wrapper mt-2" id="user-avatar-btn">
+                    <div class="icon-wrapper mt-2">
                         <img class="settings-icon rounded-circle" src="/api/files/none" />
-                        <div class="change-icon position-absolute d-flex align-items-center justify-content-center rounded-circle">
+                        <div class="change-icon position-absolute d-flex align-items-center justify-content-center rounded-circle" id="user-avatar-btn">
                             ZMIEŃ<br />IKONKĘ
                             <input type="file" accept="image/*" id="user-avatar-file" />
                         </div>
@@ -258,7 +258,7 @@
                 <div class="modal-body">
                     <div class="search-form">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="search-inpt" placeholder="Nazwa użytkownika" />
+                            <input type="text" class="form-control" name="search-inpt" placeholder="Wyszukaj użytkowników" />
                             <button class="input-group-text bg-body-tertiary">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
@@ -281,11 +281,17 @@
                 </div>
                 <form class="channel-create-form modal-body d-flex flex-column px-4">
                     <div class="d-flex align-items-center gap-4 mb-3">
-                        <button class="btn p-0 border-0">
-                            <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
-                                <circle cx="8" cy="8" r="8"/>
+                        <div class="icon-wrapper mt-2">
+                            <img class="settings-icon rounded-circle" src="/api/files/none" />
+                            <div class="change-icon position-absolute d-flex align-items-center justify-content-center rounded-circle" id="creator-icon-btn">
+                                ZMIEŃ<br />IKONKĘ
+                                <input type="file" accept="image/*" id="creator-icon-file" />
+                            </div>
+                            <svg class="add-icon position-absolute translate-middle" width="16" height="16" fill="var(--bs-secondary-color)" viewBox="0 0 16 16">
+                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
                             </svg>
-                        </button>
+                        </div> 
                         <div class="w-100">
                             <div>Nazwa</div>
                             <input class="form-control my-2" type="text" id="group-name">
@@ -294,7 +300,7 @@
                     <div class="search-form">
                         <div class="d-flex flex-wrap gap-2 pb-2 pointer-events" name="add-members" id="added-members"></div>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="search-inpt" placeholder="Nazwa użytkownika" />
+                            <input type="text" class="form-control" name="search-inpt" placeholder="Wyszukaj użytkowników" />
                             <button class="input-group-text bg-body-tertiary" type="button">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
