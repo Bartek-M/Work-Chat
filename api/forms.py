@@ -94,10 +94,16 @@ class MessageCreateForm(forms.ModelForm):
         fields = ("channel", "author", "content", "files")
 
     def clean_files(self):
-        return [
-            Files.objects.create(file=file.read(), name=file.name)
-            for file in self.files.values()
-        ]
+        max_file_size = 10 * 1024 * 1024  # 10MB    
+        files_created = []
+
+        for file in self.files.values():
+            if file.size > max_file_size:
+                raise forms.ValidationError("File size exceeds maximum allowed size.")
+
+            files_created.append(Files.objects.create(file=file.read(), name=file.name))
+
+        return files_created
 
     def clean(self):
         cleaned_data = super().clean()

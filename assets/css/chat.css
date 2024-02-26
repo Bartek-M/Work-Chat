@@ -139,3 +139,11 @@ html,
 .change-icon input {
     display: none;
 }
+
+/* FILES */
+.file-wrapper {
+    margin-left: 4rem; 
+    width: 300px;
+    color: var(--bs-secondary-color);
+    text-decoration: none;
+}

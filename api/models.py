@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
+
 class User(AbstractUser):
     """
     User Representation
@@ -127,6 +128,7 @@ class Channel(models.Model):
             "id": str(self.id),
             "name": self.name,
             "icon": self.icon,
+            "direct": self.direct,
             "create_time": self.create_time.timestamp(),
             "last_message": self.last_message.timestamp(),
         }
@@ -140,7 +142,7 @@ class Message(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=2000)
-    files = models.ManyToManyField("Files", blank=True)
+    files = models.ManyToManyField("Files", through="MessageFiles", blank=True)
     create_time = models.DateTimeField(default=timezone.now)
 
     def repr(self) -> dict:
@@ -149,6 +151,7 @@ class Message(models.Model):
             "channel_id": self.channel.id,
             "author_id": self.author.id,
             "content": self.content,
+            "files": [{"id": file.id, "name": file.name} for file in self.files.all()],
             "create_time": self.create_time.timestamp(),
         }
 
@@ -176,8 +179,18 @@ class Files(models.Model):
     """
 
     file = models.BinaryField()
-    name = models.CharField(max_length=255)
-    create_time = models.DateTimeField(default=timezone.now)
+    data = models.ForeignKey("MessageFiles", on_delete=models.CASCADE)
 
     def get_type(self):
         return magic.Magic().from_buffer(self.file)
+
+
+class MessageFiles(models.Model):
+    """
+    Message Files Representation
+    """
+
+    file = models.ForeignKey(Files, on_delete=models.CASCADE)
+    message = models.ForeignKey(Message, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    create_time = models.DateTimeField(default=timezone.now)

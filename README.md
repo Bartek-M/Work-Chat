@@ -39,7 +39,7 @@ npm run build
 
 ## Running Server
 ```bash
-gunicorn -k gevent -w 1 backend.wsgi:applicatio
+gunicorn -k gevent -w 1 -c gunicorn_conifg.py  backend.wsgi:application
 ```
 
 ## Authors

@@ -22,6 +22,7 @@ django_app = (
     else StaticFilesHandler(get_wsgi_application())
 )
 
-from .sockets import sio
+from backend.sockets import sio
+import backend.active_directory
 
 application = socketio.WSGIApp(sio, django_app)
