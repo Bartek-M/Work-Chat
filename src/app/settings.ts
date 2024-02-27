@@ -155,8 +155,9 @@ async function changeIcon(file: any, channelId: number) {
         body: formData
     }).then(async (resp) => {
         await resp.json().then((data) => {
-            if (resp.status == 200) {
-                $("[name='user-avatar']").each((_, el) => { (el as HTMLImageElement).src = `/api/files/${data.id}` })
+            if (resp.status == 200 && data.channel_id && data.id) {
+                console.log($(`[name='group-icon-${data.channel_id}']`))
+                $(`[name='group-icon-${data.channel_id}']`).each((_, el) => { (el as HTMLImageElement).src = `/api/files/${data.id}` })
                 return showToast("Ustawienia", "Zmieniono ikonkę grupy", "success")
             }
 
@@ -171,8 +172,8 @@ async function changeIcon(file: any, channelId: number) {
 $("#user-avatar-btn").on("click", () => $("#user-avatar-file").get(0).click())
 $("#user-avatar-file").on("change", (e) => changeAvatar(e.target))
 
-$("#user-avatar-btn").on("click", () => $("#user-avatar-file").get(0).click())
-$("#user-avatar-file").on("change", (e) => changeIcon(e.target, currentChannel.id))
+$("#update-icon-btn").on("click", () => $("#update-icon-file").get(0).click())
+$("#update-icon-file").on("change", (e) => changeIcon(e.target, currentChannel.id))
 
 
 // MODALS
@@ -181,3 +182,11 @@ function clearInputs(element: any) {
     $(element).find("span.text-danger").each((_, errorElement) => { errorElement.innerText = "*" })
 }
 $(".modal").each((_, el) => { $(el).on("hide.bs.modal", () => clearInputs(el)) })
+
+function setChannelSettings(element: any, channel: any) {
+    $(element).find("#settings-group-name").val(channel.name);
+    ($(element).find("#settings-group-icon").get(0) as HTMLImageElement).src = currentChannel.icon ? `/api/files/${currentChannel.icon}` : "/assets/icons/generic_group.webp"
+    $(element).find("#settings-group-icon").attr("name", `group-icon-${channel.id}`)
+}
+
+$("#channel-settings-modal").on("show.bs.modal", (e) => setChannelSettings(e.target, currentChannel))

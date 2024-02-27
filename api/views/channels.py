@@ -9,7 +9,7 @@ from django.http import JsonResponse, HttpResponse
 
 from backend.sockets import sio
 from api.forms import ChannelCreateForm, MessageCreateForm
-from api.models import Channel, Message, Files
+from api.models import Channel, Message, Files, UserSettings
 from api.utils import crop_image
 
 
@@ -67,23 +67,29 @@ def channels_create(request):
         if not any(user_room in room for room in sio.manager.rooms.values()):
             continue
 
-        sio.emit(
-            "channel_create",
-            {
-                **channel.repr(),
-                "name": (
-                    channel.name
-                    if not channel.direct
-                    else channel.members.exclude(id=member.id)[0].get_full_name()
-                ),
-                "icon": (
-                    channel.icon
-                    if not channel.direct
-                    else channel.members.exclude(id=member.id)[0].avatar
-                ),
-            },
-            room=user_room,
-        )
+        if not channel.direct:
+            sio.emit("channel_create", channel.repr(), room=user_room)
+        else:
+            sio.emit(
+                "channel_create",
+                {
+                    **channel.repr(),
+                    "name": (
+                        user_2 := channel.members.exclude(id=member.id)[0]
+                    ).get_full_name(),
+                    "icon": user_2.avatar,
+                    "direct": channel.direct,
+                    "status_id": user_2.id,
+                    "status_type": (
+                        "Offline"
+                        if not len(
+                            sio.manager.rooms.get("/", {}).get(f"user-{user_2.id}", [])
+                        )
+                        else UserSettings.objects.get(pk=user_2.id).get_status_display()
+                    ),
+                },
+                room=user_room,
+            )
 
         for sid in sio.manager.rooms["/"].get(user_room, []):
             sio.enter_room(sid, f"channel-{channel.id}")
@@ -112,11 +118,15 @@ def message_create(request, channel_id):
     sio.send(message.repr(), room=f"channel-{channel_id}")
     return JsonResponse({"message": message.repr()}, status=200)
 
+
 @require_http_methods(["POST"])
 @login_required
 def change_icon(request, channel_id):
     try:
         channel = request.user.channels.get(id=channel_id)
+
+        if channel.direct:
+            raise Channel.DoesNotExist
     except Channel.DoesNotExist:
         return HttpResponse(status=403)
 
@@ -129,17 +139,17 @@ def change_icon(request, channel_id):
         )
 
     try:
-        Files.objects.get(id=request.user.avatar).delete()
+        Files.objects.get(id=channel.icon).delete()
     except Files.DoesNotExist:
         pass
 
-    file = Files(name="avatar.webp", file=img)
+    file = Files(file=img)
     file.save()
 
-    channel.avatar = file.id
+    channel.icon = file.id
     channel.save()
 
-    return JsonResponse({"id": file.id}, status=200)
+    return JsonResponse({"id": file.id, "channel_id": channel.id}, status=200)
 
 
 urlpatterns = [

@@ -29,7 +29,11 @@ socket.on("channel_create", (data) => {
         <button class= "channel-open btn d-flex align-items-center" id = "channel-${data.id}">
             <div class="position-relative" >
                 <img class="sidebar-icon" src="${data.icon ? `/api/files/${data.icon}/` : `/assets/icons/generic_${data.direct ? 'avatar' : 'group'}.webp`}" alt = "Avatar" >
-                <span class="status-icon position-absolute translate-middle bg-danger rounded-circle"> </span>
+                ${data.direct ? `
+                    <span class="status-icon position-absolute translate-middle" name="status-user-${data.status_id}">
+                        ${getStatus(data.status_type)}
+                    </span>
+                `: ''}
             </div>
             ${data.name}
         </button>

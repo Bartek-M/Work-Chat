@@ -77,7 +77,7 @@ def change_avatar(request):
     except Files.DoesNotExist:
         pass
 
-    file = Files(name="avatar.webp", file=img)
+    file = Files(file=img)
     file.save()
 
     request.user.avatar = file.id
