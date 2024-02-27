@@ -1,6 +1,7 @@
 # Work Chat
 Communication system for **work** with many features and highly **secure** backend. Backend is supplied by **Python** with **Django**. Frontend was made using **Bootstrap** CSS styles and **TypeScript** functionality, packed with **Webpack**. Dynamic communication with server is done using **SocketIO**. This is a competition project made in one month with my friends. You can check it out using instruction below.
 
+> Default URL: https://127.0.0.1
 > Checkout `docs/` for more instructions and detailed explanations.
 >
 > If you find any bugs or you have and propositions, feel free to create a new **issue** on this repository.
@@ -17,7 +18,7 @@ Communication system for **work** with many features and highly **secure** backe
 Fully working, fast and easy installation using Docker
 ```bash
 docker-compose build
-docker-compose up -d
+docker-compose up
 ```
 
 Turn of the container
