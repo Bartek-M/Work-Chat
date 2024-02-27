@@ -40,7 +40,9 @@ class User(AbstractUser):
                     "status_id": user_2.id,
                     "status_type": (
                         "Offline"
-                        if not len(sio.manager.rooms.get("/", {}).get(f"user-{user_2.id}", []))
+                        if not len(
+                            sio.manager.rooms.get("/", {}).get(f"user-{user_2.id}", [])
+                        )
                         else UserSettings.objects.get(pk=user_2.id).get_status_display()
                     ),
                     "last_message": channel.last_message.timestamp(),
@@ -112,7 +114,7 @@ class Channel(models.Model):
 
     name = models.CharField(max_length=100, blank=True, default="")
     direct = models.BooleanField(default=False)
-    direct_id = models.TextField(unique=True, blank=True)
+    direct_id = models.TextField(blank=True)
     icon = models.IntegerField(null=True)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="ownership", null=False

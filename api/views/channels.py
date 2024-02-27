@@ -9,7 +9,7 @@ from django.http import JsonResponse, HttpResponse
 
 from backend.sockets import sio
 from api.forms import ChannelCreateForm, MessageCreateForm
-from api.models import Channel, Message, Files, UserSettings
+from api.models import Channel, Message, Files, UserSettings, ChannelUsers
 from api.utils import crop_image
 
 
@@ -152,10 +152,32 @@ def change_icon(request, channel_id):
     return JsonResponse({"id": file.id, "channel_id": channel.id}, status=200)
 
 
+# PATCH
+
+
+# DELETE
+@require_http_methods(["DELETE"])
+@login_required
+def leave_channel(request, channel_id):
+    try:
+        channel = request.user.channels.get(id=channel_id)
+
+        if channel.direct:
+            raise Channel.DoesNotExist
+    except Channel.DoesNotExist:
+        return HttpResponse(status=403)
+
+    ChannelUsers.objects.get(channel_id=channel.id, user=request.user.id).delete()
+
+    sio.emit("leave_channel", {"channel_id": channel.id}, room=f"user-{request.user.id}")
+    return HttpResponse(status=200)
+
+
 urlpatterns = [
     path("create/", channels_create),
     path("<int:channel_id>/messages/", channel_messages),
     path("<int:channel_id>/members/", channel_members),
     path("<int:channel_id>/message/", message_create),
     path("<int:channel_id>/icon/", change_icon),
+    path("<int:channel_id>/leave/", leave_channel),
 ]

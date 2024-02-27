@@ -13,7 +13,7 @@ socket.on("disconnect", () => {
 socket.on("message", async (data) => {
     addMessage(data.channel_id, data)
 
-    if (!currentChannel || (data.channel_id != currentChannel.id)) {
+    if ((!currentChannel || data.channel_id != currentChannel.id) && data.author_id != user.id) {
         ($("#notification-sound").get(0) as HTMLAudioElement).play()
         return showToast(channels[data.channel_id].name, `${data.content}`, "info")
     }
@@ -46,4 +46,20 @@ socket.on("status", (data) => {
     })
 
     if (data.id == user.id) $(`#profile-status-${user.id}`).html(getStatus(data.status, 20))
+})
+
+socket.on("leave_channel", (data) => {
+    if (currentChannel && currentChannel.id == data.channel_id) { 
+        $("chat-wrapper").html(`
+            <div class="position-absolute top-50 start-50 translate-middle">
+                <svg width="96" height="96" fill="rgb(var(--bs-tertiary-bg-rgb))" viewBox="0 0 16 16">
+                    <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15"/>
+                </svg>
+            </div>
+        `)
+    }
+
+    delete channels[data.channel_id]
+    $(`#channel-${data.channel_id}`).remove()
+
 })

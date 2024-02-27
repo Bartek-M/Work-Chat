@@ -1,5 +1,5 @@
 import { showToast } from "../utils"
-import { currentChannel } from "./channels"
+import { currentChannel, channels } from "./channels"
 
 export let user: any = {}
 export let settings: any = {}
@@ -129,6 +129,7 @@ async function changeAvatar(file: any) {
         await resp.json().then((data) => {
             if (resp.status == 200) {
                 $("[name='user-avatar']").each((_, el) => { (el as HTMLImageElement).src = `/api/files/${data.id}` })
+
                 return showToast("Ustawienia", "Zmieniono zdjęcie profilowe", "success")
             }
 
@@ -156,8 +157,8 @@ async function changeIcon(file: any, channelId: number) {
     }).then(async (resp) => {
         await resp.json().then((data) => {
             if (resp.status == 200 && data.channel_id && data.id) {
-                console.log($(`[name='group-icon-${data.channel_id}']`))
                 $(`[name='group-icon-${data.channel_id}']`).each((_, el) => { (el as HTMLImageElement).src = `/api/files/${data.id}` })
+                channels[data.channel_id].icon = data.id
                 return showToast("Ustawienia", "Zmieniono ikonkę grupy", "success")
             }
 
@@ -185,7 +186,7 @@ $(".modal").each((_, el) => { $(el).on("hide.bs.modal", () => clearInputs(el)) }
 
 function setChannelSettings(element: any, channel: any) {
     $(element).find("#settings-group-name").val(channel.name);
-    ($(element).find("#settings-group-icon").get(0) as HTMLImageElement).src = currentChannel.icon ? `/api/files/${currentChannel.icon}` : "/assets/icons/generic_group.webp"
+    $(element).find("#settings-group-icon").attr("src", channel.icon ? `/api/files/${channel.icon}` : `/assets/icons/generic_group.webp`)
     $(element).find("#settings-group-icon").attr("name", `group-icon-${channel.id}`)
 }
 
