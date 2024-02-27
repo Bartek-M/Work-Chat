@@ -5,7 +5,7 @@ import { showToast, smoothScroll, encodeHTML, getStatus } from "../utils"
 
 export let currentChannel: any = null
 let selectedMembers: string[] = []
-let selectedFiles: any[] = []
+let selectedFiles: any = {}
 
 export let channels: { [id: string]: any } = {}
 export const setChannels = (toSet: any) => {
@@ -218,7 +218,7 @@ export async function openChannel(channelId: string) {
         currentChannel = channels[channelId]
     }
 
-    selectedFiles = []
+    selectedFiles = {}
 
     $("#chat-wrapper").html(`
         <nav class="navbar py-1 border-bottom">
@@ -259,8 +259,8 @@ export async function openChannel(channelId: string) {
         </nav>
         <div class="d-flex flex-column overflow-y-scroll h-100" id="message-wrapper">${formatMessages(currentChannel.messages)}</div>
         <div class="input-group align-items-end p-2" style="max-height: 40%">
-            <div style="position: absolute; bottom: 100%;" id="attached-file"></div>
             <div class="form-control overflow-y-scroll" id="chat-inpt-send" style="min-height: 38px; max-height: 100%" data-placeholder="Wpisz wiadomość" contenteditable></div>
+            <div class="d-flex flex-wrap gap-2" style="position: absolute; bottom: 100%;" id="attached-file"></div>
             <label class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
@@ -281,6 +281,7 @@ export async function openChannel(channelId: string) {
     $("#chat-close").on("click", () => $("#chat-wrapper").removeClass("active"))
 
     $("#msg-file-inpt").on("change", (e) => attachFile(e.target))
+    $("#attached-file").on("click", (e) => detachFile(e.target.id))
 
     $("#chat-btn-send").on("click", () => sendMessage(String(currentChannel.id), $("#chat-inpt-send").get(0).innerText))
     $("#chat-inpt-send").on("keydown", (e) => {
@@ -301,10 +302,10 @@ $("#channel-wrapper").on("click", (e) => openChannel(e.target.id.replace("channe
 async function sendMessage(channelId: string, content: string) {
     if (!channelId || !content) return
 
-    const formData = new FormData()
+    let formData = new FormData()
     formData.append("content", content)
 
-    for (let i = 0; i < selectedFiles.length; i++) formData.append(`file${i}`, selectedFiles[i])
+    for (let key in selectedFiles) formData.append(`file${key}`, selectedFiles[key])
 
     await fetch(`/api/channels/${channelId}/message/`, {
         method: "POST",
@@ -313,49 +314,48 @@ async function sendMessage(channelId: string, content: string) {
         },
         body: formData
     }).then(async (resp) => {
-        if (resp.status == 200) return $("#chat-inpt-send").text("")
-        showToast("API", "Nie udało się wysłać wiadomości", "error")
+        await resp.json().then((data) => {
+            if (resp.status == 200) {
+                selectedFiles = {}
+                $("#attached-file").html("")
+                $("#chat-inpt-send").text("")
+                return
+            }
+
+            if (data.error.files) return showToast("Wiadomość", data.error.files[0].message, "error")
+            showToast("API", "Nie udało się wysłać wiadomości", "error")
+        })
     }).catch(() => {
         showToast("API", "Nie udało się wysłać wiadomości", "error")
     })
 }
 
-function attachFile(file: any) {
-    const files = file.files[0]
-    if (!files) return
-    selectedFiles.push(files)
+function attachFile(files: any) {
+    const file = files.files[0]
+    if (!file) return
+
+    $("#msg-file-inpt").val("")
+    let index = Object.keys(selectedFiles).length
+    selectedFiles[index] = file
+
     $("#attached-file").append(`
-        <div style="position: absolute; bottom: 100%;">
-            <button class="channel-open btn bg-body-tertiary" type="button" id="file-${selectedFiles.length}">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
-                </svg>
-                ${file.name}
-                <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
-            </button>
-        </div>
+        <button class="channel-open btn bg-body-tertiary" type="button" id="file-${index}">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+            </svg>
+            ${file.name}
+            <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
+        </button>
     `)
 }
 
 function detachFile(file: any) {
-    if (selectedFiles[file]) {
-        selectedFiles = selectedFiles.splice(file, 1)
-        $("#attached-file").find(`#attached-${file}`).remove()
-        $("#to-add").find(`#searched-${file}`).prop("checked", false)
-    } else {
-        selectedFiles.push(file)
-        $("#attached-file").append(`
-            <div style="position: absolute; bottom: 100%;">
-                <button class="channel-open btn bg-body-tertiary" type="button" id="file-${selectedFiles.length}">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
-                    </svg>
-                    ${file.name}
-                    <span class="btn-close" style="width: 0.5em; height: 0.5rem;"></span>
-                </button>
-            </div>
-        `)
-    }
+    let fileId = file.replace("file-", "")
+    if (!selectedFiles[fileId]) return
+
+    delete selectedFiles[fileId]
+    $("#attached-file").find(`#${file}`).remove()
+
 }
 
 export function formatMessages(messages: any, adding?: boolean) {

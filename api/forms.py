@@ -6,6 +6,9 @@ from django import forms
 
 from .models import User, UserSettings, Channel, Message, MessageFiles, Files
 
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+MAX_FILES = 4
+
 
 class RegisterForm(forms.ModelForm):
     class Meta:
@@ -94,12 +97,14 @@ class MessageCreateForm(forms.ModelForm):
         fields = ("channel", "author", "content", "files")
 
     def clean_files(self):
-        max_file_size = 10 * 1024 * 1024  # 10MB
         files_created = []
 
+        if len(self.files) > MAX_FILES:
+            raise ValidationError(_("Too many files"))
+
         for file in self.files.values():
-            if file.size > max_file_size:
-                raise forms.ValidationError("File size exceeds maximum allowed size.")
+            if file.size > MAX_FILE_SIZE:
+                raise ValidationError(_("File size exceeds maximum allowed size"))
 
             files_created.append(file)
 
@@ -116,12 +121,12 @@ class MessageCreateForm(forms.ModelForm):
         return cleaned_data
 
     def save(self):
-        # files = self.cleaned_data.get("files")
-        # del self.cleaned_data["files"]
+        files = self.cleaned_data.get("files")
+        del self.cleaned_data["files"]
 
         message = super().save()
 
-        for file in self.cleaned_data.get("files"):
+        for file in files:
             current = Files.objects.create(file=file.read())
             data = MessageFiles(message=message, file=current, name=file.name)
             data.save()

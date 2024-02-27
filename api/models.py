@@ -40,7 +40,7 @@ class User(AbstractUser):
                     "status_id": user_2.id,
                     "status_type": (
                         "Offline"
-                        if not len(sio.manager.rooms["/"].get(f"user-{user_2.id}", []))
+                        if not len(sio.manager.rooms.get("/", {}).get(f"user-{user_2.id}", []))
                         else UserSettings.objects.get(pk=user_2.id).get_status_display()
                     ),
                     "last_message": channel.last_message.timestamp(),
