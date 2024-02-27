@@ -21,11 +21,18 @@ def channel_messages(request, channel_id):
     except Channel.DoesNotExist:
         return HttpResponse(status=403)
 
-    try:
-        msgs = Message.objects.filter(channel_id=channel.id)[:100]
-        return JsonResponse({"messages": [msg.repr() for msg in msgs]}, status=200)
-    except Message.DoesNotExist:
-        return JsonResponse({"messages": []}, status=200)
+    # before_timestamp = request.GET.get("before")
+
+    # if before_timestamp:
+    #     msgs = Message.objects.filter(
+    #         channel_id=channel.id, create_time__lt=before_timestamp
+    #     )[:100]
+    # else:
+    #     msgs = Message.objects.filter(channel_id=channel.id)[:100]
+
+    msgs = Message.objects.filter(channel_id=channel.id)
+    messages = [msg.repr() for msg in msgs]
+    return JsonResponse({"messages": messages}, status=200)
 
 
 @login_required
@@ -169,7 +176,9 @@ def leave_channel(request, channel_id):
 
     ChannelUsers.objects.get(channel_id=channel.id, user=request.user.id).delete()
 
-    sio.emit("leave_channel", {"channel_id": channel.id}, room=f"user-{request.user.id}")
+    sio.emit(
+        "leave_channel", {"channel_id": channel.id}, room=f"user-{request.user.id}"
+    )
     return HttpResponse(status=200)
 
 

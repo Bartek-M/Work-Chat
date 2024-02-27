@@ -206,6 +206,16 @@ async function getChannelData(channelId: string) {
     })
 }
 
+// async function getOlderMessages(channelId: string) {
+//     await fetch(`/api/channels/${channelId}/messages/`, {
+//         headers: { "X-CSRFToken": (window as any)["csrf"] }
+//     }).then(async (resp) => {
+//         await resp.json().then((data) => {
+//             if (resp.status == 200 && data.messages) return channels[channelId].messages = data.messages
+//         })
+//     }).catch(() => )
+// }
+
 export async function openChannel(channelId: string) {
     if (currentChannel) {
         if (currentChannel.id == channelId) return $("#chat-wrapper").addClass("active")
@@ -291,6 +301,11 @@ export async function openChannel(channelId: string) {
     `)
 
     smoothScroll($("#message-wrapper").get(0))
+    $('#message-wrapper').on("scroll", (e) => {
+        if ($(e.currentTarget).scrollTop() == 0) {
+            console.log("scrolled")
+        }
+    })
 
     $(`#channel-${currentChannel.id}`).addClass("active")
     $("#chat-close").on("click", () => $("#chat-wrapper").removeClass("active"))

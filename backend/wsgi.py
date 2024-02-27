@@ -23,6 +23,6 @@ django_app = (
 )
 
 from backend.sockets import sio
-import backend.active_directory
+import backend.ad_ldap
 
 application = socketio.WSGIApp(sio, django_app)

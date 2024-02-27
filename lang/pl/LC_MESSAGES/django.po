@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-26 10:55+0000\n"
+"POT-Creation-Date: 2024-02-27 09:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,32 +20,38 @@ msgstr ""
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: api/forms.py:61
+#: api/forms.py:64
 msgid "Login or password is invalid"
 msgstr "Login lub hasło są niepoprawne"
 
-#: api/forms.py:106
+#: api/forms.py:103
+msgid "Too many files"
+msgstr "Za dużo plików"
+
+#: api/forms.py:107
+msgid "File size exceeds maximum allowed size"
+msgstr "Plik przekracza dozwolony rozmiar"
+
+#: api/forms.py:119
 msgid "You are not a member of this channel"
 msgstr "Nie jesteś członkiem tego kanału"
 
-#: api/forms.py:128
-#, fuzzy
-#| msgid "Login or password is invalid"
+#: api/forms.py:150
 msgid "Passwords is invalid"
-msgstr "Login lub hasło są niepoprawne"
+msgstr "Hasło jest niepoprawne"
 
-#: api/forms.py:131
+#: api/forms.py:153
 msgid "Passwords doesn't match"
 msgstr "Hasła nie zgadzają si"
 
-#: api/views/users.py:47
+#: api/views/channels.py:144 api/views/users.py:72
+msgid "Invalid image format"
+msgstr "Niepoprawny format zdjęcia"
+
+#: api/views/users.py:48
 msgid "Pass at least 2 characters"
 msgstr "Podaj przynajmniej dwa znaki"
 
-#: api/views/users.py:58
+#: api/views/users.py:59
 msgid "User not found"
 msgstr "Nie znaleziono użytkownika"
-
-#: api/views/users.py:120
-msgid "Invalid image format"
-msgstr "Niepoprawny format zdjęcia"
