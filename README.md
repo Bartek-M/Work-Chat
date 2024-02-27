@@ -6,15 +6,22 @@ Communication system for **work** with many features and highly **secure** backe
 > If you find any bugs or you have and propositions, feel free to create a new **issue** on this repository.
 
 ## Requirements
-- Docker 4.2 or above
+- Docker
 - Linux OS 
 - Python 3.11 or above
 - Node.js 16 or above 
 
+> NOTE: When using Docker, none of above are required except Docker itself
+
 ## Docker Setup
+Fully working, fast and easy installation using Docker
 ```bash
 docker-compose build
 docker-compose up -d
+```
+
+Turn of the container
+```bash
 docker-compose down
 ```
 

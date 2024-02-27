@@ -4,7 +4,9 @@ services:
   web:
     build: .
     command: sh -c "python manage.py makemigrations api && python manage.py migrate && gunicorn -k gevent -w 1 -c gunicorn_conifg.py backend.wsgi:application"
-    volumes:
-      - .:/code
     ports: 
       - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
