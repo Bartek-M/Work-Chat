@@ -304,8 +304,7 @@ async function sendMessage(channelId: string, content: string) {
     const formData = new FormData()
     formData.append("content", content)
 
-    const files = ($("#msg-file-inpt").get(0) as HTMLInputElement).files
-    for (let i = 0; i < files.length; i++) formData.append(`file${i}`, files[0])
+    for (let i = 0; i < selectedFiles.length; i++) formData.append(`file${i}`, selectedFiles[i])
 
     await fetch(`/api/channels/${channelId}/message/`, {
         method: "POST",
@@ -368,7 +367,7 @@ export function formatMessages(messages: any, adding?: boolean) {
         if (!author) author = { first_name: "Usunięty", last_name: "Użytkownik", avatar: null }
 
         let files = msg.files.map((file: any) => `
-            <a class="d-flex justify-content-between align-items-center file-wrapper border rounded bg-body-tertiary py-2 px-3 my-2" href="/api/files/${file.id}/">
+            <a class="file-wrapper d-flex justify-content-between align-items-center gap-2 text-break border rounded bg-body-tertiary py-2 px-3 my-2" href="/api/files/${file.id}/">
                 ${file.name}
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>

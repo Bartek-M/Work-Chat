@@ -151,7 +151,13 @@ class Message(models.Model):
             "channel_id": self.channel.id,
             "author_id": self.author.id,
             "content": self.content,
-            "files": [{"id": file.id, "name": file.name} for file in self.files.all()],
+            "files": [
+                {
+                    "id": file.file_id,
+                    "name": file.name,
+                }
+                for file in self.messagefiles_set.all()
+            ],
             "create_time": self.create_time.timestamp(),
         }
 
@@ -179,7 +185,6 @@ class Files(models.Model):
     """
 
     file = models.BinaryField()
-    data = models.ForeignKey("MessageFiles", on_delete=models.CASCADE)
 
     def get_type(self):
         return magic.Magic().from_buffer(self.file)

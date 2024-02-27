@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django import forms
 
-from .models import User, UserSettings, Channel, Message, Files
+from .models import User, UserSettings, Channel, Message, MessageFiles, Files
 
 
 class RegisterForm(forms.ModelForm):
@@ -94,14 +94,14 @@ class MessageCreateForm(forms.ModelForm):
         fields = ("channel", "author", "content", "files")
 
     def clean_files(self):
-        max_file_size = 10 * 1024 * 1024  # 10MB    
+        max_file_size = 10 * 1024 * 1024  # 10MB
         files_created = []
 
         for file in self.files.values():
             if file.size > max_file_size:
                 raise forms.ValidationError("File size exceeds maximum allowed size.")
 
-            files_created.append(Files.objects.create(file=file.read(), name=file.name))
+            files_created.append(file)
 
         return files_created
 
@@ -114,6 +114,19 @@ class MessageCreateForm(forms.ModelForm):
             raise ValidationError(_("You are not a member of this channel"))
 
         return cleaned_data
+
+    def save(self):
+        # files = self.cleaned_data.get("files")
+        # del self.cleaned_data["files"]
+
+        message = super().save()
+
+        for file in self.cleaned_data.get("files"):
+            current = Files.objects.create(file=file.read())
+            data = MessageFiles(message=message, file=current, name=file.name)
+            data.save()
+
+        return message
 
 
 class PasswordChangeForm(forms.Form):
