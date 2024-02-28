@@ -41,6 +41,12 @@ Then you will need to build JS package
 npm run build
 ```
 
+The last thing is to setup DB
+```bash
+python3 manage.py makemigrations api
+python3 manage.py migrate
+```
+
 > NOTE: This app needs `.env` configuration file. Using `.env.example`, create `.env` file in the main directory. Without this, server may not work correctly.
 >
 > If you want to run a **development** version run `npm run dev` instead.
@@ -49,6 +55,18 @@ npm run build
 ```bash
 gunicorn -k gevent -w 1 -c gunicorn_conifg.py  backend.wsgi:application
 ```
+
+## Admin Control Panel 
+For more convenient user management and simple view of your website data, you can use Django Admin Panel.
+
+First - create user
+```bash
+python3 manage.py createsuperuser
+```
+
+You can access the control panel on: /admin/
+
+> NOTE: Make sure you use secure passwords.
 
 ## Authors
 - Bartosz Mroczkowski
