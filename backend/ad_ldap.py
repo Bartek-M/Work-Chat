@@ -73,15 +73,13 @@ def createUser(username, email, first_name, last_name, job_title):
     try:
         User.objects.get(username=username)
     except User.DoesNotExist:
-        pass
-
-    User.object.create(
-        username=username,
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-        job_title=job_title,
-    )
+        User.object.create(
+            username=username,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            job_title=job_title,
+        )
 
 
 try:
