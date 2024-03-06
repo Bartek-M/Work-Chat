@@ -3,8 +3,8 @@ version: "4.27.2"
 services:
   web:
     build: .
-    command: sh -c "python manage.py makemigrations api && python manage.py migrate && gunicorn -k gevent -w 1 -c gunicorn_conifg.py backend.wsgi:application"
+    command: "gunicorn backend.wsgi:application"
     ports: 
-      - "443:443"
+      - "443:8000"
     volumes:
       - .:/usr/src/app

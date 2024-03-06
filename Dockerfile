@@ -10,6 +10,7 @@ RUN npm run build
 
 # SETUP PYTHON
 FROM python:3.11 AS backend-builder
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /code
@@ -18,3 +19,6 @@ RUN pip install -r requirements.txt
 
 COPY --from=frontend-builder /code /code
 WORKDIR /code
+
+RUN python manage.py makemigrations api
+RUN python manage.py migrate

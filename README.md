@@ -53,7 +53,7 @@ python3 manage.py migrate
 
 ## Running Server
 ```bash
-gunicorn -k gevent -w 1 -c gunicorn_conifg.py  backend.wsgi:application
+gunicorn backend.wsgi:application
 ```
 
 ## Admin Control Panel 
