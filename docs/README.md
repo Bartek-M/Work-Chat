@@ -3,11 +3,13 @@
 ## Folder Structure
 ```
 api/        Website API
-assets/     Static Files (Bundled JS, CSS, Icons)
+assets/     Static Files (Bundled JS, CSS, Icons, Images)
   css/
   icons/
+  images/
   js/
 backend/    Django configuration
+cert/       HTTPS certificates
 docs/       Website documentation
 frontend/   Website views
 lang/       Langauge configuration
@@ -38,5 +40,5 @@ python3 manage.py migrate
 
 Run server
 ```bash
-gunicorn -k eventlet -w 1 backend.wsgi:application
+gunicorn backend.wsgi:application
 ```

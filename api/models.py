@@ -43,7 +43,7 @@ class User(AbstractUser):
                         if not len(
                             sio.manager.rooms.get("/", {}).get(f"user-{user_2.id}", [])
                         )
-                        else UserSettings.objects.get(pk=user_2.id).get_status_display()
+                        else UserSettings.objects.get(user=user_2.id).get_status_display()
                     ),
                     "last_message": channel.last_message.timestamp(),
                     "settings": (

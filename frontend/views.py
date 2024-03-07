@@ -21,7 +21,7 @@ def chat(request):
         "app.html",
         {
             "user": request.user.repr(),
-            "settings": UserSettings.objects.get(pk=request.user.id).repr(),
+            "settings": UserSettings.objects.get(user=request.user.id).repr(),
         },
     )
 

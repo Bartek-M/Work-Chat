@@ -17,7 +17,7 @@ from api.utils import crop_image
 @login_required
 def user(request):
     user = request.user
-    settings = UserSettings.objects.get(pk=user.id)
+    settings = UserSettings.objects.get(user=user.id)
 
     return JsonResponse(
         {

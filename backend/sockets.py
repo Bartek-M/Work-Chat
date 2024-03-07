@@ -20,7 +20,7 @@ def connect(sid, environ):
     if not user.is_authenticated:
         return sio.disconnect(sid)
 
-    settings = UserSettings.objects.get(pk=request.user.id)
+    settings = UserSettings.objects.get(user=request.user.id)
 
     if not len(sio.manager.rooms["/"].get(f"user-{user.id}", [])):
         sio.emit(
@@ -50,8 +50,3 @@ def disconnect(sid):
 
     if user_disconnected:
         sio.emit("status", {"id": user_disconnected, "status": "offline"})
-
-
-@sio.on("message")
-def message(sid, data):
-    print(sid, data)

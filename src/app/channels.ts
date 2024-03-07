@@ -301,11 +301,11 @@ export async function openChannel(channelId: string) {
     `)
 
     smoothScroll($("#message-wrapper").get(0))
-    $('#message-wrapper').on("scroll", (e) => {
-        if ($(e.currentTarget).scrollTop() == 0) {
-            console.log("scrolled")
-        }
-    })
+    // $('#message-wrapper').on("scroll", (e) => {
+    //     if ($(e.currentTarget).scrollTop() == 0) {
+    //         console.log("scrolled")
+    //     }
+    // })
 
     $(`#channel-${currentChannel.id}`).addClass("active")
     $("#chat-close").on("click", () => $("#chat-wrapper").removeClass("active"))
@@ -410,7 +410,7 @@ export function formatMessages(messages: any, adding?: boolean) {
 
         if (lastMessage && lastMessage.id != msg.id && lastMessage.author_id == author.id && (msg.create_time - lastMessage.create_time) < 360) {
             lastMessage = msg
-            return `<div style="margin-left: 4rem;">${encodeHTML(msg.content)}</div>${files}`
+            return `<div style="margin-left: 4rem;">${encodeHTML(msg.content)}</div>${files.join("")}}`
         }
 
         lastMessage = msg
@@ -420,7 +420,7 @@ export function formatMessages(messages: any, adding?: boolean) {
                 <div class="fw-bold text-secondary-emphasis" style="font-size: 0.9rem;">${author.first_name} ${author.last_name}</div>
                 <div>${encodeHTML(msg.content)}</div>
             </div>
-        </div>${files}`
+        </div>${files.join("")}`
     }).join("")
 }
 
