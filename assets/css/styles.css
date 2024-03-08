@@ -34,6 +34,7 @@
     --high-contrast: #ef0;
     --bs-tertiary-bg-rgb: 0, 0, 0;
 
+    --bs-primary-rgb: 240, 255, 0;
     --bs-emphasis-color-rgb: 240, 255, 0;
     --bs-success-rgb: 255, 255, 255;
     --bs-danger-rgb: 255, 0, 0;
@@ -62,6 +63,15 @@
     button:hover, button:active {
         color: #000;
         background-color: var(--high-contrast);
+    }
+
+    .btn-close {
+        background-color: var(--high-contrast);
+        opacity: 1;
+    }
+
+    .btn-close:hover {
+        opacity: 0.9;
     }
 
     .nav-link, a {

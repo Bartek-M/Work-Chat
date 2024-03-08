@@ -284,7 +284,7 @@ export async function openChannel(channelId: string) {
         </nav>
         <div class="d-flex flex-column overflow-y-scroll h-100" id="message-wrapper">${formatMessages(currentChannel.messages)}</div>
         <div class="input-group align-items-end p-2" style="max-height: 40%">
-            <div class="form-control overflow-y-scroll" id="chat-inpt-send" style="min-height: 38px; max-height: 100%" data-placeholder="Wpisz wiadomość" contenteditable></div>
+            <div class="form-control overflow-y-scroll" id="chat-inpt-send" style="min-height: 38px; max-height: 100%" data-placeholder="Wpisz wiadomość" contenteditable spellcheck="off"></div>
             <div class="d-flex flex-wrap gap-2" style="position: absolute; bottom: 100%;" id="attached-file"></div>
             <label class="input-group-text bg-body-tertiary" style="height: 38px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -399,7 +399,7 @@ export function formatMessages(messages: any, adding?: boolean) {
         if (!author) author = { first_name: "Usunięty", last_name: "Użytkownik", avatar: null }
 
         let files = msg.files.map((file: any) => `
-            <a class="file-wrapper d-flex justify-content-between align-items-center gap-2 text-break border rounded bg-body-tertiary py-2 px-3 my-2" href="/api/files/${file.id}/">
+            <a class="file-wrapper d-flex justify-content-between align-items-center gap-2 text-break border rounded bg-body-tertiary py-2 px-3 my-2" href="/api/files/${file.id}/" target="_blank">
                 ${file.name}
                 <svg width="16" height="16" style="min-width: 16px;" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
@@ -410,7 +410,7 @@ export function formatMessages(messages: any, adding?: boolean) {
 
         if (lastMessage && lastMessage.id != msg.id && lastMessage.author_id == author.id && (msg.create_time - lastMessage.create_time) < 360) {
             lastMessage = msg
-            return `<div style="margin-left: 4rem;">${encodeHTML(msg.content)}</div>${files.join("")}}`
+            return `<div style="margin-left: 4rem;">${encodeHTML(msg.content)}</div>${files.join("")}`
         }
 
         lastMessage = msg
