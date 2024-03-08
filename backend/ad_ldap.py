@@ -1,5 +1,7 @@
 import os
 import threading
+import secrets
+from datetime import datetime
 
 from ldap3 import Server, Connection, ALL
 
@@ -54,22 +56,30 @@ def fetch_accounts():
             for entry in conn.entries
         ]
 
-        # iteration for additional usage
-        for user in users:
-            if (
-                user.get("name") == ""
-                and user.get("surname") == ""
-                and user.get("username") == ""
-            ):
-                continue
+        with open("login_data.txt", "a", encoding="UTF-8") as f:
+            f.write(f"\nData parsed at {datetime.utcnow()}\n")
 
-            create_user(
-                user["username"].split("@")[0].lower(),
-                user.get("email"),
-                user.get("name"),
-                user.get("surname"),
-                user.get("title"),
-            )
+            for user in users:
+                if (
+                    user.get("name") == ""
+                    and user.get("surname") == ""
+                    and user.get("username") == ""
+                ):
+                    continue
+
+                username, passw = create_user(
+                    user["username"].split("@")[0].lower(),
+                    user.get("email"),
+                    user.get("name"),
+                    user.get("surname"),
+                    user.get("title"),
+                )
+
+                if not username or not passw:
+                    continue
+                
+                f.write(f"{username} {passw}\n")
+
 
         print("[INFO] Loaded Active Directory users")
         conn.unbind()
@@ -80,14 +90,23 @@ def fetch_accounts():
 def create_user(username, email, first_name, last_name, job_title):
     try:
         User.objects.get(username=username)
+        return (None, None)
     except User.DoesNotExist:
-        User.object.create(
-            username=username,
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            job_title=job_title,
-        )
+        pass
+
+    user = User.object.create(
+        username=username,
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+        job_title=job_title,
+    )
+
+    passw = secrets.token_hex(4)
+    user.set_password(passw)
+
+    user.save()
+    return (username, passw)
 
 
 thread = threading.Thread(target=fetch_accounts)
