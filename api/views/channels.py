@@ -92,7 +92,7 @@ def channels_create(request):
                         if not len(
                             sio.manager.rooms.get("/", {}).get(f"user-{user_2.id}", [])
                         )
-                        else UserSettings.objects.get(pk=user_2.id).get_status_display()
+                        else UserSettings.objects.get(user=user_2.id).get_status_display()
                     ),
                 },
                 room=user_room,
