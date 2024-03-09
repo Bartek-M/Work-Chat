@@ -4,8 +4,36 @@
 {% block text %}
 <div class="fs-2 pb-1 border-bottom border-black-subtle mb-3">Ustawienie aplikacji Work-Chat</div>
 <div>Tutaj pokażemy wszystko co musi wiedzieć przyszły administrator Work-Chat</div>
-<div class="fs-3 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Konfiguracja bez Dockera</div>
-<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Potrzebny sprzęt</div>
+<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Plik konfiguracyjny</div>
+<div>Ta aplikacja wymaga pliku .env, należy użyć .env.example by stworzyć pasujący plik konfiguracyjny, bez niego serwer nie będzie działał poprawnie.</div>
+<div>przykładowy plik .env z wytłumaczeniem</br>
+    <code>SECRET_KEY = "KEY_HERE"</code> Klucz to szyfrowania haseł</br>
+    <code>DEBUG = "True"</code> Opcja debugowania</br>
+    <code>STATIC_URL = "assets/"</code> Miejsce położenia assetów(css, zdjęcia, ikony, JS)</br></br>
+
+    <code>LDAP_SERVER = 'AD_name'</code> Nazwa domeny active directory</br>
+    <code>LDAP_ADMIN = 'cn=admin_account_name,cn=users,dc=first_AD_part,dc=second_AD_part'</code> Dane konta administrator</br>
+    <code>LDAP_ADMIN_PASSWORD = 'admin_password'</code> Hasło do konta administratora</br>
+    <code>LDAP_SEARCH_BASE = 'dc=first_AD_part,dc=second_AD_part'</code> Dane domeny active directory do szukania kont</br>
+    <div class="mt-1">Sposób rozumienia danych do odczytywania kont z active directory</div>
+    <div><code>'dc=first_AD_part'</code> Odnosi się do jednej części nazwy domeny</div>
+    <div>Na przykład: przyklad.local zapiszemy jako <code>'dc=przyklad,dc=local'</code></div>
+    <div>Dłuższy przykład: przyklad.edu.local zapiszemy jako <code>'dc=przyklad,dc=edu,dc=local'</code></div>
+</div>
+<div class="fs-3 pb-1 mt-4">Konfiguracja z Docker'em</div>
+<div>
+    Do instalacji wszystkich pakietów należy użyć:<br/>
+    <code>docker-compose build</code><br/><br/>
+
+    Aby włączyć serwer:<br/>
+    <code>docker-compose up</code><br/><br/>
+
+    Wyłączyć serwer możemy za pomocą polecenia:<br/>
+    <code>docker-compose down</code>
+</div>
+
+<div class="fs-3 pb-1 mt-4">Konfiguracja bez Dockera</div>
+<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2">Potrzebny sprzęt</div>
 <div>
     Do wykorzystania Work-Chat potrzebny jest:
     <ol class="m-0">
@@ -28,6 +56,7 @@
         <li>pip3 install -r requirements.txt</li>
         <li>npm install -g typescript</li>
         <li>npm install</li>
+        <li>sudo apt install libmagic1</li>
         <li>sudo apt install gunicorn</li>
         <li>npm run build</li>
     </ol>
@@ -41,35 +70,7 @@
         <li>Przy użyciu npm budują się pakiet JS</li>
     </ol>
 </div>
-<div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Plik konfiguracyjny</div>
-<div>Ta aplikacja wymaga pliku .env, należy użyć .env.example by stworzyć pasujący plik konfiguracyjny, bez niego serwer nie będzie działał poprawnie.</div>
-<div>przykładowy plik .env z wytłumaczeniem</br>
-    <code>ADDR = "127.0.0.1"</code> Tutaj jest ip serwera, to z którym łączą się klienci</br>
-    <code>PORT = "5050"</code> Tutaj jaki port jest do tego wykorzystywany</br>
-
-    <code>SECRET_KEY = "KEY_HERE"</code> Klucz to szyfrowania haseł</br>
-    <code>PASSW_PEPPER = "PEPPER_HERE"</code> Klucz (pieprz) do dodatkowego szyfrowania haseł</br>
-
-    <code>DEBUG = "True"</code> Opcja debugowania</br>
-    <code>STATIC_URL = "assets/"</code> Miejsce położenia assetów(css, zdjęcia, ikony, JS)</br>
-
-    <code>DB_ENGINE = "django.db.backends.postgresql"</code> Silnik bazy danych</br>
-    <code>DB_NAME = "my_database"</code> Nazwa bazy danych</br>
-    <code>DB_HOST = "127.0.0.1"</code> IP host bazy danych</br>
-    <code>DB_PORT = "8534"</code> Port do łączenia się z bazą danych</br>
-    <code>DB_USER = ""</code> Użytkownik wykorzystywany do łączenia się z bazą danych</br>
-    <code>DB_PASSWORD = ""</code> Hasło do bazy danych</br>
-    <code>LDAP_SERVER = 'AD_name'</code> Nazwa domeny active directory</br>
-    <code>LDAP_ADMIN = 'cn=admin_account_name,cn=users,dc=first_AD_part,dc=second_AD_part'</code> Dane konta administrator</br>
-    <code>LDAP_ADMIN_PASSWORD = 'admin_password'</code> Hasło do konta administratora</br>
-    <code>LDAP_SEARCH_BASE = 'dc=first_AD_part,dc=second_AD_part'</code> Dane domeny active directory do szukania kont
-    <div class="mt-1">Sposób rozumienia danych do odczytywania kont z active directory</div>
-    <div><code>'dc=first_AD_part'</code> Odnosi się do jednej części nazwy domeny</div>
-    <div>Na przykład: przyklad.local zapiszemy jako <code>'dc=przyklad,dc=local'</code></div>
-    <div>Dłuższy przykład: przyklad.edu.local zapiszemy jako <code>'dc=przyklad,dc=edu,dc=local'</code></div>
-</div>
 <div class="fs-4 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Uruchomienie</div>
-<div>Należy wpisać te komende <code>gunicorn -k eventlet -w 1 backend.wsgi:application</code></div>
-<div class="mt-2">W wyniku jakiś niejasności należy odnosić się do README.md, lub README.md w folderze docs, lub do Githuba pod tym <a href="https://github.com/Bartek-M/Work-Chat">linkiem</a></div>
-<div class="fs-3 pb-1 border-bottom border-dark-subtle mb-2 mt-3">Konfiguracja z Dockera</div>
+<div>Należy wpisać te komendę <code>gunicorn backend.wsgi:application</code></div>
+<div class="mt-2">W wyniku jakiś niejasności należy odnosić się do README.md, lub README.md w folderze docs, lub do GitHub'a pod tym <a href="https://github.com/Bartek-M/Work-Chat">linkiem</a></div>
 {% endblock %}
