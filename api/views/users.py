@@ -109,7 +109,7 @@ def change_theme(request):
     if not theme or theme not in avail_themes:
         return 400
 
-    settings = UserSettings.objects.get(pk=request.user.id)
+    settings = UserSettings.objects.get(user=request.user.id)
     settings.theme = avail_themes.index(theme)
     settings.save()
 
@@ -127,7 +127,7 @@ def change_notifications(request):
     if notifications is None or sound is None:
         return 400
 
-    settings = UserSettings.objects.get(pk=request.user.id)
+    settings = UserSettings.objects.get(user=request.user.id)
     settings.notifications = True if notifications else False
     settings.notification_sound = True if sound else False
     settings.save()
@@ -144,7 +144,7 @@ def change_status(request):
     if not status or status not in avail_status:
         return 400
 
-    settings = UserSettings.objects.get(pk=request.user.id)
+    settings = UserSettings.objects.get(user=request.user.id)
     settings.status = avail_status.index(status)
     settings.save()
 
