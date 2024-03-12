@@ -27,24 +27,9 @@ docker-compose down
 ```
 
 ## Manual Setup
-First you will need to install dependencies
+Simply run setup.py to install and setup everything
 ```bash
-pip3 install -r requirements.txt
-npm install -g typescript
-npm install
-sudo apt install libmagic1
-sudo apt install gunicorn
-```
-
-Then you will need to build JS package
-```bash
-npm run build
-```
-
-The last thing is to setup DB
-```bash
-python3 manage.py makemigrations api
-python3 manage.py migrate
+python3 setup.py
 ```
 
 > NOTE: This app needs `.env` configuration file. Using `.env.example`, create `.env` file in the main directory. Without this, server may not work correctly.
