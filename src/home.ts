@@ -28,9 +28,7 @@ $(".card").each((_, card) => {
         const positionX = Number(mouseXPercentage.toFixed(2))
         const positionY = Number(mouseYPercentage.toFixed(2))
 
-        //console.log(`Mouse Position: ${positionX}% X, ${positionY}% Y`)
 
-        // konty
         if (positionX < 30 && positionY < 30) {
             // lewy górny
             card.style.transform = "rotate3d(-0.2, 1, 0.2, 10deg)"
