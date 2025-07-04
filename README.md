@@ -62,3 +62,5 @@ You can access the control panel on: /admin/
 NOT FOR COMMERCIAL USE 
 
 > If you intend to use any of our code for commercial use please contact us and get our permission.
+
+<!-- GitAds-Verify: UVYN1QIH4F5QO6NVXW9Z85WD6KGTUHV6 -->
