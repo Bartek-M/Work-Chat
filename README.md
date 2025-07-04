@@ -6,6 +6,9 @@ Communication system for **work** with many features and highly **secure** backe
 >
 > If you find any bugs or you have and propositions, feel free to create a new **issue** on this repository.
 
+## GitAds Sponsored
+[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=bartek-m/work-chat@github)](https://gitads.dev/v1/ad-track?source=bartek-m/work-chat@github)
+
 ## Requirements
 - Docker
 - Linux OS 
